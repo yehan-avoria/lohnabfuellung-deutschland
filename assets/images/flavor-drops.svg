@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d08838"/>
+      <stop offset="100%" style="stop-color:#904018"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#g)"/>
+  <!-- Dropper bottle -->
+  <rect x="255" y="180" width="90" height="200" rx="12" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+  <rect x="272" y="155" width="56" height="35" rx="6" fill="rgba(255,255,255,0.35)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+  <rect x="282" y="135" width="36" height="28" rx="4" fill="rgba(255,255,255,0.45)"/>
+  <!-- Liquid inside bottle -->
+  <rect x="260" y="280" width="80" height="100" rx="4" fill="rgba(255,200,100,0.35)"/>
+  <!-- Drops falling -->
+  <ellipse cx="300" cy="400" rx="8" ry="12" fill="rgba(255,200,80,0.6)"/>
+  <ellipse cx="300" cy="430" rx="5" ry="8" fill="rgba(255,200,80,0.40)"/>
+  <ellipse cx="300" cy="452" rx="3" ry="5" fill="rgba(255,200,80,0.25)"/>
+  <!-- Side drops -->
+  <ellipse cx="220" cy="360" rx="5" ry="7" fill="rgba(255,255,255,0.20)"/>
+  <ellipse cx="380" cy="320" rx="4" ry="6" fill="rgba(255,255,255,0.18)"/>
+  <ellipse cx="200" cy="420" rx="3" ry="5" fill="rgba(255,255,255,0.15)"/>
+  <text x="300" y="570" font-family="Georgia,serif" font-size="44" fill="rgba(255,255,255,0.12)" text-anchor="middle">Flavor</text>
+  <text x="300" y="630" font-family="Georgia,serif" font-size="28" fill="rgba(255,255,255,0.18)" text-anchor="middle" letter-spacing="4">DROPS</text>
+</svg>

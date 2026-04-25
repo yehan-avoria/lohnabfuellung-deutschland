@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <script>if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; } window.scrollTo(0, 0);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontakt — Lohnabfüllung Deutschland | Avoria GmbH</title>
+  <meta name="description" content="Nehmen Sie Kontakt mit Avoria GmbH auf. Telefon, E-Mail und Kontaktformular. Roßtal, Bayern, Deutschland.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    /* Leaflet popup theming */
+    .leaflet-popup-content-wrapper {
+      background: #0d1829;
+      color: #e8edf5;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(13,24,41,0.45);
+      border: 1px solid rgba(26,125,200,0.25);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+    }
+    .leaflet-popup-tip { background: #0d1829; }
+    .leaflet-popup-content strong { color: #fff; font-size: 0.9rem; }
+    .leaflet-container { font-family: var(--font-sans); }
+    .leaflet-control-zoom a {
+      background: #0d1829 !important;
+      color: #a8bbd4 !important;
+      border-color: rgba(26,125,200,0.25) !important;
+    }
+    .leaflet-control-zoom a:hover { background: #1a2d4a !important; color: #fff !important; }
+    .leaflet-control-attribution {
+      background: rgba(13,24,41,0.75) !important;
+      color: #6b7f96 !important;
+      font-size: 0.65rem !important;
+    }
+    .leaflet-control-attribution a { color: #4a8fc4 !important; }
+    #avoria-map { width: 100%; height: 300px; }
+  </style>
+</head>
+<body>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<nav class="nav scrolled" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo.png" alt="Lohnabfüllung Deutschland by Avoria" class="nav-logo-img">
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Start</a>
+      <a href="leistungen.html">Leistungen</a>
+      <a href="produkte.html">Produkte</a>
+      <a href="qualitaet.html">Qualität</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="kontakt.html" class="nav-cta active">Kontakt aufnehmen →</a>
+    </nav>
+    <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="nav-mobile" id="mobileNav">
+  <a href="index.html">Start</a>
+  <a href="leistungen.html">Leistungen</a>
+  <a href="produkte.html">Produkte</a>
+  <a href="qualitaet.html">Qualität</a>
+  <a href="ueber-uns.html">Über uns</a>
+  <a href="kontakt.html">Kontakt</a>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Start</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Kontakt</span>
+    </div>
+    <p class="eyebrow">Wir freuen uns auf Sie</p>
+    <h1 class="page-hero-title">Sprechen Sie<br><em>mit uns</em></h1>
+    <p class="page-hero-subtitle">Haben Sie eine Produktidee, ein laufendes Projekt oder allgemeine Fragen? Wir antworten innerhalb von 24 Stunden.</p>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-inner">
+
+      <div data-animate-left>
+        <p class="eyebrow">Kontaktdaten</p>
+        <h2 class="section-title" style="margin-bottom:2rem;">So erreichen<br><em>Sie uns</em></h2>
+
+        <div class="contact-info">
+          <div class="contact-info-item">
+            <span class="contact-info-label">Adresse</span>
+            <span class="contact-info-value" style="font-size:1rem;">
+              Avoria GmbH<br>
+              Industriestraße (Adresse auf Anfrage)<br>
+              90574 Roßtal<br>
+              Bayern, Deutschland
+            </span>
+          </div>
+          <div class="contact-info-item">
+            <span class="contact-info-label">Telefon</span>
+            <span class="contact-info-value"><a href="tel:+49XXXXXXXX" style="font-size:1.1rem; font-weight:600;">+49 (0) XX XXXXXXXX</a></span>
+          </div>
+          <div class="contact-info-item">
+            <span class="contact-info-label">E-Mail</span>
+            <span class="contact-info-value"><a href="mailto:info@lohnabfuellung-deutschland.de" style="font-size:1rem;">info@lohnabfuellung-deutschland.de</a></span>
+          </div>
+          <div class="contact-info-item">
+            <span class="contact-info-label">Öffnungszeiten</span>
+            <span class="contact-info-value">
+              Mo–Fr: 08:00 – 17:00 Uhr<br>
+              Sa–So: Geschlossen
+            </span>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-section" style="padding:0; margin-top:2.5rem;">
+          <div class="map-inner" style="grid-template-columns:1fr;">
+            <div class="map-iframe-wrapper" style="aspect-ratio:unset; flex-direction:column; align-items:stretch; justify-content:flex-start;">
+              <div id="avoria-map"></div>
+              <div style="padding:14px 20px; display:flex; align-items:center; justify-content:center; background:var(--bg-card); border-top:1px solid var(--border-subtle);">
+                <a href="https://maps.google.com/?q=Industriestraße+90574+Roßtal+Bayern+Deutschland" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">In Google Maps öffnen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-animate-right>
+        <p class="eyebrow">Kontaktformular</p>
+        <h3 style="font-size:1.5rem; font-weight:700; margin-bottom:0.5rem; letter-spacing:-0.02em;">Senden Sie uns eine Nachricht</h3>
+        <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:2rem; line-height:1.7;">Füllen Sie das Formular aus und wir melden uns schnellstmöglich bei Ihnen.</p>
+
+        <div class="contact-form">
+          <form class="contact-form-el">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="name">Vorname *</label>
+                <input class="form-input" type="text" id="name" name="name" placeholder="Max" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="lastname">Nachname *</label>
+                <input class="form-input" type="text" id="lastname" name="lastname" placeholder="Mustermann" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="email">E-Mail *</label>
+                <input class="form-input" type="email" id="email" name="email" placeholder="max@example.de" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="phone">Telefon</label>
+                <input class="form-input" type="tel" id="phone" name="phone" placeholder="+49 XXX XXXXXXX">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="company">Unternehmen</label>
+              <input class="form-input" type="text" id="company" name="company" placeholder="Ihr Unternehmen GmbH">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="interest">Thema / Interesse *</label>
+              <select class="form-input" id="interest" name="interest" required>
+                <option value="">Bitte wählen...</option>
+                <option value="lohnabfuellung">Lohnabfüllung / Contract Manufacturing</option>
+                <option value="produktentwicklung">Produktentwicklung</option>
+                <option value="verpackung">Verpackung &amp; Etikettierung</option>
+                <option value="qualitaet">Qualitätsmanagement</option>
+                <option value="analyse">Laboranalysen</option>
+                <option value="logistik">Logistik &amp; Versand</option>
+                <option value="preisanfrage">Preisanfrage</option>
+                <option value="kooperation">Kooperationsanfrage</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="product">Ihr Produkt / Produktidee</label>
+              <input class="form-input" type="text" id="product" name="product" placeholder="z.B. CBD-Öl 10%, 30ml Flasche...">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quantity">Gewünschte Stückzahl</label>
+              <select class="form-input" id="quantity" name="quantity">
+                <option value="">Bitte wählen...</option>
+                <option>Unter 500 Stück (Muster/Kleinserie)</option>
+                <option>500 – 5.000 Stück</option>
+                <option>5.000 – 50.000 Stück</option>
+                <option>Über 50.000 Stück</option>
+                <option>Noch nicht definiert</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Nachricht *</label>
+              <textarea class="form-input" id="message" name="message" rows="6" placeholder="Beschreiben Sie Ihr Projekt, Ihre Anforderungen oder stellen Sie Ihre Frage..." required></textarea>
+            </div>
+            <div style="font-size:0.78rem; color: var(--text-muted); line-height:1.6; margin-bottom:1rem;">
+              Mit dem Absenden des Formulars stimmen Sie unserer <a href="datenschutz.html" style="color:var(--accent-gold);">Datenschutzerklärung</a> zu. Ihre Daten werden vertraulich behandelt.
+            </div>
+            <button type="submit" class="form-submit">
+              Anfrage absenden
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            </button>
+            <div class="form-message"></div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Why Contact -->
+<section class="section section--dark contact-expect">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:50px;" data-animate>
+      <p class="eyebrow">Schnelle Antworten</p>
+      <h2 class="section-title">Was Sie <em>erwartet</em></h2>
+    </div>
+    <div class="contact-expect-grid" data-stagger>
+      <div class="why-card contact-expect-card" data-stagger-item>
+        <div class="contact-expect-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"></path></svg>
+        </div>
+        <h3 class="why-card-title">Schnelle Rückmeldung</h3>
+        <p class="why-card-desc">Wir antworten auf alle Anfragen innerhalb von 24 Stunden, in der Regel noch am selben Werktag.</p>
+      </div>
+      <div class="why-card contact-expect-card" data-stagger-item>
+        <div class="contact-expect-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="4"></circle><path d="M12 2v3M22 12h-3M12 22v-3M2 12h3"></path></svg>
+        </div>
+        <h3 class="why-card-title">Persönliche Beratung</h3>
+        <p class="why-card-desc">Kein Call-Center — Sie sprechen direkt mit unseren Produktexperten, die Ihr Projekt verstehen und begleiten.</p>
+      </div>
+      <div class="why-card contact-expect-card" data-stagger-item>
+        <div class="contact-expect-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="16" rx="2"></rect><path d="M9 2h6v4H9zM9 10h6M9 14h6"></path></svg>
+        </div>
+        <h3 class="why-card-title">Transparentes Angebot</h3>
+        <p class="why-card-desc">Klare Kostenstruktur ohne versteckte Gebühren. Unser Angebot enthält alles, was Sie für eine fundierte Entscheidung benötigen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Company section -->
+<section class="contact-company-section">
+  <div class="container">
+    <div class="contact-company-head" data-animate>
+      <p class="eyebrow">Avoria im Detail</p>
+      <h2 class="section-title">Ihr Projekt bei <em>Avoria</em> in guten Händen</h2>
+      <p class="section-subtitle">Sie suchen mehr als nur ein Kontaktformular? Hier sehen Sie, wie wir arbeiten und warum Teams uns als langfristigen Produktionspartner wählen.</p>
+    </div>
+
+    <div class="contact-company-grid">
+      <div class="contact-company-copy" data-animate-left>
+        <h3 class="contact-company-subtitle">Was Sie bei der Zusammenarbeit erwarten dürfen</h3>
+        <p>Wir verbinden strukturierte Prozesse mit schneller Kommunikation. So bleibt Ihr Projekt planbar — von der ersten Anfrage bis zur finalen Auslieferung.</p>
+        <ul class="contact-company-list">
+          <li><strong>Direkter Ansprechpartner:</strong> Keine Hotline-Schleifen, sondern klare Entscheidungen.</li>
+          <li><strong>Saubere Projektstruktur:</strong> Transparentes Angebot, realistische Zeitplanung, dokumentierte Schritte.</li>
+          <li><strong>Produktion in Deutschland:</strong> ISO-/HACCP-nahes Arbeiten mit Fokus auf Qualität und Nachvollziehbarkeit.</li>
+        </ul>
+
+        <div class="contact-company-metrics">
+          <div class="contact-company-metric">
+            <span>14+</span>
+            <small>Jahre Erfahrung</small>
+          </div>
+          <div class="contact-company-metric">
+            <span>500+</span>
+            <small>Kundenprojekte</small>
+          </div>
+          <div class="contact-company-metric">
+            <span>100%</span>
+            <small>Made in Germany</small>
+          </div>
+        </div>
+
+        <a href="ueber-uns.html" class="btn btn-primary">
+          Mehr über Avoria
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="contact-company-media" data-animate-right>
+        <div class="contact-company-video">
+          <video class="contact-company-video-el" autoplay muted loop playsinline controls preload="metadata">
+            <source src="assets/videos/company-video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <p class="contact-company-caption">Ein kurzer Einblick in unser Umfeld, unsere Arbeitsweise und die Produktionsrealität bei Avoria.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: bg-secondary → footer dark -->
+<div class="footer-wave-divider" aria-hidden="true" style="background:#e8eef8;">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none">
+    <path d="M0,18 C200,38 400,2 600,14 C800,26 1000,4 1200,18 C1300,24 1380,10 1440,16 L1440,60 L0,60 Z" fill="rgba(6,81,146,0.18)"/>
+    <path d="M0,26 C180,6 360,34 540,18 C720,4 900,30 1100,12 C1280,0 1380,22 1440,18 L1440,60 L0,60 Z" fill="#080f1c"/>
+  </svg>
+</div>
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="footer-inner">
+  <!-- Stats strip -->
+  <div class="container">
+    <div class="footer-stats">
+      <div class="footer-stat">
+        <span class="footer-stat-number">14+</span>
+        <span class="footer-stat-label">Jahre Erfahrung</span>
+      </div>
+      <div class="footer-stat">
+        <span class="footer-stat-number">500+</span>
+        <span class="footer-stat-label">Zufriedene Kunden</span>
+      </div>
+      <div class="footer-stat">
+        <span class="footer-stat-number">7</span>
+        <span class="footer-stat-label">Produktkategorien</span>
+      </div>
+      <div class="footer-stat">
+        <span class="footer-stat-number">100%</span>
+        <span class="footer-stat-label">Made in Germany</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main columns -->
+  <div class="container">
+    <div class="footer-main">
+
+      <!-- Brand -->
+      <div class="footer-brand">
+        <img src="assets/images/logo.png" alt="Lohnabfüllung Deutschland by Avoria" class="footer-logo-img">
+        <p class="footer-brand-desc">Ihr Full-Service-Partner für Contract Manufacturing in Deutschland. Seit 2010 produzieren wir qualitativ hochwertige Produkte nach ISO 9001 und HACCP-Standard.</p>
+        <div class="footer-contact-links">
+          <a href="mailto:info@lohnabfuellung-deutschland.de" class="footer-contact-link">
+            <span class="footer-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            info@lohnabfuellung-deutschland.de
+          </a>
+          <a href="kontakt.html" class="footer-contact-link">
+            <span class="footer-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            Avoria GmbH, Roßtal — Bayern
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <p class="footer-col-title">Navigation</p>
+        <div class="footer-col-links">
+          <a href="index.html">Startseite</a>
+          <a href="leistungen.html">Leistungen</a>
+          <a href="produkte.html">Produkte</a>
+          <a href="qualitaet.html">Qualität</a>
+          <a href="ueber-uns.html">Über uns</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+      </div>
+
+      <!-- Leistungen -->
+      <div>
+        <p class="footer-col-title">Leistungen</p>
+        <div class="footer-col-links">
+          <a href="leistungen.html">Lohnabfüllung</a>
+          <a href="leistungen.html">Verpackung</a>
+          <a href="leistungen.html">Produktentwicklung</a>
+          <a href="leistungen.html">Qualitätsmanagement</a>
+          <a href="leistungen.html">Logistik</a>
+        </div>
+      </div>
+
+      <!-- Zertifizierungen -->
+      <div>
+        <p class="footer-col-title">Zertifizierungen</p>
+        <div class="footer-cert-list">
+          <div class="footer-cert-badge">
+            <span class="footer-cert-dot"></span>
+            <span class="footer-cert-text">ISO 9001 : 2015</span>
+          </div>
+          <div class="footer-cert-badge">
+            <span class="footer-cert-dot"></span>
+            <span class="footer-cert-text">HACCP Konform</span>
+          </div>
+          <div class="footer-cert-badge">
+            <span class="footer-cert-dot"></span>
+            <span class="footer-cert-text">GMP Standard</span>
+          </div>
+          <div class="footer-cert-badge">
+            <span class="footer-cert-dot"></span>
+            <span class="footer-cert-text">Made in Germany</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer-bottom-wrap">
+    <div class="footer-bottom-rule"></div>
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Avoria GmbH. Alle Rechte vorbehalten.</p>
+        <div class="footer-legal-links">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /.footer-inner -->
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="assets/js/gsap-animations.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function () {
+  var lat = 49.3933, lng = 10.8742;
+
+  var map = L.map('avoria-map', {
+    center: [lat, lng],
+    zoom: 15,
+    zoomControl: false,
+    scrollWheelZoom: false,
+    attributionControl: true
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+  var pin = L.divIcon({
+    className: '',
+    html: '<div style="width:18px;height:18px;background:#1a7dc8;border:3px solid #fff;border-radius:50%;box-shadow:0 0 0 4px rgba(26,125,200,0.35),0 4px 12px rgba(13,24,41,0.5);"></div>',
+    iconSize: [18, 18],
+    iconAnchor: [9, 9]
+  });
+
+  L.marker([lat, lng], { icon: pin }).addTo(map)
+    .bindPopup('<strong>Avoria GmbH</strong><br>Industriestraße, 90574 Roßtal')
+    .openPopup();
+})();
+</script>
+</body>
+</html>

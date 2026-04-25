@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <script>if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; } window.scrollTo(0, 0);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produkte — Lohnabfüllung Deutschland | Avoria GmbH</title>
+  <meta name="description" content="Unsere Produktbereiche: Hygiene & Kosmetik, CBD Produkte, Ätherische Öle, Kapseln & Pulver, Flavor Drops & Aromen, Nikotin und Chemikalien.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* ═══════════════════════════════════════════════════════
+       PRODUCT SHOWCASE
+    ═══════════════════════════════════════════════════════ */
+
+    .ps-wrapper {
+      position: relative;
+    }
+
+    .ps-frame {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg-primary);
+      display: flex;
+      align-items: center;
+    }
+
+    /* ── Giant background word ── */
+    .ps-bg-word {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .ps-bg-word span {
+      font-family: var(--font-serif);
+      font-size: clamp(120px, 18vw, 280px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(30, 55, 102, 0.18);
+      white-space: nowrap;
+      will-change: opacity, transform;
+    }
+
+    /* ── Stage ── */
+    .ps-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── Cards (GSAP handles all animation) ── */
+    .ps-card {
+      position: absolute;
+      background: #fff;
+      border-radius: 28px;
+      border: 1px solid rgba(30, 55, 102, 0.09);
+      box-shadow: 0 24px 70px rgba(13, 24, 41, 0.09);
+      overflow: hidden;
+      /* Start hidden right */
+      opacity: 0;
+      transform: translateX(100px);
+    }
+
+    /* Active card: centered-left */
+    .ps-card.is-active {
+      width: 380px;
+      height: 510px;
+      /* Center the card, offset left from center */
+      left: calc(50% - 400px);
+      top: 50%;
+      margin-top: -255px;
+      z-index: 20;
+      cursor: none;
+    }
+
+    /* Next preview: right of center */
+    .ps-card.is-next {
+      width: 330px;
+      height: 440px;
+      left: calc(50% + 60px);
+      top: 50%;
+      margin-top: -200px;
+      z-index: 10;
+    }
+
+    /* Hidden states (left / right) */
+    .ps-card.is-off-left,
+    .ps-card.is-off-right {
+      width: 380px;
+      height: 510px;
+      left: calc(50% - 400px);
+      top: 50%;
+      margin-top: -255px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* ── Card visual top strip ── */
+    .ps-card-visual {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .ps-card-visual img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .ps-card-visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.22);
+    }
+
+    .ps-card-visual-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.40);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+    }
+
+    .ps-card-visual-icon svg { width: 32px; height: 32px; }
+
+    .ps-card-visual-num {
+      position: absolute;
+      bottom: 8px;
+      right: 14px;
+      font-family: var(--font-serif);
+      font-size: 5.5rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.10);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      z-index: 1;
+    }
+
+    /* ── Card body ── */
+    .ps-card-body {
+      padding: 24px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ps-card-cat {
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+    }
+
+    .ps-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.15;
+    }
+
+    .ps-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .ps-card-hint {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .ps-card-hint svg { width: 12px; height: 12px; }
+
+    /* ── Specs overlay (hover on active) ── */
+    .ps-specs-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--accent-navy);
+      border-radius: 28px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+
+    .ps-card.is-active:hover .ps-specs-overlay {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    .ps-card.is-active:hover {
+      box-shadow: 0 36px 90px rgba(13, 24, 41, 0.18);
+    }
+
+    .ps-ov-cat {
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-gold-light);
+    }
+
+    .ps-ov-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      color: #fff;
+      line-height: 1.15;
+    }
+
+    .ps-ov-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .ps-ov-spec {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .ps-ov-label {
+      font-size: 0.57rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(244,247,252,0.48);
+      margin-bottom: 3px;
+    }
+
+    .ps-ov-value {
+      font-size: 0.78rem;
+      color: rgba(244,247,252,0.90);
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    .ps-ov-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.70rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-gold-light);
+      border-bottom: 1px solid rgba(200,169,81,0.35);
+      padding-bottom: 3px;
+      transition: color 0.2s;
+      margin-top: 4px;
+    }
+
+    .ps-ov-link:hover { color: #fff; }
+    .ps-ov-link svg { width: 13px; height: 13px; }
+
+    /* ── UI chrome ── */
+    .ps-counter {
+      position: absolute;
+      top: 32px;
+      right: 5%;
+      z-index: 50;
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+
+    .ps-counter-cur {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      color: var(--accent-gold);
+      line-height: 1;
+      min-width: 2rem;
+    }
+
+    .ps-counter-sep, .ps-counter-tot {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .ps-label {
+      position: absolute;
+      top: 32px;
+      left: 5%;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ps-label-line {
+      width: 24px;
+      height: 1px;
+      background: var(--accent-gold);
+    }
+
+    .ps-label-text {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+    }
+
+    /* Arrows */
+    .ps-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid rgba(30,55,102,0.12);
+      box-shadow: 0 8px 24px rgba(13,24,41,0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: none;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      color: var(--text-primary);
+    }
+
+    .ps-arrow:hover {
+      background: var(--accent-navy);
+      color: #fff;
+      box-shadow: 0 12px 36px rgba(30,55,102,0.28);
+    }
+
+    .ps-arrow svg { width: 18px; height: 18px; }
+    .ps-arrow-prev { left: 3%; }
+    .ps-arrow-next { right: 3%; }
+
+    /* Dots */
+    .ps-dots {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 7px;
+      z-index: 50;
+    }
+
+    .ps-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(30,55,102,0.18);
+      border: none;
+      cursor: none;
+      transition: width 0.3s ease, background 0.3s ease;
+      padding: 0;
+    }
+
+    .ps-dot.is-active {
+      width: 24px;
+      background: var(--accent-gold);
+    }
+
+    /* Scroll hint */
+    .ps-hint {
+      position: absolute;
+      bottom: 32px;
+      right: 5%;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.60rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: opacity 0.4s;
+    }
+
+    .ps-hint svg {
+      width: 13px;
+      height: 13px;
+      animation: ps-bounce 1.8s ease infinite;
+    }
+
+    @keyframes ps-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
+    /* Progress bar */
+    .ps-progress-bar {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      background: var(--accent-gold);
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 50;
+    }
+
+    /* Next card product name label */
+    .ps-next-label {
+      position: absolute;
+      bottom: 32px;
+      left: 5%;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ps-next-label-hint {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .ps-next-label-name {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .ps-card.is-active {
+        width: calc(100vw - 64px);
+        height: auto;
+        min-height: 460px;
+        left: 32px;
+        margin-top: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .ps-card.is-next { display: none; }
+      .ps-bg-word span { font-size: 32vw; }
+      .ps-arrow-prev { left: 8px; }
+      .ps-arrow-next { right: 8px; }
+    }
+  </style>
+</head>
+<body>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<nav class="nav scrolled" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo.png" alt="Lohnabfüllung Deutschland by Avoria" class="nav-logo-img">
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Start</a>
+      <a href="leistungen.html">Leistungen</a>
+      <a href="produkte.html" class="active">Produkte</a>
+      <a href="qualitaet.html">Qualität</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="kontakt.html" class="nav-cta">Kontakt aufnehmen →</a>
+    </nav>
+    <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="nav-mobile" id="mobileNav">
+  <a href="index.html">Start</a>
+  <a href="leistungen.html">Leistungen</a>
+  <a href="produkte.html">Produkte</a>
+  <a href="qualitaet.html">Qualität</a>
+  <a href="ueber-uns.html">Über uns</a>
+  <a href="kontakt.html">Kontakt</a>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Start</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Produkte</span>
+    </div>
+    <p class="eyebrow">Produktbereiche</p>
+    <h1 class="page-hero-title">Was wir für<br><em>Sie produzieren</em></h1>
+    <p class="page-hero-subtitle">Von Naturkosmetik bis Chemie — wir haben die Expertise und Zertifizierungen für ein breites Spektrum an Produktkategorien.</p>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="dot"></span><span class="gold">Produktentwicklung</span></div>
+    <div class="marquee-item"><span class="dot"></span>Lohnabfüllung</div>
+    <div class="marquee-item"><span class="dot"></span><span class="gold">Verpackung & Etikettierung</span></div>
+    <div class="marquee-item"><span class="dot"></span>Qualitätsmanagement</div>
+    <div class="marquee-item"><span class="dot"></span><span class="gold">In-house Analysen</span></div>
+    <div class="marquee-item"><span class="dot"></span>Logistik & Versand</div>
+    <div class="marquee-item"><span class="dot"></span><span class="gold">Produktentwicklung</span></div>
+    <div class="marquee-item"><span class="dot"></span>Lohnabfüllung</div>
+    <div class="marquee-item"><span class="dot"></span><span class="gold">Verpackung & Etikettierung</span></div>
+    <div class="marquee-item"><span class="dot"></span>Qualitätsmanagement</div>
+    <div class="marquee-item"><span class="dot"></span><span class="gold">In-house Analysen</span></div>
+    <div class="marquee-item"><span class="dot"></span>Logistik & Versand</div>
+  </div>
+</div>
+
+<!-- ══ PRODUCT SHOWCASE ═════════════════════════════════════ -->
+<div class="ps-wrapper" id="ps-wrapper">
+  <div class="ps-frame" id="ps-frame">
+
+    <!-- Ambient background word -->
+    <div class="ps-bg-word"><span id="ps-bg-word">Hygiene</span></div>
+
+    <!-- Top chrome -->
+    <div class="ps-label">
+      <div class="ps-label-line"></div>
+      <span class="ps-label-text">Alle Produktbereiche</span>
+    </div>
+
+    <div class="ps-counter">
+      <span class="ps-counter-cur" id="ps-cur">01</span>
+      <span class="ps-counter-sep">/</span>
+      <span class="ps-counter-tot" id="ps-tot">07</span>
+    </div>
+
+    <!-- Stage where cards live -->
+    <div class="ps-stage" id="ps-stage"></div>
+
+    <!-- Arrows -->
+    <button class="ps-arrow ps-arrow-prev" id="ps-prev" aria-label="Zurück">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    </button>
+    <button class="ps-arrow ps-arrow-next" id="ps-next" aria-label="Weiter">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+
+    <!-- Dots -->
+    <div class="ps-dots" id="ps-dots"></div>
+
+    <!-- Next card label (bottom-left) -->
+    <div class="ps-next-label" id="ps-next-label">
+      <span class="ps-next-label-hint">Nächstes</span>
+      <span class="ps-next-label-name" id="ps-next-name">CBD Produkte</span>
+    </div>
+
+    <!-- Scroll hint (bottom-right) -->
+    <div class="ps-hint" id="ps-hint">
+      Scrollen oder Klicken
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="ps-progress-bar" id="ps-progress"></div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:50px;" data-animate>
+      <p class="eyebrow">Häufige Fragen</p>
+      <h2 class="section-title">FAQ zu unseren <em>Produkten</em></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Welche Mindestmengen sind für die Produktion erforderlich?</span>
+          <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="7" y1="1" x2="7" y2="13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="faq-icon-v"/><line x1="1" y1="7" x2="13" y2="7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">Die Mindestmengen variieren je nach Produktkategorie und Verpackungstyp. In der Regel starten wir ab 200–1000 Einheiten. Für spezifische Anfragen kontaktieren Sie uns bitte direkt.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Können Sie mit meinen eigenen Rohstoffen produzieren?</span>
+          <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="7" y1="1" x2="7" y2="13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="faq-icon-v"/><line x1="1" y1="7" x2="13" y2="7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">Ja, wir können sowohl mit Ihren eigenen Rohstoffen als auch mit von uns bezogenen Materialien arbeiten. Bei der Verwendung Ihrer Rohstoffe führen wir zunächst eine Eingangsqualitätskontrolle durch.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Wie lange dauert die Produktion?</span>
+          <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="7" y1="1" x2="7" y2="13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="faq-icon-v"/><line x1="1" y1="7" x2="13" y2="7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">Typisch sind 2–6 Wochen ab Freigabe, abhängig von Auftragsvolumen und Produktkomplexität. Nach Auftragsbestätigung erhalten Sie einen verbindlichen Liefertermin.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Erhalten wir Analysezertifikate für unsere Produkte?</span>
+          <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="7" y1="1" x2="7" y2="13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="faq-icon-v"/><line x1="1" y1="7" x2="13" y2="7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">Ja, für jede Produktionscharge erstellen wir ein vollständiges Analysezertifikat (CoA) mit allen relevanten Prüfparametern.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function () {
+  document.querySelectorAll('.faq-question').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function (o) {
+        o.classList.remove('open');
+        o.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        o.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        var ans = item.querySelector('.faq-answer');
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+      }
+    });
+  });
+})();
+</script>
+
+<!-- CTA -->
+<div class="pre-footer-zone">
+  <section class="cta-section cta-section--innerpage">
+    <div class="container">
+      <div class="cta-inner">
+        <p class="eyebrow">Jetzt starten</p>
+        <h2 class="cta-title">Ihr Produkt,<br>unsere Expertise</h2>
+        <p class="cta-subtitle">Kontaktieren Sie uns für eine maßgeschneiderte Produktionslösung.</p>
+        <a href="kontakt.html" class="btn btn-dark btn-lg">
+          Anfrage stellen
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Post-banner: Produktkategorien -->
+<section class="post-banner-section">
+  <div class="container">
+    <div class="post-banner-header" data-animate>
+      <p class="eyebrow">Ihr Produkt bei Avoria</p>
+      <h2 class="section-title">Wir produzieren<br><em>für Ihre Branche</em></h2>
+    </div>
+    <div class="post-banner-cards post-banner-cards--4col" data-stagger>
+      <div class="post-banner-card" data-stagger-item>
+        <div class="post-banner-card-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        </div>
+        <h4>Kosmetik &amp; Körperpflege</h4>
+        <p>Cremes, Seren, Shampoos, Duschgels — GMP-konform und mit CoA.</p>
+      </div>
+      <div class="post-banner-card" data-stagger-item>
+        <div class="post-banner-card-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+        </div>
+        <h4>Nahrungsergänzung</h4>
+        <p>Flüssige Supplements, Kapseln, Pulver — nach HACCP-Standard und mit vollständiger Dokumentation.</p>
+      </div>
+      <div class="post-banner-card" data-stagger-item>
+        <div class="post-banner-card-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <h4>Reinigung &amp; Hygiene</h4>
+        <p>Haushalts- und Industriereiniger, Desinfektionsmittel für B2B und Retail.</p>
+      </div>
+      <div class="post-banner-card" data-stagger-item>
+        <div class="post-banner-card-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+        </div>
+        <h4>E-Liquids &amp; Aromen</h4>
+        <p>Präzise Abfüllung von Liquids, CBD-Produkten und Aromaölen in flexiblen Losgrößen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: content → footer dark -->
+<div class="footer-wave-divider" aria-hidden="true" style="background:#f4f7fc;">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none">
+    <path d="M0,18 C200,38 400,2 600,14 C800,26 1000,4 1200,18 C1300,24 1380,10 1440,16 L1440,60 L0,60 Z" fill="rgba(6,81,146,0.18)"/>
+    <path d="M0,26 C180,6 360,34 540,18 C720,4 900,30 1100,12 C1280,0 1380,22 1440,18 L1440,60 L0,60 Z" fill="#080f1c"/>
+  </svg>
+</div>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="footer-inner">
+  <!-- Stats strip -->
+  <div class="container">
+    <div class="footer-stats">
+      <div class="footer-stat">
+        <span class="footer-stat-number">14+</span>
+        <span class="footer-stat-label">Jahre Erfahrung</span>
+      </div>
+      <div class="footer-stat">
+        <span class="footer-stat-number">500+</span>
+        <span class="footer-stat-label">Zufriedene Kunden</span>
+      </div>
+      <div class="footer-stat">
+        <span class="footer-stat-number">7</span>
+        <span class="footer-stat-label">Produktkategorien</span>
+      </div>
+      <div class="footer-stat">
+        <span class="footer-stat-number">100%</span>
+        <span class="footer-stat-label">Made in Germany</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main columns -->
+  <div class="container">
+    <div class="footer-main">
+
+      <!-- Brand -->
+      <div class="footer-brand">
+        <img src="assets/images/logo.png" alt="Lohnabfüllung Deutschland by Avoria" class="footer-logo-img">
+        <p class="footer-brand-desc">Ihr Full-Service-Partner für Contract Manufacturing in Deutschland. Seit 2010 produzieren wir qualitativ hochwertige Produkte nach ISO 9001 und HACCP-Standard.</p>
+        <div class="footer-contact-links">
+          <a href="mailto:info@lohnabfuellung-deutschland.de" class="footer-contact-link">
+            <span class="footer-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            info@lohnabfuellung-deutschland.de
+          </a>
+          <a href="kontakt.html" class="footer-contact-link">
+            <span class="footer-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            Avoria GmbH, Roßtal — Bayern
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <p class="footer-col-title">Navigation</p>
+        <div class="footer-col-links">
+          <a href="index.html">Startseite</a>
+          <a href="leistungen.html">Leistungen</a>
+          <a href="produkte.html">Produkte</a>
+          <a href="qualitaet.html">Qualität</a>
+          <a href="ueber-uns.html">Über uns</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+      </div>
+
+      <!-- Leistungen -->
+      <div>
+        <p class="footer-col-title">Leistungen</p>
+        <div class="footer-col-links">
+          <a href="leistungen.html">Lohnabfüllung</a>
+          <a href="leistungen.html">Verpackung</a>
+          <a href="leistungen.html">Produktentwicklung</a>
+          <a href="leistungen.html">Qualitätsmanagement</a>
+          <a href="leistungen.html">Logistik</a>
+        </div>
+      </div>
+
+      <!-- Zertifizierungen -->
+      <div>
+        <p class="footer-col-title">Zertifizierungen</p>
+        <div class="footer-cert-list">
+          <div class="footer-cert-badge">
+            <span class="footer-cert-dot"></span>
+            <span class="footer-cert-text">ISO 9001 : 2015</span>
+          </div>
+          <div class="footer-cert-badge">
+            <span class="footer-cert-dot"></span>
+            <span class="footer-cert-text">HACCP Konform</span>
+          </div>
+          <div class="footer-cert-badge">
+            <span class="footer-cert-dot"></span>
+            <span class="footer-cert-text">GMP Standard</span>
+          </div>
+          <div class="footer-cert-badge">
+            <span class="footer-cert-dot"></span>
+            <span class="footer-cert-text">Made in Germany</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer-bottom-wrap">
+    <div class="footer-bottom-rule"></div>
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Avoria GmbH. Alle Rechte vorbehalten.</p>
+        <div class="footer-legal-links">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /.footer-inner -->
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="assets/js/gsap-animations.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ── Product data ─────────────────────────────────── */
+  const PRODUCTS = [
+    {
+      num: '01', category: 'Hygiene & Kosmetik', bgWord: 'Hygiene',
+      title: 'Hygiene &\nKosmetik',
+      image: 'assets/images/Kosmetik.jpg',
+      url: 'produkte-hygiene-kosmetik.html',
+      gradient: 'linear-gradient(135deg,#c47a8a 0%,#8a3a50 100%)',
+      desc: 'Hautpflegeprodukte, Reinigungsmittel, Deos, Cremes, Lotionen und Shampoos — nach Kosmetikverordnung (EU) Nr. 1223/2009.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Cremes, Gele, Lotionen, Sprays'},{l:'Verpackung',v:'Flaschen, Tuben, Dosen, Pumpen'},{l:'Zertifizierung',v:'ISO 9001, GMP'},{l:'Losgröße',v:'Ab 500 Einheiten'}],
+    },
+    {
+      num: '02', category: 'CBD Produkte', bgWord: 'CBD',
+      title: 'CBD\nProdukte',
+      image: 'assets/images/CDB.jpg',
+      url: 'produkte-cbd-produkte.html',
+      gradient: 'linear-gradient(135deg,#5a9a70 0%,#2e6040 100%)',
+      desc: 'Spezialisierte Abfüllung von CBD-Ölen, -Tinkturen, -Kapseln und -Kosmetika. EU-konform, mit CoA jeder Charge.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Öle, Kapseln, Cremes, Tinkturen'},{l:'Verpackung',v:'Pipettenflaschen, Kapseln'},{l:'Regularien',v:'EU-konform'},{l:'Analyse',v:'CoA jeder Charge'}],
+    },
+    {
+      num: '03', category: 'Ätherische Öle', bgWord: 'Aromen',
+      title: 'Ätherische\nÖle',
+      image: 'assets/images/Ätherische Öle.jpg',
+      url: 'produkte-aetherische-oele.html',
+      gradient: 'linear-gradient(135deg,#7060b0 0%,#402880 100%)',
+      desc: 'Ätherische Öle, Duftöle, Diffuser-Öle und Aroma-Blends. Präzise Abfüllung von 5 ml bis 500 ml.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Rein, gemischt, verdünnt'},{l:'Verpackung',v:'5ml – 500ml Flaschen'},{l:'Standard',v:'ISO 9001'},{l:'Losgröße',v:'Ab 200 Einheiten'}],
+    },
+    {
+      num: '04', category: 'Kapseln & Pulver', bgWord: 'Kapseln',
+      title: 'Kapseln &\nPulver',
+      image: 'assets/images/Kapseln.jpg',
+      url: 'produkte-kapseln-pulver.html',
+      gradient: 'linear-gradient(135deg,#b08030 0%,#785018 100%)',
+      desc: 'Kapselfüllung (Hart- und Weichgelatine), Pulverabfüllung in Sachets, Dosen und Stick-Packs für Nahrungsergänzung und Pharma.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Kapseln, Pulver, Granulate'},{l:'Verpackung',v:'Dosen, Sachets, Stick-Packs'},{l:'Regularien',v:'HACCP, GMP'},{l:'Losgröße',v:'Ab 1.000 Einheiten'}],
+    },
+    {
+      num: '05', category: 'Flavor Drops & Aromen', bgWord: 'Flavor',
+      title: 'Flavor Drops\n& Aromen',
+      image: 'assets/images/Flavour Drops.jpg',
+      url: 'produkte-flavor-drops-aromen.html',
+      gradient: 'linear-gradient(135deg,#d07830 0%,#904010 100%)',
+      desc: 'Hochkonzentrierte Aromen und Flavor Drops für Lebensmittel, Getränke und E-Liquids. Kalibrierte Tropfenausgabe.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Flüssig-Aromen, Drops'},{l:'Verpackung',v:'10ml – 100ml, Dropper'},{l:'Standard',v:'HACCP, ISO 9001'},{l:'Losgröße',v:'Ab 500 Einheiten'}],
+    },
+    {
+      num: '06', category: 'Nikotin', bgWord: 'Nikotin',
+      title: 'Nikotin\nProdukte',
+      image: 'assets/images/Nikotin.jpg',
+      url: 'produkte-nikotin.html',
+      gradient: 'linear-gradient(135deg,#4070a0 0%,#204870 100%)',
+      desc: 'Spezialisierte Produktion nikotinhaltiger Produkte: Nikotinsalzlösungen, Nikotinbeutel und Tabakersatzprodukte. TPD-konform.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Lösungen, Beutel, Sprays'},{l:'Verpackung',v:'Kindersichere Behälter'},{l:'Regularien',v:'TPD, CLP-konform'},{l:'Losgröße',v:'Auf Anfrage'}],
+    },
+    {
+      num: '07', category: 'Chemikalien', bgWord: 'Chemie',
+      title: 'Chemikalien\n& Industrie',
+      image: 'assets/images/Chemikalien.jpg',
+      url: 'produkte-chemikalien.html',
+      gradient: 'linear-gradient(135deg,#506070 0%,#283040 100%)',
+      desc: 'Industrielle und gewerbliche Chemikalien, Reinigungskonzentrate und technische Flüssigkeiten. CLP/REACH/GHS-konform.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Konzentrate, Lösungen'},{l:'Verpackung',v:'UN-zertifiziert'},{l:'Regularien',v:'CLP, REACH, GHS'},{l:'Losgröße',v:'Auf Anfrage'}],
+    },
+  ];
+
+  /* ── DOM ──────────────────────────────────────────── */
+  const wrapper  = document.getElementById('ps-wrapper');
+  const frame    = document.getElementById('ps-frame');
+  const stage    = document.getElementById('ps-stage');
+  const bgWordEl = document.getElementById('ps-bg-word');
+  const curEl    = document.getElementById('ps-cur');
+  const dotsEl   = document.getElementById('ps-dots');
+  const prevBtn  = document.getElementById('ps-prev');
+  const nextBtn  = document.getElementById('ps-next');
+  const hint     = document.getElementById('ps-hint');
+  const nextName = document.getElementById('ps-next-name');
+  const progress = document.getElementById('ps-progress');
+  const nextLabel= document.getElementById('ps-next-label');
+
+  if (!wrapper || typeof gsap === 'undefined') return;
+
+  const N = PRODUCTS.length;
+
+  /* ── Build cards ────────────────────────────────────── */
+  const cards = PRODUCTS.map((p, i) => {
+    const el = document.createElement('div');
+    el.className = 'ps-card';
+    el.dataset.i = i;
+
+    el.innerHTML = `
+      <div class="ps-card-visual" style="background:${p.gradient}">
+        <img src="${p.image}" alt="${p.category}" loading="lazy" onerror="this.style.display='none'">
+        <div class="ps-card-visual-overlay"></div>
+        <div class="ps-card-visual-icon">${p.icon}</div>
+        <div class="ps-card-visual-num">${p.num}</div>
+      </div>
+      <div class="ps-card-body">
+        <p class="ps-card-cat">— ${p.category}</p>
+        <h3 class="ps-card-title">${p.title.replace(/\n/g,'<br>')}</h3>
+        <p class="ps-card-desc">${p.desc}</p>
+        <p class="ps-card-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          Details &amp; Produktseite
+        </p>
+      </div>
+      <div class="ps-specs-overlay">
+        <p class="ps-ov-cat">— ${p.category}</p>
+        <h3 class="ps-ov-title">${p.title.replace(/\n/g,'<br>')}</h3>
+        <div class="ps-ov-grid">
+          ${p.specs.map(s=>`<div class="ps-ov-spec"><p class="ps-ov-label">${s.l}</p><p class="ps-ov-value">${s.v}</p></div>`).join('')}
+        </div>
+        <a href="${p.url}" class="ps-ov-link">
+          Produktseite ansehen
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>`;
+
+    el.setAttribute('role', 'link');
+    el.tabIndex = 0;
+    el.addEventListener('click', (event) => {
+      if (event.target.closest('a, button')) return;
+      window.location.href = p.url;
+    });
+    el.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        window.location.href = p.url;
+      }
+    });
+
+    /* Class assignments for sizing/positioning */
+    if (i === 0) el.classList.add('is-active');
+    else if (i === 1) el.classList.add('is-next');
+    else el.classList.add('is-off-right');
+
+    stage.appendChild(el);
+    return el;
+  });
+
+  /* ── Build dots ─────────────────────────────────────── */
+  PRODUCTS.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'ps-dot' + (i === 0 ? ' is-active' : '');
+    d.setAttribute('aria-label', `Produkt ${i+1}`);
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+  const dotEls = Array.from(dotsEl.querySelectorAll('.ps-dot'));
+
+  /* ── State ──────────────────────────────────────────── */
+  let current = 0;
+  let busy    = false;
+  const isMobileCardLayout = () => window.matchMedia('(max-width: 900px)').matches;
+  const isMobileOrTablet = () => window.matchMedia('(max-width: 1024px)').matches;
+
+  function getMotionProfile() {
+    if (isMobileOrTablet()) {
+      return {
+        outX: 118,
+        outDur: 0.52,
+        outEase: 'power2.inOut',
+        inFromX: 96,
+        inDur: 0.72,
+        inEase: 'power3.out',
+        inDelay: 0.10,
+        nextHideX: 56,
+        nextSetX: 44,
+        nextDur: 0.64,
+        nextEase: 'power2.out'
+      };
+    }
+
+    return {
+      outX: 160,
+      outDur: 0.45,
+      outEase: 'power3.in',
+      inFromX: 140,
+      inDur: 0.60,
+      inEase: 'power3.out',
+      inDelay: 0.12,
+      nextHideX: 80,
+      nextSetX: 60,
+      nextDur: 0.55,
+      nextEase: 'power2.out'
+    };
+  }
+
+  /* ── Initial GSAP set ───────────────────────────────── */
+  // Active card: visible, centered
+  gsap.set(cards[0], {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    yPercent: isMobileCardLayout() ? -50 : 0,
+    scale: 1,
+    filter: 'blur(0px)'
+  });
+  // Next card: visible, dimmed
+  if (cards[1]) gsap.set(cards[1], { opacity: 0.55, x: 0, y: 0, yPercent: 0, scale: 0.94, filter: 'blur(2px)' });
+  // All others: hidden right
+  cards.slice(2).forEach(c => gsap.set(c, { opacity: 0, x: 120, y: 0, yPercent: 0 }));
+
+  updateChrome(0);
+
+  /* ── goTo ───────────────────────────────────────────── */
+  function goTo(idx) {
+    if (busy || idx === current || idx < 0 || idx >= N) return;
+    busy = true;
+    const motion = getMotionProfile();
+
+    const prev = current;
+    const dir  = idx > prev ? 1 : -1;
+    current = idx;
+
+    const tl = gsap.timeline({
+      onComplete: () => { busy = false; }
+    });
+
+    /* Outgoing active → off-left or off-right */
+    const outCard = cards[prev];
+    outCard.classList.remove('is-active');
+    outCard.classList.add(dir > 0 ? 'is-off-left' : 'is-off-right');
+    tl.to(outCard, {
+      x: dir > 0 ? -motion.outX : motion.outX,
+      y: 0,
+      yPercent: 0,
+      opacity: 0,
+      scale: 0.92,
+      duration: motion.outDur,
+      ease: motion.outEase,
+    }, 0);
+
+    /* Outgoing next (if visible) → hide */
+    const outNext = prev + 1;
+    if (outNext < N && outNext !== idx) {
+      const nc = cards[outNext];
+      nc.classList.remove('is-next');
+      nc.classList.add('is-off-right');
+      tl.to(nc, { opacity: 0, x: motion.nextHideX, y: 0, yPercent: 0, duration: 0.34, ease: 'power2.in' }, 0);
+    }
+
+    /* Incoming active card */
+    const inCard = cards[idx];
+    inCard.classList.remove('is-off-left', 'is-off-right', 'is-next');
+    inCard.classList.add('is-active');
+    gsap.set(inCard, {
+      x: dir > 0 ? motion.inFromX : -motion.inFromX,
+      y: 0,
+      yPercent: isMobileCardLayout() ? -50 : 0,
+      opacity: 0,
+      scale: 0.94
+    });
+    tl.to(inCard, {
+      x: 0,
+      y: 0,
+      yPercent: isMobileCardLayout() ? -50 : 0,
+      opacity: 1,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: motion.inDur,
+      ease: motion.inEase,
+    }, motion.inDelay);
+
+    /* New "next" preview */
+    const newNext = idx + 1;
+    if (newNext < N) {
+      const nc2 = cards[newNext];
+      nc2.classList.remove('is-active', 'is-off-left', 'is-off-right');
+      nc2.classList.add('is-next');
+      gsap.set(nc2, { x: motion.nextSetX, y: 0, yPercent: 0, opacity: 0 });
+      tl.to(nc2, { x: 0, y: 0, yPercent: 0, opacity: 0.55, scale: 0.94, filter: 'blur(2px)', duration: motion.nextDur, ease: motion.nextEase }, 0.20);
+    }
+
+    /* Fade background word */
+    tl.to(bgWordEl, { opacity: 0, y: -12, duration: 0.20, ease: 'power2.in',
+      onComplete: () => {
+        bgWordEl.textContent = PRODUCTS[idx].bgWord;
+        gsap.to(bgWordEl, { opacity: 1, y: 0, duration: 0.30, ease: 'power2.out' });
+      }
+    }, 0);
+
+    updateChrome(idx);
+  }
+
+  function updateChrome(idx) {
+    curEl.textContent = String(idx + 1).padStart(2, '0');
+    dotEls.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    progress.style.width = ((idx + 1) / N * 100) + '%';
+
+    /* Next label */
+    if (idx < N - 1) {
+      nextName.textContent = PRODUCTS[idx + 1].category;
+      nextLabel.style.opacity = '1';
+    } else {
+      nextLabel.style.opacity = '0';
+    }
+
+    /* Scroll hint: hide after first navigation */
+    hint.style.opacity = idx === 0 ? '1' : '0';
+  }
+
+  function syncActiveCardCenter() {
+    const activeCard = cards[current];
+    if (!activeCard) return;
+    gsap.set(activeCard, { y: 0, yPercent: isMobileCardLayout() ? -50 : 0 });
+  }
+
+  syncActiveCardCenter();
+
+  /* ── Arrow buttons ──────────────────────────────────── */
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  /* ── ScrollTrigger: scroll through products ─────────── */
+  gsap.registerPlugin(ScrollTrigger);
+
+  ScrollTrigger.create({
+    trigger: wrapper,
+    start: 'top top',
+    end: () => '+=' + (window.innerHeight * (N - 1)),
+    pin: frame,
+    pinSpacing: true,
+    snap: {
+      snapTo: 1 / (N - 1),
+      duration: { min: 0.2, max: 0.5 },
+      delay: 0.05,
+      ease: 'power2.inOut',
+    },
+    onUpdate: (self) => {
+      const idx = Math.min(N - 1, Math.round(self.progress * (N - 1)));
+      if (idx !== current) goTo(idx);
+    },
+  });
+
+  /* ── Touch swipe ────────────────────────────────────── */
+  let touchStartY = null;
+
+  frame.addEventListener('touchstart', e => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  frame.addEventListener('touchend', e => {
+    if (touchStartY === null) return;
+    const dy = touchStartY - e.changedTouches[0].clientY;
+    touchStartY = null;
+    if (Math.abs(dy) < 40) return;
+    goTo(current + (dy > 0 ? 1 : -1));
+  }, { passive: true });
+
+  /* ── Keyboard ───────────────────────────────────────── */
+  document.addEventListener('keydown', e => {
+    const rect = frame.getBoundingClientRect();
+    if (rect.top > 10 || rect.bottom < -10) return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+    if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
+  });
+
+  window.addEventListener('resize', () => {
+    syncActiveCardCenter();
+  }, { passive: true });
+
+  /* ── Mouse parallax ─────────────────────────────────── */
+  let rafId = null;
+  let mx = 0, my = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = (e.clientX / window.innerWidth  - 0.5) * 2;
+    my = (e.clientY / window.innerHeight - 0.5) * 2;
+
+    if (rafId) return;
+    rafId = requestAnimationFrame(() => {
+      rafId = null;
+      const active = cards[current];
+      if (!active || !active.classList.contains('is-active')) return;
+      gsap.to(active, {
+        x: mx * 16, y: my * 11,
+        rotateX: -my * 3.5, rotateY: mx * 3.5,
+        transformPerspective: 1000,
+        duration: 0.9, ease: 'power2.out',
+      });
+      const nextCard = cards[current + 1];
+      if (nextCard && nextCard.classList.contains('is-next')) {
+        gsap.to(nextCard, { x: mx * -9, y: my * -6, duration: 1.1, ease: 'power2.out' });
+      }
+    });
+  });
+
+  frame.addEventListener('mouseleave', () => {
+    const a = cards[current];
+    if (a) gsap.to(a, { x:0,y:0,rotateX:0,rotateY:0,duration:0.7,ease:'power2.out' });
+    const n = cards[current+1];
+    if (n) gsap.to(n, { x:0,y:0,duration:0.7,ease:'power2.out' });
+  });
+
+  /* ── FAQ accordion ──────────────────────────────────── */
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      document.querySelectorAll('.faq-item.open').forEach(o => { if (o!==item) o.classList.remove('open'); });
+      item.classList.toggle('open');
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
