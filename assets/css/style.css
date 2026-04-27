@@ -158,6 +158,13 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--accent-gold-light);
 }
 
+@media (max-width: 1024px) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
+
 /* ============================================================
    TYPOGRAPHY
    ============================================================ */
@@ -2531,9 +2538,7 @@ textarea.form-input {
   background: linear-gradient(to bottom, transparent, rgba(26,125,200,0.35), transparent);
 }
 
-.footer-stat:hover {
-  background: rgba(6,81,146,0.08);
-}
+
 
 .footer-stat-number {
   display: block;
@@ -2741,16 +2746,6 @@ textarea.form-input {
   transition: opacity var(--transition-fast);
 }
 
-.footer-cert-badge:hover {
-  transform: translateY(-2px) translateZ(0);
-  background: rgba(6,81,146,0.18);
-  border-color: rgba(26,125,200,0.45);
-  box-shadow: 0 8px 32px rgba(6,81,146,0.25), 0 0 0 1px rgba(26,125,200,0.12) inset;
-}
-
-.footer-cert-badge:hover::before {
-  opacity: 1;
-}
 
 .footer-cert-dot {
   width: 8px;
@@ -3974,6 +3969,15 @@ textarea.form-input {
     grid-template-columns: 1fr;
     gap: 60px;
   }
+  .story-visual {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .story-stat-box:last-child {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 260px;
+    justify-self: center;
+  }
   .map-inner {
     grid-template-columns: 1fr;
   }
@@ -4081,6 +4085,14 @@ textarea.form-input {
   .team-grid {
     grid-template-columns: 1fr;
   }
+  .story-visual {
+    grid-template-columns: 1fr;
+  }
+  .story-stat-box:first-child,
+  .story-stat-box:last-child {
+    grid-column: span 1;
+    max-width: none;
+  }
   .product-detail-grid {
     grid-template-columns: 1fr;
   }
@@ -4127,15 +4139,26 @@ textarea.form-input {
     left: 30px;
   }
   .timeline-item {
-    grid-template-columns: 60px 1fr;
+    grid-template-columns: 60px minmax(0, 1fr);
     grid-template-rows: auto;
+    gap: 16px;
   }
   .timeline-item:nth-child(odd) .timeline-content {
     text-align: left;
   }
-  .timeline-item:nth-child(even) .timeline-content-left,
-  .timeline-item:nth-child(odd) .timeline-content-right {
-    visibility: visible;
+  .timeline-item .timeline-dot {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center;
+  }
+  .timeline-item > .timeline-content:not(.timeline-content-left):not(.timeline-content-right) {
+    grid-column: 2;
+    grid-row: 1;
+    padding-top: 0;
+  }
+  .timeline-item .timeline-content-left,
+  .timeline-item .timeline-content-right {
+    display: none;
   }
   .breadcrumb {
     flex-wrap: wrap;
