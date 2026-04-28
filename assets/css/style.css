@@ -158,10 +158,14 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--accent-gold-light);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .cursor-dot,
   .cursor-ring {
     display: none !important;
+  }
+  body,
+  button {
+    cursor: auto;
   }
 }
 
@@ -1850,12 +1854,39 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================================
+   CTA SECTION — Water-fill reveal animation
+   ============================================================ */
+@keyframes ctaWaterFill {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0%   0 0); }
+}
+
+/* Dark base shows instantly; the gradient layer fills in on scroll */
+.cta-section:not(.cta-section--card) {
+  background: #0b1523;
+}
+
+/* Gradient fill layer — clipped away until .fill-active is added */
+.cta-section:not(.cta-section--card)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #065192 0%, #0b1523 100%);
+  clip-path: inset(0 100% 0 0);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cta-section.fill-active::before {
+  animation: ctaWaterFill 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ============================================================
    CTA SECTION — Home page (diagonal cuts)
    ============================================================ */
 .cta-section {
   position: relative;
   padding: 160px 0;
-  background: linear-gradient(135deg, #065192 0%, #0b1523 100%);
   overflow: hidden;
   clip-path: polygon(0 80px, 100% 0, 100% calc(100% - 80px), 0 100%);
   /* negative margin pulls adjacent sections flush against the clipped edges */
@@ -3892,6 +3923,27 @@ textarea.form-input {
 [data-animate].in-view {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ============================================================
+   QA PROCESS GRID (replaces inline style — responsive)
+   ============================================================ */
+.qa-process-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .qa-process-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .quality-visual {
+    display: none;
+  }
+
 }
 
 /* ============================================================

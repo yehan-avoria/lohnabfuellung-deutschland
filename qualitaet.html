@@ -10,6 +10,59 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* qualitaet.html only — spacing corrections */
+
+    /* 1. Fix large blank space below cert cards.
+          Base CSS uses padding: var(--section-padding) = 120px on ALL sides,
+          creating ~240px of empty light background below the card content.
+          Reduce to a card-appropriate value on tablet and above. */
+    @media (min-width: 769px) {
+      .cert-card {
+        padding: 48px;
+      }
+      .cert-section {
+        padding-bottom: 60px;
+      }
+    }
+
+    /* 2. Fix right-side white space at laptop L and below.
+          .quality::before uses right:-200px (extends 200px past the viewport
+          right edge) and .quality has overflow:visible. Because only body —
+          not html — carries overflow-x:hidden, the html element still scrolls
+          horizontally on this page. Clip the section so the decorative
+          pseudo-element never widens the document. overflow-x:clip is used
+          instead of hidden to avoid creating a new scroll container (which
+          would break position:sticky if ever added). */
+    .quality {
+      overflow-x: clip;
+    }
+
+    /* 3. Restore orbit badge visual on tablet and mobile.
+          The shared CSS hides .quality-visual at max-width:1024px (written for
+          2-column layout only). On this page we show it at all sizes, centered
+          below the text in single-column mode. The orbit scene scales down on
+          small screens so the 280px scene and its floating items fit cleanly. */
+    @media (max-width: 1024px) {
+      .quality-visual {
+        display: flex !important;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .quality-orbit-scene {
+        transform: scale(0.8);
+        transform-origin: center top;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .quality-orbit-scene {
+        transform: scale(0.65);
+        transform-origin: center top;
+      }
+    }
+  </style>
 </head>
 <body>
 <div class="cursor-dot"></div>
@@ -143,7 +196,7 @@
 <!-- Quality Process -->
 <section class="section section--dark">
   <div class="container">
-    <div style="display:grid; grid-template-columns:1fr 1.5fr; gap:6rem; align-items:start;" data-animate>
+    <div class="qa-process-grid" data-animate>
       <div>
         <p class="eyebrow">Unser QS-Prozess</p>
         <h2 class="section-title">Qualitätssicherung<br><em>Schritt für Schritt</em></h2>

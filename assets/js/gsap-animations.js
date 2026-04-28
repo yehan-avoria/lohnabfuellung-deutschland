@@ -289,6 +289,25 @@
     });
   }
 
+  // ---- CTA water-fill reveal ----
+  function initCtaFill() {
+    if (typeof ScrollTrigger === 'undefined') {
+      document.querySelectorAll('.cta-section:not(.cta-section--card)').forEach(el => {
+        el.classList.add('fill-active');
+      });
+      return;
+    }
+
+    gsap.utils.toArray('.cta-section:not(.cta-section--card)').forEach((section) => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top 82%',
+        once: true,
+        onEnter: () => section.classList.add('fill-active'),
+      });
+    });
+  }
+
   // ---- Init all ----
   document.addEventListener('DOMContentLoaded', () => {
     initHero();
@@ -298,6 +317,7 @@
     initHeadingSplits();
     initTilt();
     initFAQ();
+    initCtaFill();
     // initSmoothScroll(); // only if ScrollTo plugin loaded
   });
 })();
