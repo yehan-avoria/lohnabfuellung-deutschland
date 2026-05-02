@@ -466,19 +466,190 @@
 
     /* Mobile */
     @media (max-width: 900px) {
+      .ps-frame {
+        height: 100svh;
+        min-height: 660px;
+        background:
+          radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.94), transparent 32%),
+          radial-gradient(circle at 86% 34%, rgba(26, 125, 200, 0.12), transparent 30%),
+          linear-gradient(180deg, #f7faff 0%, #eef4fb 100%);
+        overscroll-behavior: contain;
+      }
+
+      .ps-stage {
+        isolation: isolate;
+      }
+
+      .ps-card {
+        backface-visibility: hidden;
+        will-change: transform, opacity, filter;
+      }
+
       .ps-card.is-active {
-        width: calc(100vw - 64px);
-        height: auto;
-        min-height: 460px;
-        left: 32px;
+        width: min(calc(100vw - 48px), 360px);
+        height: min(66svh, 520px);
+        min-height: 450px;
+        left: max(24px, calc((100vw - 360px) / 2));
         margin-top: 0;
         top: 50%;
-        transform: translateY(-50%);
+        border-radius: 26px;
+        cursor: pointer;
+        box-shadow:
+          0 34px 74px rgba(13, 24, 41, 0.14),
+          0 12px 30px rgba(26, 125, 200, 0.08);
       }
-      .ps-card.is-next { display: none; }
-      .ps-bg-word span { font-size: 32vw; }
-      .ps-arrow-prev { left: 8px; }
-      .ps-arrow-next { right: 8px; }
+
+      .ps-card.is-off-left,
+      .ps-card.is-off-right {
+        width: min(calc(100vw - 48px), 360px);
+        height: min(66svh, 520px);
+        min-height: 450px;
+        left: max(24px, calc((100vw - 360px) / 2));
+        top: 50%;
+        margin-top: 0;
+        border-radius: 26px;
+      }
+
+      .ps-card.is-next {
+        display: none;
+      }
+
+      .ps-card-visual {
+        height: 43%;
+        min-height: 194px;
+      }
+
+      .ps-card-visual-overlay {
+        background: linear-gradient(180deg, rgba(7, 18, 34, 0.08), rgba(7, 18, 34, 0.24));
+      }
+
+      .ps-card-visual-icon {
+        width: 68px;
+        height: 68px;
+        background: rgba(255, 255, 255, 0.20);
+        backdrop-filter: blur(12px);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+      }
+
+      .ps-card-body {
+        min-height: 57%;
+        padding: 24px 26px 28px;
+        gap: 11px;
+      }
+
+      .ps-card-title {
+        font-size: clamp(1.55rem, 7vw, 2rem);
+        line-height: 1.05;
+      }
+
+      .ps-card-desc {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 0.86rem;
+        line-height: 1.65;
+      }
+
+      .ps-specs-overlay {
+        display: none;
+      }
+
+      .ps-bg-word span {
+        font-size: 34vw;
+        opacity: 0.62;
+        -webkit-text-stroke-width: 1px;
+      }
+
+      .ps-label,
+      .ps-counter {
+        top: 18px;
+      }
+
+      .ps-counter {
+        right: 22px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.58);
+        border: 1px solid rgba(30,55,102,0.08);
+        backdrop-filter: blur(16px);
+      }
+
+      .ps-counter-cur {
+        font-size: 1.65rem;
+      }
+
+      .ps-label {
+        left: 22px;
+      }
+
+      .ps-label-text {
+        max-width: 150px;
+        line-height: 1.2;
+      }
+
+      .ps-arrow {
+        width: 44px;
+        height: 44px;
+        background: rgba(255,255,255,0.78);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 14px 32px rgba(13,24,41,0.12);
+        cursor: pointer;
+      }
+
+      .ps-arrow-prev {
+        left: 10px;
+      }
+
+      .ps-arrow-next {
+        right: 10px;
+      }
+
+      .ps-dots {
+        bottom: 28px;
+        gap: 8px;
+      }
+
+      .ps-dot {
+        cursor: pointer;
+      }
+
+      .ps-next-label {
+        left: 22px;
+        bottom: 30px;
+      }
+
+      .ps-hint {
+        right: 22px;
+        bottom: 30px;
+        max-width: 150px;
+        justify-content: flex-end;
+        text-align: right;
+        line-height: 1.2;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .ps-frame {
+        min-height: 620px;
+      }
+
+      .ps-card.is-active,
+      .ps-card.is-off-left,
+      .ps-card.is-off-right {
+        width: calc(100vw - 44px);
+        height: min(64svh, 500px);
+        min-height: 430px;
+        left: 22px;
+      }
+
+      .ps-card-body {
+        padding: 22px 24px 26px;
+      }
+
+      .ps-card-desc {
+        -webkit-line-clamp: 3;
+      }
     }
   </style>
 </head>
@@ -1007,7 +1178,7 @@
     const d = document.createElement('button');
     d.className = 'ps-dot' + (i === 0 ? ' is-active' : '');
     d.setAttribute('aria-label', `Produkt ${i+1}`);
-    d.addEventListener('click', () => goTo(i));
+    d.addEventListener('click', () => goTo(i, { syncScroll: true }));
     dotsEl.appendChild(d);
   });
   const dotEls = Array.from(dotsEl.querySelectorAll('.ps-dot'));
@@ -1015,12 +1186,35 @@
   /* ── State ──────────────────────────────────────────── */
   let current = 0;
   let busy    = false;
+  let showcaseST = null;
+  let syncingScroll = false;
+  let boundaryReleaseUntil = 0;
+  let wheelAccumulator = 0;
+  let wheelReleaseUntil = 0;
   const isMobileCardLayout = () => window.matchMedia('(max-width: 900px)').matches;
   const isMobileOrTablet = () => window.matchMedia('(max-width: 1024px)').matches;
 
   function getMotionProfile() {
+    if (isMobileCardLayout()) {
+      return {
+        axis: 'y',
+        outY: 78,
+        outDur: 0.58,
+        outEase: 'power2.inOut',
+        inFromY: 84,
+        inDur: 0.82,
+        inEase: 'expo.out',
+        inDelay: 0.04,
+        nextHideX: 0,
+        nextSetX: 0,
+        nextDur: 0,
+        nextEase: 'power2.out'
+      };
+    }
+
     if (isMobileOrTablet()) {
       return {
+        axis: 'x',
         outX: 118,
         outDur: 0.52,
         outEase: 'power2.inOut',
@@ -1036,6 +1230,7 @@
     }
 
     return {
+      axis: 'x',
       outX: 160,
       outDur: 0.45,
       outEase: 'power3.in',
@@ -1068,10 +1263,44 @@
   updateChrome(0);
 
   /* ── goTo ───────────────────────────────────────────── */
-  function goTo(idx) {
+  function syncScrollToIndex(idx) {
+    if (!showcaseST || syncingScroll) return;
+    const span = showcaseST.end - showcaseST.start;
+    const targetY = showcaseST.start + (span * (idx / (N - 1)));
+
+    syncingScroll = true;
+    window.scrollTo({ top: targetY, behavior: 'auto' });
+    requestAnimationFrame(() => {
+      syncingScroll = false;
+      ScrollTrigger.update();
+    });
+  }
+
+  function scrollPastShowcase(direction) {
+    if (!showcaseST) return;
+    const now = performance.now();
+    if (now < boundaryReleaseUntil) return;
+
+    boundaryReleaseUntil = now + 650;
+    const exitDistance = Math.min(window.innerHeight * 0.72, 560);
+    const targetY = direction > 0
+      ? showcaseST.end + exitDistance
+      : Math.max(0, showcaseST.start - exitDistance);
+
+    syncingScroll = true;
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
+    window.setTimeout(() => {
+      syncingScroll = false;
+      ScrollTrigger.update();
+    }, 520);
+  }
+
+  function goTo(idx, options = {}) {
     if (busy || idx === current || idx < 0 || idx >= N) return;
     busy = true;
     const motion = getMotionProfile();
+    const mobileCards = motion.axis === 'y';
+    const activeYPercent = mobileCards ? -50 : 0;
 
     const prev = current;
     const dir  = idx > prev ? 1 : -1;
@@ -1086,11 +1315,13 @@
     outCard.classList.remove('is-active');
     outCard.classList.add(dir > 0 ? 'is-off-left' : 'is-off-right');
     tl.to(outCard, {
-      x: dir > 0 ? -motion.outX : motion.outX,
-      y: 0,
-      yPercent: 0,
+      x: mobileCards ? 0 : (dir > 0 ? -motion.outX : motion.outX),
+      y: mobileCards ? (dir > 0 ? -motion.outY : motion.outY) : 0,
+      yPercent: activeYPercent,
       opacity: 0,
       scale: 0.92,
+      rotateX: 0,
+      rotateY: 0,
       duration: motion.outDur,
       ease: motion.outEase,
     }, 0);
@@ -1101,7 +1332,11 @@
       const nc = cards[outNext];
       nc.classList.remove('is-next');
       nc.classList.add('is-off-right');
-      tl.to(nc, { opacity: 0, x: motion.nextHideX, y: 0, yPercent: 0, duration: 0.34, ease: 'power2.in' }, 0);
+      if (mobileCards) {
+        gsap.set(nc, { opacity: 0, x: 0, y: 0, yPercent: activeYPercent, scale: 0.94, filter: 'blur(0px)' });
+      } else {
+        tl.to(nc, { opacity: 0, x: motion.nextHideX, y: 0, yPercent: 0, duration: 0.34, ease: 'power2.in' }, 0);
+      }
     }
 
     /* Incoming active card */
@@ -1109,16 +1344,18 @@
     inCard.classList.remove('is-off-left', 'is-off-right', 'is-next');
     inCard.classList.add('is-active');
     gsap.set(inCard, {
-      x: dir > 0 ? motion.inFromX : -motion.inFromX,
-      y: 0,
-      yPercent: isMobileCardLayout() ? -50 : 0,
+      x: mobileCards ? 0 : (dir > 0 ? motion.inFromX : -motion.inFromX),
+      y: mobileCards ? (dir > 0 ? motion.inFromY : -motion.inFromY) : 0,
+      yPercent: activeYPercent,
       opacity: 0,
-      scale: 0.94
+      scale: 0.94,
+      rotateX: 0,
+      rotateY: 0
     });
     tl.to(inCard, {
       x: 0,
       y: 0,
-      yPercent: isMobileCardLayout() ? -50 : 0,
+      yPercent: activeYPercent,
       opacity: 1,
       scale: 1,
       filter: 'blur(0px)',
@@ -1132,8 +1369,12 @@
       const nc2 = cards[newNext];
       nc2.classList.remove('is-active', 'is-off-left', 'is-off-right');
       nc2.classList.add('is-next');
-      gsap.set(nc2, { x: motion.nextSetX, y: 0, yPercent: 0, opacity: 0 });
-      tl.to(nc2, { x: 0, y: 0, yPercent: 0, opacity: 0.55, scale: 0.94, filter: 'blur(2px)', duration: motion.nextDur, ease: motion.nextEase }, 0.20);
+      if (mobileCards) {
+        gsap.set(nc2, { x: 0, y: 0, yPercent: activeYPercent, opacity: 0, scale: 0.94, filter: 'blur(0px)' });
+      } else {
+        gsap.set(nc2, { x: motion.nextSetX, y: 0, yPercent: 0, opacity: 0 });
+        tl.to(nc2, { x: 0, y: 0, yPercent: 0, opacity: 0.55, scale: 0.94, filter: 'blur(2px)', duration: motion.nextDur, ease: motion.nextEase }, 0.20);
+      }
     }
 
     /* Fade background word */
@@ -1145,6 +1386,7 @@
     }, 0);
 
     updateChrome(idx);
+    if (options.syncScroll) syncScrollToIndex(idx);
   }
 
   function updateChrome(idx) {
@@ -1167,57 +1409,200 @@
   function syncActiveCardCenter() {
     const activeCard = cards[current];
     if (!activeCard) return;
-    gsap.set(activeCard, { y: 0, yPercent: isMobileCardLayout() ? -50 : 0 });
+    gsap.set(activeCard, { x: 0, y: 0, yPercent: isMobileCardLayout() ? -50 : 0, rotateX: 0, rotateY: 0 });
   }
 
   syncActiveCardCenter();
 
   /* ── Arrow buttons ──────────────────────────────────── */
-  prevBtn.addEventListener('click', () => goTo(current - 1));
-  nextBtn.addEventListener('click', () => goTo(current + 1));
+  prevBtn.addEventListener('click', () => {
+    if (current === 0) {
+      scrollPastShowcase(-1);
+      return;
+    }
+    goTo(current - 1, { syncScroll: true });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (current === N - 1) {
+      scrollPastShowcase(1);
+      return;
+    }
+    goTo(current + 1, { syncScroll: true });
+  });
 
   /* ── ScrollTrigger: scroll through products ─────────── */
   gsap.registerPlugin(ScrollTrigger);
+  const snapIsMobile = isMobileCardLayout();
 
-  ScrollTrigger.create({
+  showcaseST = ScrollTrigger.create({
     trigger: wrapper,
     start: 'top top',
     end: () => '+=' + (window.innerHeight * (N - 1)),
     pin: frame,
     pinSpacing: true,
+    anticipatePin: snapIsMobile ? 1 : 0,
+    invalidateOnRefresh: true,
     snap: {
       snapTo: 1 / (N - 1),
-      duration: { min: 0.2, max: 0.5 },
-      delay: 0.05,
-      ease: 'power2.inOut',
+      duration: snapIsMobile ? { min: 0.34, max: 0.72 } : { min: 0.2, max: 0.5 },
+      delay: snapIsMobile ? 0.02 : 0.05,
+      ease: snapIsMobile ? 'power3.out' : 'power2.inOut',
     },
     onUpdate: (self) => {
+      if (syncingScroll) return;
       const idx = Math.min(N - 1, Math.round(self.progress * (N - 1)));
       if (idx !== current) goTo(idx);
     },
   });
 
+  frame.addEventListener('wheel', (e) => {
+    if (!isMobileCardLayout() || e.ctrlKey) return;
+
+    const rect = frame.getBoundingClientRect();
+    const inPinnedView = rect.top <= 1 && rect.bottom >= window.innerHeight - 1;
+    if (!inPinnedView || Math.abs(e.deltaY) < 8) return;
+
+    e.preventDefault();
+
+    const now = performance.now();
+    if (busy || now < wheelReleaseUntil) return;
+
+    wheelAccumulator += e.deltaY;
+    const threshold = e.deltaMode === 1 ? 2 : 34;
+    if (Math.abs(wheelAccumulator) < threshold) return;
+
+    const direction = wheelAccumulator > 0 ? 1 : -1;
+    wheelAccumulator = 0;
+    wheelReleaseUntil = now + 360;
+
+    if (direction > 0 && current === N - 1) {
+      scrollPastShowcase(1);
+      return;
+    }
+
+    if (direction < 0 && current === 0) {
+      scrollPastShowcase(-1);
+      return;
+    }
+
+    goTo(current + direction, { syncScroll: true });
+  }, { passive: false });
+
+  frame.addEventListener('wheel', (e) => {
+    if (isMobileCardLayout()) return;
+
+    const rect = frame.getBoundingClientRect();
+    const inPinnedView = rect.top <= 1 && rect.bottom >= window.innerHeight - 1;
+    if (!inPinnedView || Math.abs(e.deltaY) < 8) return;
+
+    if (current === N - 1 && e.deltaY > 0) {
+      e.preventDefault();
+      scrollPastShowcase(1);
+    } else if (current === 0 && e.deltaY < 0) {
+      e.preventDefault();
+      scrollPastShowcase(-1);
+    }
+  }, { passive: false });
+
   /* ── Touch swipe ────────────────────────────────────── */
+  const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
   let touchStartY = null;
+  let touchStartX = null;
+  let touchStartTime = 0;
+  let touchMoved = false;
 
   frame.addEventListener('touchstart', e => {
     touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = performance.now();
+    touchMoved = false;
+    if (isMobileCardLayout()) {
+      const active = cards[current];
+      if (active) gsap.killTweensOf(active);
+    }
+  }, { passive: true });
+
+  frame.addEventListener('touchmove', e => {
+    if (touchStartY === null || touchStartX === null || !isMobileCardLayout()) return;
+
+    const dy = touchStartY - e.touches[0].clientY;
+    const dx = touchStartX - e.touches[0].clientX;
+    if (Math.abs(dy) < Math.abs(dx) * 1.15) return;
+
+    touchMoved = true;
+    const active = cards[current];
+    if (!active) return;
+
+    const pull = clamp(-dy * 0.18, -54, 54);
+    const pressure = Math.min(Math.abs(dy) / 900, 0.055);
+    gsap.set(active, {
+      y: pull,
+      yPercent: -50,
+      scale: 1 - pressure,
+      rotateX: clamp(dy * 0.018, -2.2, 2.2),
+      rotateY: 0,
+      transformPerspective: 1000
+    });
   }, { passive: true });
 
   frame.addEventListener('touchend', e => {
     if (touchStartY === null) return;
     const dy = touchStartY - e.changedTouches[0].clientY;
+    const elapsed = Math.max(performance.now() - touchStartTime, 1);
+    const velocity = Math.abs(dy) / elapsed;
+    const mobileCards = isMobileCardLayout();
     touchStartY = null;
-    if (Math.abs(dy) < 40) return;
-    goTo(current + (dy > 0 ? 1 : -1));
+    touchStartX = null;
+
+    if (!mobileCards) {
+      if (Math.abs(dy) < 40) return;
+      goTo(current + (dy > 0 ? 1 : -1), { syncScroll: true });
+      return;
+    }
+
+    const threshold = Math.min(58, window.innerHeight * 0.075);
+    const shouldNavigate = touchMoved && (Math.abs(dy) > threshold || velocity > 0.45);
+    const target = current + (dy > 0 ? 1 : -1);
+
+    if (shouldNavigate && target >= 0 && target < N) {
+      goTo(target, { syncScroll: true });
+      return;
+    }
+
+    if (shouldNavigate && (target >= N || target < 0)) {
+      scrollPastShowcase(dy > 0 ? 1 : -1);
+      return;
+    }
+
+    const active = cards[current];
+    if (active) {
+      gsap.to(active, {
+        y: 0,
+        yPercent: -50,
+        scale: 1,
+        rotateX: 0,
+        rotateY: 0,
+        duration: 0.52,
+        ease: 'elastic.out(1, 0.72)'
+      });
+    }
   }, { passive: true });
 
   /* ── Keyboard ───────────────────────────────────────── */
   document.addEventListener('keydown', e => {
     const rect = frame.getBoundingClientRect();
     if (rect.top > 10 || rect.bottom < -10) return;
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
-    if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      if (current === N - 1) scrollPastShowcase(1);
+      else goTo(current + 1, { syncScroll: true });
+    }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      if (current === 0) scrollPastShowcase(-1);
+      else goTo(current - 1, { syncScroll: true });
+    }
   });
 
   window.addEventListener('resize', () => {
@@ -1229,6 +1614,8 @@
   let mx = 0, my = 0;
 
   document.addEventListener('mousemove', e => {
+    if (isMobileCardLayout()) return;
+
     mx = (e.clientX / window.innerWidth  - 0.5) * 2;
     my = (e.clientY / window.innerHeight - 0.5) * 2;
 
