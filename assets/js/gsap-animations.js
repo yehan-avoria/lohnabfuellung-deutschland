@@ -246,6 +246,53 @@
     });
   }
 
+  // ---- Service card background parallax ----
+  function initServiceCardParallax() {
+    if (typeof ScrollTrigger === 'undefined') return;
+
+    document.querySelectorAll('.sdvb-img').forEach(img => {
+      gsap.fromTo(img,
+        { yPercent: -10 },
+        {
+          yPercent: 10,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: img.closest('.service-detail-visual'),
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.2,
+          },
+        }
+      );
+    });
+  }
+
+  // ---- FAQ scroll-in reveal ----
+  function initFaqReveal() {
+    if (typeof ScrollTrigger === 'undefined') return;
+
+    const list = document.querySelector('.faq-list');
+    if (!list) return;
+
+    const items = list.querySelectorAll('.faq-item');
+    if (!items.length) return;
+
+    gsap.fromTo(items,
+      { opacity: 0, y: 32, scale: 0.97 },
+      {
+        opacity: 1, y: 0, scale: 1,
+        duration: 0.68,
+        stagger: 0.13,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: list,
+          start: 'top 88%',
+          once: true,
+        },
+      }
+    );
+  }
+
   // ---- FAQ accordion ----
   function initFAQ() {
     document.querySelectorAll('.faq-question').forEach((btn) => {
@@ -316,6 +363,8 @@
     initParallax();
     initHeadingSplits();
     initTilt();
+    initServiceCardParallax();
+    initFaqReveal();
     initFAQ();
     initCtaFill();
     // initSmoothScroll(); // only if ScrollTo plugin loaded

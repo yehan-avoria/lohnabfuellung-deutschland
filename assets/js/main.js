@@ -53,13 +53,31 @@ window.addEventListener('load', function () {
   }
 
   /* ---- Navigation scroll effect ---- */
+
   const nav = document.querySelector('.nav');
   if (nav) {
+    const navScrollRange = 140;
+    let navScrollRaf = null;
+
     const checkScroll = () => {
+      const progress = Math.max(0, Math.min(window.scrollY / navScrollRange, 1));
+      const eased = progress * progress * (3 - (2 * progress));
+
+      nav.style.setProperty('--nav-scroll-progress', progress.toFixed(4));
+      nav.style.setProperty('--nav-scroll-eased', eased.toFixed(4));
       nav.classList.toggle('scrolled', window.scrollY > 40);
+
+      navScrollRaf = null;
     };
-    window.addEventListener('scroll', checkScroll, { passive: true });
-    checkScroll();
+
+    const queueScrollCheck = () => {
+      if (navScrollRaf !== null) return;
+      navScrollRaf = requestAnimationFrame(checkScroll);
+    };
+
+    window.addEventListener('scroll', queueScrollCheck, { passive: true });
+    window.addEventListener('resize', queueScrollCheck, { passive: true });
+    queueScrollCheck();
   }
 
   /* ---- Mobile navigation ---- */
@@ -116,17 +134,21 @@ window.addEventListener('load', function () {
 
     const triggerLabel = (trigger.textContent || 'Produkte').trim();
     trigger.classList.add('nav-products-trigger');
-    trigger.setAttribute('aria-haspopup', 'true');
-    trigger.setAttribute('aria-expanded', 'false');
-    trigger.innerHTML = `
-      <span class="nav-products-label">${triggerLabel}</span>
-      <span class="nav-products-caret" aria-hidden="true">&#9662;</span>
-    `;
+    trigger.textContent = triggerLabel;
 
     const wrapper = document.createElement('div');
     wrapper.className = 'nav-products';
     trigger.parentNode.insertBefore(wrapper, trigger);
     wrapper.appendChild(trigger);
+
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'nav-products-toggle';
+    toggle.setAttribute('aria-label', 'Produktmenü anzeigen');
+    toggle.setAttribute('aria-haspopup', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.innerHTML = '<span class="nav-products-caret" aria-hidden="true">&#9662;</span>';
+    wrapper.appendChild(toggle);
 
     const dropdown = document.createElement('div');
     dropdown.className = 'nav-products-dropdown';
@@ -200,12 +222,16 @@ window.addEventListener('load', function () {
     const menuLinks = Array.from(dropdown.querySelectorAll('.nav-product-item'));
     const closeMenu = () => {
       wrapper.classList.remove('is-open');
-      trigger.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-expanded', 'false');
     };
     const openMenu = () => {
       wrapper.classList.add('is-open');
-      trigger.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-expanded', 'true');
       setPreview(previewIndex);
+    };
+    const toggleMenu = () => {
+      if (wrapper.classList.contains('is-open')) closeMenu();
+      else openMenu();
     };
 
     let closeTimer = null;
@@ -246,20 +272,31 @@ window.addEventListener('load', function () {
       }
     });
 
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      cancelClose();
+      toggleMenu();
+    });
+
+    toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openMenu();
+        if (menuLinks[0] && e.key === 'ArrowDown') menuLinks[0].focus();
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeMenu();
+        toggle.focus();
+      }
+    });
+
     wrapper.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         e.preventDefault();
         closeMenu();
         trigger.focus();
-      }
-    });
-
-    trigger.addEventListener('click', (e) => {
-      const touchMode = window.matchMedia('(hover: none), (pointer: coarse)').matches || window.innerWidth <= 1024;
-      if (!touchMode) return;
-      if (!wrapper.classList.contains('is-open')) {
-        e.preventDefault();
-        openMenu();
       }
     });
 
@@ -301,6 +338,287 @@ window.addEventListener('load', function () {
   }
 
   initProductsDropdown();
+
+  /* ---- Services (Leistungen) dropdown (desktop nav) ---- */
+  const navServiceIcons = {
+    lab:        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5.5 9.2A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.8L14 9V3"/><path d="M8.5 14h7"/></svg>',
+    droplets:   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 7.5 7 5c-.29 2.5-1.57 3.89-2.29 4.06C3.57 10 3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>',
+    box:        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>',
+    shield:     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    microscope: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="18" r="2"/><path d="M9 3 7.5 9M15 3l1.5 6"/><path d="M9 9h6v6H9z"/><path d="M12 15v3"/></svg>',
+    truck:      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect width="7" height="7" x="14" y="10" rx="1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>'
+  };
+
+  const servicesMenuItems = [
+    { num: '01', title: 'Produktentwicklung',       href: 'leistungen-produktentwicklung.html', copy: 'Von der Idee zum Produkt',        icon: 'lab',        iconBg: 'radial-gradient(circle at 60% 40%, #008cb4 0%, #041c28 55%, #020e14 100%)' },
+    { num: '02', title: 'Lohnabfüllung',             href: 'leistungen-lohnabfuellung.html',     copy: 'Präzise Abfüllung & Produktion', icon: 'droplets',   iconBg: 'radial-gradient(circle at 60% 40%, #0a783c 0%, #051a0e 55%, #020d07 100%)' },
+    { num: '03', title: 'Verpackung & Etikettierung',href: 'leistungen-verpackung.html',         copy: 'Design trifft Funktion',         icon: 'box',        iconBg: 'radial-gradient(circle at 60% 40%, #a01e3c 0%, #2a0a12 55%, #120407 100%)' },
+    { num: '04', title: 'Qualitätsmanagement',       href: 'leistungen-qualitaet.html',          copy: 'ISO 9001 & HACCP zertifiziert',  icon: 'shield',     iconBg: 'radial-gradient(circle at 60% 40%, #0a32a0 0%, #0a1540 55%, #050a1c 100%)' },
+    { num: '05', title: 'In-house Analysen',         href: 'leistungen-analysen.html',           copy: 'Qualität messbar gemacht',       icon: 'microscope', iconBg: 'radial-gradient(circle at 60% 40%, #008cb4 0%, #041c28 55%, #020e14 100%)' },
+    { num: '06', title: 'Logistik & Versand',        href: 'leistungen-logistik.html',           copy: 'Pünktlich ans Ziel',             icon: 'truck',      iconBg: 'radial-gradient(circle at 60% 40%, #a0640a 0%, #16100a 55%, #080604 100%)' }
+  ];
+
+  function initServicesDropdown() {
+    const navLinks = document.querySelector('.nav .nav-links');
+    if (!navLinks) return;
+
+    const trigger = navLinks.querySelector('a[href="leistungen.html"]');
+    if (!trigger || trigger.closest('.nav-services')) return;
+
+    const triggerLabel = (trigger.textContent || 'Leistungen').trim();
+    trigger.classList.add('nav-services-trigger');
+    trigger.textContent = triggerLabel;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'nav-services';
+    trigger.parentNode.insertBefore(wrapper, trigger);
+    wrapper.appendChild(trigger);
+
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'nav-services-toggle';
+    toggle.setAttribute('aria-label', 'Leistungsmenü anzeigen');
+    toggle.setAttribute('aria-haspopup', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.innerHTML = '<span class="nav-services-caret" aria-hidden="true">&#9662;</span>';
+    wrapper.appendChild(toggle);
+
+    const dropdown = document.createElement('div');
+    dropdown.className = 'nav-services-dropdown';
+    dropdown.innerHTML = `
+      <div class="nav-services-panel">
+        <div class="nav-services-head">
+          <span class="nav-services-kicker">Unsere Leistungen</span>
+          <span class="nav-services-sub">6 Services</span>
+        </div>
+        <div class="nav-services-grid">
+          ${servicesMenuItems.map((item, index) => `
+            <a href="${item.href}" class="nav-service-item" style="--i:${index};">
+              <span class="nav-service-icon" aria-hidden="true" style="background:${item.iconBg};">${navServiceIcons[item.icon] || ''}</span>
+              <span class="nav-service-body">
+                <span class="nav-service-num">${item.num}</span>
+                <span class="nav-service-title">${item.title}</span>
+                <span class="nav-service-copy">${item.copy}</span>
+              </span>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    wrapper.appendChild(dropdown);
+
+    const menuLinks = Array.from(dropdown.querySelectorAll('.nav-service-item'));
+
+    const closeMenu = () => {
+      wrapper.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    };
+    const openMenu = () => {
+      wrapper.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    };
+    const toggleMenu = () => {
+      if (wrapper.classList.contains('is-open')) closeMenu(); else openMenu();
+    };
+
+    let closeTimer = null;
+    const cancelClose = () => { if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } };
+    const queueClose = () => { cancelClose(); closeTimer = setTimeout(closeMenu, 140); };
+
+    wrapper.addEventListener('mouseenter', () => { cancelClose(); openMenu(); });
+    wrapper.addEventListener('mouseleave', queueClose);
+    wrapper.addEventListener('focusin', () => { cancelClose(); openMenu(); });
+    wrapper.addEventListener('focusout', () => { if (!wrapper.contains(document.activeElement)) queueClose(); });
+
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); openMenu(); if (menuLinks[0]) menuLinks[0].focus(); }
+      if (e.key === 'Escape') { e.preventDefault(); closeMenu(); trigger.focus(); }
+    });
+
+    toggle.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); cancelClose(); toggleMenu(); });
+    toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault(); openMenu(); if (menuLinks[0] && e.key === 'ArrowDown') menuLinks[0].focus();
+      }
+      if (e.key === 'Escape') { e.preventDefault(); closeMenu(); toggle.focus(); }
+    });
+    wrapper.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { e.preventDefault(); closeMenu(); trigger.focus(); }
+    });
+
+    document.addEventListener('click', (e) => { if (!wrapper.contains(e.target)) closeMenu(); });
+
+    if (cursorDot && cursorRing) {
+      menuLinks.forEach((link) => {
+        link.addEventListener('mouseenter', () => { cursorDot.classList.add('hovering'); cursorRing.classList.add('hovering'); });
+        link.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovering'); cursorRing.classList.remove('hovering'); });
+        link.addEventListener('click', closeMenu);
+      });
+    }
+  }
+
+  initServicesDropdown();
+
+  /* ---- Nav text colour — luminance-based section detection ----
+     Reads the visual background of whichever page section sits under
+     the nav centre. Sections can declare --nav-bg-hint to override
+     the CSS background-color (needed when a video/canvas/gradient
+     pseudo-element is the real visual, not the element's own bg).
+
+     Palette:  dark bg → white  ·  mid → brand blue  ·  light bg → black  */
+  function initNavColorDetect() {
+    var navEl = document.querySelector('.nav');
+    if (!navEl) return;
+
+    var LINK_SEL =
+      '.nav-links > a:not(.nav-cta),' +
+      '.nav-links .nav-products-trigger,' +
+      '.nav-links .nav-products-toggle,' +
+      '.nav-links .nav-services-trigger,' +
+      '.nav-links .nav-services-toggle';
+
+    var WHITE = [255, 255, 255];
+    var BLUE  = [9, 103, 180];
+    var BLACK = [0, 0, 0];
+    var current = '';
+    var rafId = null;
+
+    function hexToRGB(h) {
+      h = h.replace('#', '');
+      if (h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+      return [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16)];
+    }
+
+    function parseRGB(str) {
+      if (!str) return null;
+      var m = str.match(/rgba?\((\d+)[,\s]+(\d+)[,\s]+(\d+)/);
+      if (!m) return null;
+      var a = str.match(/rgba\([^,]+,[^,]+,[^,]+,\s*([0-9.]+)\)/);
+      if (a && parseFloat(a[1]) < 0.05) return null;
+      return [+m[1], +m[2], +m[3]];
+    }
+
+    function lin(c) { c /= 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }
+    function luma(rgb) { return 0.2126 * lin(rgb[0]) + 0.7152 * lin(rgb[1]) + 0.0722 * lin(rgb[2]); }
+
+    function lerp3(a, b, t) {
+      return 'rgb(' +
+        Math.round(a[0] + (b[0]-a[0]) * t) + ',' +
+        Math.round(a[1] + (b[1]-a[1]) * t) + ',' +
+        Math.round(a[2] + (b[2]-a[2]) * t) + ')';
+    }
+
+    function lumaToColor(L) {
+      if (L < 0.14)      return 'rgb(255,255,255)';
+      if (L < 0.30)      return lerp3(WHITE, BLUE,  (L - 0.14) / 0.16);
+      if (L < 0.50)      return lerp3(BLUE,  BLACK, (L - 0.30) / 0.20);
+      return 'rgb(0,0,0)';
+    }
+
+    /* Extract the first OPAQUE colour from a CSS gradient string.
+       Skips rgba() stops with alpha < 0.5 (decorative radial-overlay
+       highlights like rgba(255,255,255,0.06) that sit in front of the
+       real gradient and would give a falsely-bright luminance reading). */
+    function firstGradientColor(bgImage) {
+      if (!bgImage || bgImage === 'none') return null;
+      var hexM = bgImage.match(/#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\b/);
+      if (hexM) return hexToRGB('#' + hexM[1]);
+      var re = /rgba?\((\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s/]+([0-9.]+))?\)/g;
+      var m;
+      while ((m = re.exec(bgImage)) !== null) {
+        var alpha = m[4] !== undefined ? parseFloat(m[4]) : 1;
+        if (alpha >= 0.5) return [+m[1], +m[2], +m[3]];
+      }
+      return null;
+    }
+
+    /* Return the best RGB for an element: hint → ph-accent-dark (hero) → bg-color → gradient */
+    function elBgRGB(el) {
+      var cs = window.getComputedStyle(el);
+      var hint = cs.getPropertyValue('--nav-bg-hint').trim();
+      if (hint) return hexToRGB(hint);
+      /* Product-page hero: its gradient is built from --ph-accent-dark;
+         using that directly avoids the translucent radial overlay problem */
+      if (el.classList && el.classList.contains('ph-hero')) {
+        var phDark = cs.getPropertyValue('--ph-accent-dark').trim();
+        if (phDark) return hexToRGB(phDark);
+      }
+      var solid = parseRGB(cs.backgroundColor);
+      if (solid) return solid;
+      return firstGradientColor(cs.backgroundImage);
+    }
+
+    function getBgRGB() {
+      var navH = navEl.offsetHeight || 70;
+      var cy   = navH / 2;
+      /* Sample at the horizontal centre of the nav-links area (≈65% from left) */
+      var cx = window.innerWidth * 0.65;
+
+      /* Query sections (broad containers) and card-level bg elements */
+      var els = document.querySelectorAll(
+        'section, .marquee-section, footer, ' +
+        '.product-card-bg, .product-card[style], ' +
+        '[class$="-section-bg"], [class$="-bg"]'
+      );
+
+      var sectionRGB = null;   /* fallback: the owning section's colour */
+      var cardRGB    = null;   /* preferred: more specific card element */
+      var cardArea   = Infinity;
+
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el === navEl || navEl.contains(el)) continue;
+        var r = el.getBoundingClientRect();
+        if (r.top > cy || r.bottom <= cy) continue;
+        if (r.left > cx || r.right  <= cx) continue;
+
+        var rgb = elBgRGB(el);
+        if (!rgb) continue;
+
+        var area = r.width * r.height;
+        var isSection = el.tagName === 'SECTION' || el.classList.contains('marquee-section') || el.tagName === 'FOOTER';
+
+        if (isSection) {
+          sectionRGB = rgb; /* keep as fallback */
+        } else if (area < cardArea) {
+          cardArea = area;
+          cardRGB  = rgb;   /* most specific card-level bg wins */
+        }
+      }
+
+      /* Prefer card-level if found, else section, else body */
+      if (cardRGB) return cardRGB;
+      if (sectionRGB) return sectionRGB;
+      var bodyRGB = parseRGB(window.getComputedStyle(document.body).backgroundColor);
+      return bodyRGB || [20, 20, 40];
+    }
+
+    function applyColor(color) {
+      if (color === current) return;
+      current = color;
+      navEl.querySelectorAll(LINK_SEL).forEach(function(el) {
+        el.style.color = color;
+      });
+      navEl.querySelectorAll('.nav-hamburger span').forEach(function(s) {
+        s.style.background = color;
+      });
+    }
+
+    function update() {
+      applyColor(lumaToColor(luma(getBgRGB())));
+      rafId = null;
+    }
+
+    function schedule() {
+      if (!rafId) rafId = requestAnimationFrame(update);
+    }
+
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    schedule();
+  }
+
+  initNavColorDetect();
 
   /* ---- Active nav link based on current page ---- */
   const path = window.location.pathname.split('/').pop() || 'index.html';
