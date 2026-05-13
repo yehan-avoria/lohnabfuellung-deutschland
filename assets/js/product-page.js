@@ -38,18 +38,28 @@
 
   const CATEGORY_LINKS = [
     {
-      id: "hygiene-kosmetik",
+      id: "kosmetik",
       num: "01",
-      title: "Hygiene &amp; Kosmetik",
-      file: "produkte-hygiene-kosmetik.html",
-      copy: "Pflege, Reinigung und markenreife Kosmetikprodukte.",
+      title: "Kosmetik",
+      file: "produkte-kosmetik.html",
+      copy: "Pflege, Beauty und markenreife Kosmetiklinien.",
       icon: "leaf",
       image: "assets/images/Kosmetik.jpg",
       glow: "rgba(196, 122, 138, 0.34)"
     },
     {
-      id: "cbd-produkte",
+      id: "hygiene",
       num: "02",
+      title: "Hygiene",
+      file: "produkte-hygiene.html",
+      copy: "Reinigung, Hygiene und Clean-Care Produkte.",
+      icon: "shield",
+      image: "assets/images/Hygiene.webp",
+      glow: "rgba(25, 167, 184, 0.34)"
+    },
+    {
+      id: "cbd-produkte",
+      num: "03",
       title: "CBD Produkte",
       file: "produkte-cbd-produkte.html",
       copy: "Kontrollierte Abf&uuml;llung f&uuml;r &Ouml;le, Tinkturen und Topicals.",
@@ -58,8 +68,28 @@
       glow: "rgba(90, 154, 112, 0.34)"
     },
     {
+      id: "kapseln",
+      num: "04",
+      title: "Kapseln",
+      file: "produkte-kapseln.html",
+      copy: "Kapsel-F&uuml;llung und Supplement-Gebinde.",
+      icon: "capsule",
+      image: "assets/images/Kapseln.jpg",
+      glow: "rgba(176, 128, 48, 0.34)"
+    },
+    {
+      id: "pulver",
+      num: "05",
+      title: "Pulver",
+      file: "produkte-pulver.html",
+      copy: "Pulverblends, Dosen, Sachets und Stick-Packs.",
+      icon: "lab",
+      image: "assets/images/pulver.webp",
+      glow: "rgba(212, 162, 74, 0.34)"
+    },
+    {
       id: "aetherische-oele",
-      num: "03",
+      num: "06",
       title: "&Auml;therische &Ouml;le",
       file: "produkte-aetherische-oele.html",
       copy: "Single Oils, Duftmischungen und saubere Blend-Prozesse.",
@@ -68,18 +98,8 @@
       glow: "rgba(112, 96, 176, 0.34)"
     },
     {
-      id: "kapseln-pulver",
-      num: "04",
-      title: "Kapseln &amp; Pulver",
-      file: "produkte-kapseln-pulver.html",
-      copy: "F&uuml;llung, Mischung und Verpackung f&uuml;r Supplements.",
-      icon: "capsule",
-      image: "assets/images/Kapseln.jpg",
-      glow: "rgba(176, 128, 48, 0.34)"
-    },
-    {
       id: "flavor-drops-aromen",
-      num: "05",
+      num: "07",
       title: "Flavor Drops &amp; Aromen",
       file: "produkte-flavor-drops-aromen.html",
       copy: "Tropfengenau dosierte Aroma- und Flavor-Systeme.",
@@ -89,7 +109,7 @@
     },
     {
       id: "nikotin",
-      num: "06",
+      num: "08",
       title: "Nikotin",
       file: "produkte-nikotin.html",
       copy: "TPD-nahe Prozesse, sichere Gebinde und dokumentierte Chargen.",
@@ -99,13 +119,23 @@
     },
     {
       id: "chemikalien",
-      num: "07",
+      num: "09",
       title: "Chemikalien",
       file: "produkte-chemikalien.html",
       copy: "Technische Fl&uuml;ssigkeiten und industrielle Konzentrate.",
       icon: "flask",
       image: "assets/images/Chemikalien.jpg",
       glow: "rgba(80, 96, 112, 0.34)"
+    },
+    {
+      id: "propylenglykol-glycerin",
+      num: "10",
+      title: "Propylenglykol &amp; Glycerin",
+      file: "produkte-propylenglykol-glycerin.html",
+      copy: "PG/VG, Basen und technische Gebinde.",
+      icon: "bottle",
+      image: "assets/images/PG-VG.webp",
+      glow: "rgba(26, 125, 200, 0.34)"
     }
   ];
 
@@ -356,7 +386,7 @@
     return `
       <section class="ph-section ph-section--footer-blend">
         <div class="container">
-          ${sectionHeader("Weitere Kategorien", "Alle sieben <em>Produktbereiche</em>", "Die Produktseiten sind jetzt als zusammenh&auml;ngendes System aufgebaut. So kann man schnell zwischen Kategorien wechseln, ohne den visuellen Stil zu verlieren.")}
+          ${sectionHeader("Weitere Kategorien", "Alle zehn <em>Produktbereiche</em>", "Die Produktseiten sind jetzt als zusammenh&auml;ngendes System aufgebaut. So kann man schnell zwischen Kategorien wechseln, ohne den visuellen Stil zu verlieren.")}
           <div class="ph-category-grid">
             ${CATEGORY_LINKS.map((item) => `
               <a href="${item.file}" class="ph-category-card ph-panel-tilt ${item.id === config.id ? "is-active" : ""}" data-product-reveal data-tilt style="--cat-glow:${item.glow};">

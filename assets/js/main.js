@@ -52,20 +52,84 @@ window.addEventListener('load', function () {
     });
   }
 
+  /* ---- Footer social links ---- */
+  const footerSocialLinks = [
+    {
+      label: 'Instagram',
+      href: 'https://www.instagram.com/avoriaofficial/',
+      icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2"></circle></svg>'
+    },
+    {
+      label: 'Facebook',
+      href: 'https://www.facebook.com/Avoria.GmbH/',
+      icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a5 5 0 0 0-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9a1 1 0 0 1 1-1z"></path></svg>'
+    }
+  ];
+
+  document.querySelectorAll('.footer-brand').forEach((brand) => {
+    if (brand.querySelector('.footer-social-links')) return;
+
+    const social = document.createElement('div');
+    social.className = 'footer-social-links';
+    social.setAttribute('aria-label', 'Social Media');
+    social.innerHTML = footerSocialLinks.map((item) => `
+      <a href="${item.href}" class="footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="${item.label}">
+        <span class="footer-social-icon">${item.icon}</span>
+        <span>${item.label}</span>
+      </a>
+    `).join('');
+
+    const anchor = brand.querySelector('.footer-contact-links') || brand.querySelector('.footer-brand-desc');
+    if (anchor) {
+      anchor.insertAdjacentElement('afterend', social);
+    } else {
+      brand.appendChild(social);
+    }
+  });
+
+  const avoriaMapUrl = 'https://maps.google.com/?q=Industriestra%C3%9Fe+90574+Ro%C3%9Ftal+Bayern+Deutschland';
+  document.querySelectorAll('.footer-contact-link').forEach((link) => {
+    const text = (link.textContent || '').trim();
+    if (!text.includes('Avoria GmbH') || !text.includes('Ro')) return;
+
+    link.href = avoriaMapUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.setAttribute('aria-label', 'Avoria GmbH Standort in Google Maps öffnen');
+  });
+
   /* ---- Navigation scroll effect ---- */
 
   const nav = document.querySelector('.nav');
   if (nav) {
     const navScrollRange = 140;
     let navScrollRaf = null;
+    const darkNavSelectors = [
+      '.hero',
+      '.ph-hero',
+      '.service-hero',
+      '.section--dark',
+      '.ph-section--dark',
+      '.cta-section',
+      '.contact-panel--form'
+    ].join(',');
 
     const checkScroll = () => {
       const progress = Math.max(0, Math.min(window.scrollY / navScrollRange, 1));
       const eased = progress * progress * (3 - (2 * progress));
+      const probeY = Math.min(window.innerHeight - 1, nav.offsetHeight + 8);
+      const probeX = Math.floor(window.innerWidth / 2);
+      const probeXLogo = Math.floor(window.innerWidth * 0.1);
+      const elementBelowNav = document.elementFromPoint(probeX, probeY);
+      const elementBelowLogo = document.elementFromPoint(probeXLogo, probeY);
+      const isOverDark = Boolean(elementBelowNav && elementBelowNav.closest(darkNavSelectors));
+      const isLogoOverDark = Boolean(elementBelowLogo && elementBelowLogo.closest(darkNavSelectors));
 
       nav.style.setProperty('--nav-scroll-progress', progress.toFixed(4));
       nav.style.setProperty('--nav-scroll-eased', eased.toFixed(4));
       nav.classList.toggle('scrolled', window.scrollY > 40);
+      nav.classList.toggle('nav-over-dark', isOverDark);
+      nav.classList.toggle('nav-logo-over-dark', isLogoOverDark);
 
       navScrollRaf = null;
     };
@@ -110,19 +174,25 @@ window.addEventListener('load', function () {
     capsule: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14 4.7 8.7a4.2 4.2 0 0 1 0-5.9 4.2 4.2 0 0 1 5.9 0L16 8.2"></path><path d="m14 10 5.3 5.3a4.2 4.2 0 0 1 0 5.9 4.2 4.2 0 0 1-5.9 0L8 16"></path><path d="m7 7 10 10"></path></svg>',
     bolt: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"></path></svg>',
     lock: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 1 1 8 0v3"></path></svg>',
-    flask: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"></path><path d="M10 3v6l-5.5 9.2A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.8L14 9V3"></path><path d="M8.5 14h7"></path></svg>'
+    flask: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"></path><path d="M10 3v6l-5.5 9.2A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.8L14 9V3"></path><path d="M8.5 14h7"></path></svg>',
+    bottle: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2h4"></path><path d="M10 6h4"></path><path d="M9 6v4L5.6 18a2 2 0 0 0 1.8 3h9.2a2 2 0 0 0 1.8-3L15 10V6"></path></svg>',
+    shield: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+    lab: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2v7l-5.5 9.2A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.8L14 9V2"></path><path d="M8 14h8"></path></svg>'
   };
 
   const navProductIcon = (name) => navProductIcons[name] || navProductIcons.drop;
 
   const productsMenuItems = [
-    { num: '01', title: 'Hygiene & Kosmetik', href: 'produkte-hygiene-kosmetik.html', copy: 'Pflege- und Kosmetiklinien', icon: 'leaf', image: 'assets/images/Kosmetik.jpg' },
-    { num: '02', title: 'CBD Produkte', href: 'produkte-cbd-produkte.html', copy: 'Oele, Tinkturen, Topicals', icon: 'drop', image: 'assets/images/CDB.jpg' },
-    { num: '03', title: 'Aetherische Oele', href: 'produkte-aetherische-oele.html', copy: 'Single Oils und Duftmischungen', icon: 'wave', image: 'assets/images/Ätherische Öle.jpg' },
-    { num: '04', title: 'Kapseln & Pulver', href: 'produkte-kapseln-pulver.html', copy: 'Caps, Stick Packs, Mischungen', icon: 'capsule', image: 'assets/images/Kapseln.jpg' },
-    { num: '05', title: 'Flavor Drops & Aromen', href: 'produkte-flavor-drops-aromen.html', copy: 'Drop-genaue Aroma-Systeme', icon: 'bolt', image: 'assets/images/Flavour Drops.jpg' },
-    { num: '06', title: 'Nikotin', href: 'produkte-nikotin.html', copy: 'TPD-nahe Prozesse und Gebinde', icon: 'lock', image: 'assets/images/Nikotin.jpg' },
-    { num: '07', title: 'Chemikalien', href: 'produkte-chemikalien.html', copy: 'Technische Fluids und Konzentrate', icon: 'flask', image: 'assets/images/Chemikalien.jpg' }
+    { num: '01', title: 'Kosmetik', href: 'produkte-kosmetik.html', copy: 'Beauty, Pflege, Private Label', icon: 'leaf', image: 'assets/images/Kosmetik.jpg' },
+    { num: '02', title: 'Hygiene', href: 'produkte-hygiene.html', copy: 'Clean-Care und Reinigung', icon: 'shield', image: 'assets/images/Hygiene.webp' },
+    { num: '03', title: 'CBD Produkte', href: 'produkte-cbd-produkte.html', copy: 'Oele, Tinkturen, Topicals', icon: 'drop', image: 'assets/images/CDB.jpg' },
+    { num: '04', title: 'Kapseln', href: 'produkte-kapseln.html', copy: 'Caps und Supplement-Gebinde', icon: 'capsule', image: 'assets/images/Kapseln.jpg' },
+    { num: '05', title: 'Pulver', href: 'produkte-pulver.html', copy: 'Blends, Dosen, Stick Packs', icon: 'lab', image: 'assets/images/pulver.webp' },
+    { num: '06', title: 'Aetherische Oele', href: 'produkte-aetherische-oele.html', copy: 'Single Oils und Duftmischungen', icon: 'wave', image: 'assets/images/Ätherische Öle.jpg' },
+    { num: '07', title: 'Flavor Drops & Aromen', href: 'produkte-flavor-drops-aromen.html', copy: 'Drop-genaue Aroma-Systeme', icon: 'bolt', image: 'assets/images/Flavour Drops.jpg' },
+    { num: '08', title: 'Nikotin', href: 'produkte-nikotin.html', copy: 'TPD-nahe Prozesse und Gebinde', icon: 'lock', image: 'assets/images/Nikotin.jpg' },
+    { num: '09', title: 'Chemikalien', href: 'produkte-chemikalien.html', copy: 'Technische Fluids und Konzentrate', icon: 'flask', image: 'assets/images/Chemikalien.jpg' },
+    { num: '10', title: 'Propylenglykol & Glycerin', href: 'produkte-propylenglykol-glycerin.html', copy: 'PG/VG, Basen und Gebinde', icon: 'bottle', image: 'assets/images/PG-VG.webp' }
   ];
 
   function initProductsDropdown() {
@@ -156,7 +226,7 @@ window.addEventListener('load', function () {
       <div class="nav-products-panel">
         <div class="nav-products-head">
           <span class="nav-products-kicker">Produktbereiche</span>
-          <span class="nav-products-sub">Alle 7 Kategorien</span>
+          <span class="nav-products-sub">Alle 10 Kategorien</span>
         </div>
         <div class="nav-products-grid">
           ${productsMenuItems.map((item, index) => `
@@ -557,7 +627,8 @@ window.addEventListener('load', function () {
       /* Query sections (broad containers) and card-level bg elements */
       var els = document.querySelectorAll(
         'section, .marquee-section, footer, ' +
-        '.product-card-bg, .product-card[style], ' +
+        '.product-card-bg, .product-card--cta, .product-card[style], ' +
+        '.about-video-card, .about-media-tile, .about-media-note, ' +
         '[class$="-section-bg"], [class$="-bg"]'
       );
 
@@ -723,5 +794,342 @@ window.addEventListener('load', function () {
   }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
 
   document.querySelectorAll('[data-reveal]').forEach((el) => revealObs.observe(el));
+
+  /* ---- Contact concern picker ---- */
+  (function initContactConcernPicker() {
+    const select = document.querySelector('#interest');
+    if (!select) return;
+
+    const chipItems = [
+      ['produktentwicklung', 'Produktentwicklung'],
+      ['lohnabfuellung', 'Lohnabf&uuml;llung'],
+      ['verpackung', 'Verpackung'],
+      ['qualitaet', 'Qualit&auml;t'],
+      ['analyse', 'Analysen'],
+      ['logistik', 'Logistik']
+    ];
+
+    if (!document.querySelector('.contact-form-chips')) {
+      const chips = document.createElement('div');
+      chips.className = 'contact-form-chips';
+      chips.setAttribute('aria-label', 'Anliegen auswaehlen');
+      chips.innerHTML = chipItems.map(([value, label]) => (
+        `<button class="contact-form-chip" type="button" data-interest="${value}">${label}</button>`
+      )).join('');
+      select.insertAdjacentElement('beforebegin', chips);
+    }
+
+    const cards = Array.from(document.querySelectorAll('.contact-concern-card[data-interest], .contact-form-chip[data-interest]'));
+    if (!cards.length) return;
+
+    function setActive(value) {
+      cards.forEach((card) => {
+        card.classList.toggle('is-active', card.dataset.interest === value);
+      });
+    }
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const value = card.dataset.interest || '';
+        select.value = value;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        setActive(value);
+        if (card.classList.contains('contact-concern-card')) {
+          const target = select.closest('.contact-form') || select;
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          const firstField = target.querySelector('input, textarea, button, select:not([aria-hidden="true"])');
+          if (firstField) setTimeout(() => firstField.focus({ preventScroll: true }), 450);
+        }
+      });
+    });
+
+    select.addEventListener('change', () => setActive(select.value));
+    setActive(select.value);
+  })();
+
+  /* ---- Contact page helpers ---- */
+  (function initContactPageHelpers() {
+    document.querySelectorAll('[data-copy]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const value = button.getAttribute('data-copy') || '';
+        const label = button.querySelector('.contact-action-arrow');
+        const original = label ? label.innerHTML : '';
+
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(value);
+          } else {
+            const temp = document.createElement('textarea');
+            temp.value = value;
+            temp.setAttribute('readonly', '');
+            temp.style.position = 'fixed';
+            temp.style.opacity = '0';
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            temp.remove();
+          }
+          if (label) {
+            label.textContent = 'OK';
+            setTimeout(() => { label.innerHTML = original; }, 1400);
+          }
+        } catch (_) {
+          window.location.href = `mailto:${value}`;
+        }
+      });
+    });
+
+    document.querySelectorAll('form.contact-form-el').forEach((form) => {
+      const fields = Array.from(form.querySelectorAll('input[required], textarea[required], select'));
+      const panel = form.closest('.contact-panel--form');
+      const progress = panel ? panel.querySelector('.contact-form-progress span') : null;
+      const message = form.querySelector('#message');
+
+      if (message && !form.querySelector('.contact-form-char-count')) {
+        const count = document.createElement('div');
+        count.className = 'contact-form-char-count';
+        count.textContent = '0 Zeichen';
+        message.insertAdjacentElement('afterend', count);
+
+        message.addEventListener('input', () => {
+          count.textContent = `${message.value.length} Zeichen`;
+        });
+      }
+
+      function updateProgress() {
+        if (!panel || !progress || !fields.length) return;
+        const completed = fields.filter((field) => {
+          if (field.matches('[aria-hidden="true"]') && field.value) return true;
+          return (field.value || '').trim().length > 0;
+        }).length;
+        const percent = Math.round((completed / fields.length) * 100);
+        progress.textContent = `${percent}%`;
+        panel.style.setProperty('--form-progress', `${percent}%`);
+      }
+
+      fields.forEach((field) => {
+        field.addEventListener('input', updateProgress);
+        field.addEventListener('change', updateProgress);
+      });
+      form.addEventListener('reset', () => setTimeout(updateProgress, 0));
+      updateProgress();
+    });
+  })();
+
+  /* ---- About media parallax fallback (used if ScrollTrigger is unavailable) ---- */
+  (function initAboutMediaFallback() {
+    if (typeof ScrollTrigger !== 'undefined') return;
+
+    const media = Array.from(document.querySelectorAll('.about-video-el, .about-media-tile img'));
+    if (!media.length) return;
+
+    let raf = 0;
+    const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+    const lerp = (start, end, progress) => start + ((end - start) * progress);
+
+    function update() {
+      raf = 0;
+      const vh = window.innerHeight || document.documentElement.clientHeight || 800;
+
+      media.forEach((item, index) => {
+        const frame = item.closest('.about-video-card, .about-media-tile') || item;
+        const rect = frame.getBoundingClientRect();
+        const progress = clamp((vh - rect.top) / (vh + rect.height), 0, 1);
+        const travel = index === 0 ? 54 : 32;
+        const y = lerp(-travel, travel, progress);
+        const scale = lerp(index === 0 ? 1.075 : 1.065, index === 0 ? 1.035 : 1.03, progress);
+        item.style.transform = `translate3d(0, ${y}px, 0) scale(${scale})`;
+      });
+    }
+
+    function schedule() {
+      if (!raf) raf = requestAnimationFrame(update);
+    }
+
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+  })();
+
+  /* ---- Service cards — whole card clickable ---- */
+  document.querySelectorAll('.service-card').forEach((card) => {
+    const link = card.querySelector('.service-link');
+    if (!link) return;
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', (e) => {
+      if (!e.target.closest('a')) {
+        window.location.href = link.getAttribute('href');
+      }
+    });
+  });
+
+  /* ---- Nav morph: full pill ↔ small Menü pill on scroll ---- */
+  (function initNavMorph() {
+    var navEl = document.getElementById('nav');
+    if (!navEl) return;
+
+    var isMobile = function () { return window.innerWidth <= 900; };
+
+    // Hotzone — desktop hover trigger
+    var hotzone = document.createElement('div');
+    hotzone.id        = 'nav-hotzone';
+    hotzone.className = 'nav-hotzone';
+    hotzone.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(hotzone);
+
+    // Menü indicator — injected inside nav, visible in morphed state
+    var indicator = document.createElement('div');
+    indicator.className = 'nav-menu-indicator';
+    indicator.setAttribute('role', 'button');
+    indicator.setAttribute('tabindex', '0');
+    indicator.setAttribute('aria-label', 'Navigation öffnen');
+    indicator.innerHTML =
+      '<div class="nav-menu-indicator-lines"><span></span><span></span><span></span></div>' +
+      '<span class="nav-menu-indicator-label">Menü</span>';
+    navEl.appendChild(indicator);
+
+    var isScrolled = window.scrollY > 40;
+    var isMorphed  = false;
+    var closeTimer = null;
+    var autoTimer  = null;
+
+    function cancelTimers() {
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+      if (autoTimer)  { clearTimeout(autoTimer);  autoTimer  = null; }
+    }
+
+    /* Shrink to small pill */
+    function morphSmall() {
+      cancelTimers();
+      isMorphed = true;
+      navEl.classList.add('nav-morphed');
+      hotzone.style.pointerEvents = 'all';
+    }
+
+    /* Expand back to full nav */
+    function morphFull() {
+      cancelTimers();
+      isMorphed = false;
+      navEl.classList.remove('nav-morphed');
+      hotzone.style.pointerEvents = 'none';
+
+      // Mobile/touch: auto-shrink after 3 s (skip if hamburger overlay open)
+      if (isMobile()) {
+        autoTimer = setTimeout(function () {
+          if (isScrolled && !navEl.classList.contains('menu-open')) morphSmall();
+        }, 3000);
+      }
+    }
+
+    function queueMorphSmall() {
+      if (closeTimer) clearTimeout(closeTimer);
+      closeTimer = setTimeout(morphSmall, 220);
+    }
+
+    function cancelClose() {
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+    }
+
+    /* Fully reset when back at top of page */
+    function resetToNormal() {
+      cancelTimers();
+      isMorphed = false;
+      navEl.classList.remove('nav-morphed');
+      hotzone.style.pointerEvents = 'none';
+    }
+
+    // Initial state
+    if (isScrolled) morphSmall();
+
+    // Scroll sync
+    window.addEventListener('scroll', function () {
+      var nowScrolled = window.scrollY > 40;
+      if (nowScrolled === isScrolled) return;
+      isScrolled = nowScrolled;
+      if (nowScrolled) { morphSmall(); } else { resetToNormal(); }
+    }, { passive: true });
+
+    // Indicator tap/click → expand
+    indicator.addEventListener('click', function () {
+      if (isScrolled) morphFull();
+    });
+    indicator.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') && isScrolled) { e.preventDefault(); morphFull(); }
+    });
+
+    // Desktop: hover hotzone → expand
+    hotzone.addEventListener('mouseenter', function () {
+      if (isScrolled && !isMobile()) morphFull();
+    });
+    hotzone.addEventListener('mouseleave', function () {
+      if (isScrolled && !isMobile()) queueMorphSmall();
+    });
+
+    // Desktop: hover nav → expand if morphed; keep expanded while inside
+    navEl.addEventListener('mouseenter', function () {
+      if (!isMobile()) {
+        cancelClose();
+        if (isScrolled && isMorphed) morphFull();
+      }
+    });
+    navEl.addEventListener('mouseleave', function () {
+      if (isScrolled && !isMobile()) queueMorphSmall();
+    });
+
+    // Desktop: hover indicator → expand
+    indicator.addEventListener('mouseenter', function () {
+      if (isScrolled && !isMobile()) morphFull();
+    });
+
+    // Mobile: tap anywhere on nav resets 3 s auto-shrink timer
+    navEl.addEventListener('touchstart', function () {
+      if (isScrolled && !isMorphed && isMobile()) {
+        cancelTimers();
+        autoTimer = setTimeout(function () {
+          if (isScrolled && !navEl.classList.contains('menu-open')) morphSmall();
+        }, 3000);
+      }
+    }, { passive: true });
+
+    // Resize guard
+    window.addEventListener('resize', function () {
+      if (!isScrolled) resetToNormal();
+    });
+  })();
+
+  /* ---- Service icon theme colours ---- */
+  const serviceIconGradients = {
+    '01': 'radial-gradient(circle at 60% 40%, #008cb4 0%, #041c28 55%, #020e14 100%)',
+    '02': 'radial-gradient(circle at 60% 40%, #0a783c 0%, #051a0e 55%, #020d07 100%)',
+    '03': 'radial-gradient(circle at 60% 40%, #a01e3c 0%, #2a0a12 55%, #120407 100%)',
+    '04': 'radial-gradient(circle at 60% 40%, #0a32a0 0%, #0a1540 55%, #050a1c 100%)',
+    '05': 'radial-gradient(circle at 60% 40%, #008cb4 0%, #041c28 55%, #020e14 100%)',
+    '06': 'radial-gradient(circle at 60% 40%, #a0640a 0%, #16100a 55%, #080604 100%)',
+  };
+  const serviceGlowColors = {
+    '01': 'rgba(0,140,180,0.18)',
+    '02': 'rgba(10,120,60,0.18)',
+    '03': 'rgba(160,30,60,0.18)',
+    '04': 'rgba(10,50,160,0.18)',
+    '05': 'rgba(0,140,180,0.18)',
+    '06': 'rgba(160,100,10,0.18)',
+  };
+
+  // Sub-page "other services" nav cards
+  document.querySelectorAll('.other-service-card').forEach((card) => {
+    const num  = card.querySelector('.other-service-card-num')?.textContent.trim();
+    const icon = card.querySelector('.other-service-card-icon');
+    const bg   = serviceIconGradients[num];
+    const glow = serviceGlowColors[num];
+    if (icon && bg) {
+      icon.style.background  = bg;
+      icon.style.color       = '#fff';
+      icon.style.borderColor = 'transparent';
+    }
+    if (card && glow) {
+      card.style.boxShadow  = `0 4px 28px ${glow}, 0 1px 4px rgba(0,0,0,0.06)`;
+      card.style.borderColor = glow.replace('0.18', '0.30');
+    }
+  });
 
 })();

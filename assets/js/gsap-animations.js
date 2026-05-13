@@ -4,11 +4,10 @@
    ============================================================ */
 
 (function () {
-  // Only run if GSAP is loaded
-  if (typeof gsap === 'undefined') return;
+  const hasGsap = typeof gsap !== 'undefined';
 
   // Register plugins
-  if (typeof ScrollTrigger !== 'undefined') {
+  if (hasGsap && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
   }
 
@@ -267,52 +266,135 @@
     });
   }
 
+  // ---- About page media scroll motion ----
+  function initAboutMediaMotion() {
+    if (typeof ScrollTrigger === 'undefined') return;
+
+    const section = document.querySelector('.about-media-section');
+    if (!section) return;
+
+    const mm = gsap.matchMedia();
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const media = section.querySelectorAll('.about-video-el, .about-media-tile img');
+
+      media.forEach((item, index) => {
+        const frame = item.closest('.about-video-card, .about-media-tile') || section;
+        const travel = index === 0 ? 9 : 11;
+        gsap.fromTo(item,
+          { yPercent: -travel, scale: index === 0 ? 1.075 : 1.065 },
+          {
+            yPercent: travel,
+            scale: index === 0 ? 1.035 : 1.03,
+            ease: 'none',
+            force3D: true,
+            scrollTrigger: {
+              trigger: frame,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.35,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+      });
+    });
+  }
+
   // ---- FAQ scroll-in reveal ----
   function initFaqReveal() {
     if (typeof ScrollTrigger === 'undefined') return;
 
-    const list = document.querySelector('.faq-list');
-    if (!list) return;
+    document.querySelectorAll('.faq-accordion, .faq-list').forEach((list) => {
+      const items = list.querySelectorAll('.faq-item');
+      if (!items.length) return;
 
-    const items = list.querySelectorAll('.faq-item');
-    if (!items.length) return;
-
-    gsap.fromTo(items,
-      { opacity: 0, y: 32, scale: 0.97 },
-      {
-        opacity: 1, y: 0, scale: 1,
-        duration: 0.68,
-        stagger: 0.13,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: list,
-          start: 'top 88%',
-          once: true,
-        },
-      }
-    );
+      gsap.fromTo(items,
+        { opacity: 0, y: 32, scale: 0.97 },
+        {
+          opacity: 1, y: 0, scale: 1,
+          duration: 0.68,
+          stagger: 0.13,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: list,
+            start: 'top 88%',
+            once: true,
+          },
+        }
+      );
+    });
   }
 
   // ---- FAQ accordion ----
   function initFAQ() {
-    document.querySelectorAll('.faq-question').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const item   = btn.closest('.faq-item');
-        const answer = item.querySelector('.faq-answer');
-        const isOpen = item.classList.contains('open');
+    const items = document.querySelectorAll('.faq-accordion .faq-item');
+    if (!items.length) return;
 
-        // Close all
-        document.querySelectorAll('.faq-item.open').forEach((o) => {
-          o.classList.remove('open');
-          gsap.to(o.querySelector('.faq-answer'), { maxHeight: 0, duration: 0.4, ease: 'power2.inOut' });
+    function getAnswerHeight(item) {
+      const inner = item.querySelector('.faq-answer-inner');
+      return inner ? inner.scrollHeight : 0;
+    }
+
+    function closeItem(item) {
+      const button = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+
+      item.classList.remove('is-open');
+      if (button) button.setAttribute('aria-expanded', 'false');
+
+      if (!answer) return;
+      if (typeof gsap !== 'undefined') {
+        gsap.to(answer, {
+          height: 0,
+          duration: 0.34,
+          ease: 'power2.inOut',
+          onComplete: () => { if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh(); },
+        });
+      } else {
+        answer.style.height = '0px';
+      }
+    }
+
+    function openItem(item) {
+      const button = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+
+      item.classList.add('is-open');
+      if (button) button.setAttribute('aria-expanded', 'true');
+
+      if (!answer) return;
+      if (typeof gsap !== 'undefined') {
+        gsap.to(answer, {
+          height: getAnswerHeight(item),
+          duration: 0.42,
+          ease: 'power2.out',
+          onComplete: () => { if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh(); },
+        });
+      } else {
+        answer.style.height = getAnswerHeight(item) + 'px';
+      }
+    }
+
+    items.forEach((item) => {
+      const answer = item.querySelector('.faq-answer');
+      if (answer) {
+        answer.style.height = item.classList.contains('is-open') ? getAnswerHeight(item) + 'px' : '0px';
+      }
+    });
+
+    document.querySelectorAll('.faq-accordion .faq-question').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('is-open');
+
+        items.forEach((other) => {
+          if (other !== item) closeItem(other);
         });
 
         if (!isOpen) {
-          item.classList.add('open');
-          gsap.fromTo(answer,
-            { maxHeight: 0 },
-            { maxHeight: answer.scrollHeight + 40, duration: 0.5, ease: 'power2.out' }
-          );
+          openItem(item);
+        } else {
+          closeItem(item);
         }
       });
     });
@@ -355,18 +437,54 @@
     });
   }
 
+  // ---- FAQ sticky aside (GSAP-driven, desktop only) ----
+  function initFaqSticky() {
+    if (typeof ScrollTrigger === 'undefined') return;
+    const aside = document.querySelector('.faq-aside');
+    const accordion = document.querySelector('.faq-accordion');
+    if (!aside || !accordion) return;
+
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 1025px)', () => {
+      const navH = parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue('--nav-height')
+      ) || 100;
+      const offset = navH + 24;
+
+      gsap.to(aside, {
+        y: () => Math.max(0, accordion.scrollHeight - aside.scrollHeight),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: aside.parentElement,
+          start: 'top ' + offset + 'px',
+          end: () => '+=' + Math.max(0, accordion.scrollHeight - aside.scrollHeight),
+          scrub: 1.2,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      return () => {
+        gsap.set(aside, { y: 0 });
+      };
+    });
+  }
+
   // ---- Init all ----
   document.addEventListener('DOMContentLoaded', () => {
-    initHero();
-    initCounters();
-    initReveal();
-    initParallax();
-    initHeadingSplits();
-    initTilt();
-    initServiceCardParallax();
-    initFaqReveal();
+    if (hasGsap) {
+      initHero();
+      initCounters();
+      initReveal();
+      initParallax();
+      initHeadingSplits();
+      initTilt();
+      initServiceCardParallax();
+      initAboutMediaMotion();
+      initFaqReveal();
+      initCtaFill();
+      initFaqSticky();
+    }
     initFAQ();
-    initCtaFill();
     // initSmoothScroll(); // only if ScrollTo plugin loaded
   });
 })();

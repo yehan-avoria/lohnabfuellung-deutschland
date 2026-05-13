@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
@@ -83,14 +83,131 @@
   </div>
 </section>
 
+<!-- Anliegen Picker -->
+<section class="contact-concern-section">
+  <div class="container">
+    <div class="contact-concern-header" data-animate>
+      <div>
+        <p class="eyebrow">Ihr Anliegen</p>
+        <h2 class="section-title">Wobei d&uuml;rfen wir <em>helfen?</em></h2>
+      </div>
+      <p class="contact-concern-intro">W&auml;hlen Sie Ihr Anliegen. Wir leiten Sie an die richtige Person weiter und passen das Formular automatisch f&uuml;r Sie an.</p>
+    </div>
+
+    <div class="contact-concern-grid" data-stagger>
+      <button class="contact-concern-card" type="button" data-interest="produktentwicklung" data-stagger-item>
+        <span class="contact-concern-number">01</span>
+        <span class="contact-concern-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M3 12h3M18 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        </span>
+        <h3>Produktentwicklung</h3>
+        <p>Eigene Rezeptur, eigenes Branding &mdash; vom ersten Konzept bis zum fertigen Produkt.</p>
+        <span class="contact-concern-link">Ausw&auml;hlen &rarr;</span>
+      </button>
+
+      <button class="contact-concern-card" type="button" data-interest="lohnabfuellung" data-stagger-item>
+        <span class="contact-concern-number">02</span>
+        <span class="contact-concern-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M9 2h6M10 2v5l-3 4v8a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3v-8l-3-4V2"></path><path d="M8 14h8"></path></svg>
+        </span>
+        <h3>Lohnabf&uuml;llung</h3>
+        <p>Pr&auml;zise Abf&uuml;llung Ihrer Rezeptur in Glas, PET oder Aluminium &mdash; flexibel ab kleinen Chargen.</p>
+        <span class="contact-concern-link">Ausw&auml;hlen &rarr;</span>
+      </button>
+
+      <button class="contact-concern-card" type="button" data-interest="verpackung" data-stagger-item>
+        <span class="contact-concern-number">03</span>
+        <span class="contact-concern-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="m3 7 9-4 9 4-9 4-9-4Z"></path><path d="M3 7v10l9 4 9-4V7"></path><path d="M12 11v10"></path></svg>
+        </span>
+        <h3>Verpackung &amp; Etikettierung</h3>
+        <p>Beh&auml;lter, Etiketten, Schrumpffolien &mdash; die komplette Produkth&uuml;lle aus einer Hand.</p>
+        <span class="contact-concern-link">Ausw&auml;hlen &rarr;</span>
+      </button>
+
+      <button class="contact-concern-card" type="button" data-interest="qualitaet" data-stagger-item>
+        <span class="contact-concern-number">04</span>
+        <span class="contact-concern-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 2.9 8.4 7 10 4.1-1.6 7-5.5 7-10V6l-7-3Z"></path><path d="m9 12 2 2 4-5"></path></svg>
+        </span>
+        <h3>Qualit&auml;tsmanagement</h3>
+        <p>ISO 9001:2015 und HACCP-konform &mdash; l&uuml;ckenlose Dokumentation und CoA f&uuml;r jede Charge.</p>
+        <span class="contact-concern-link">Ausw&auml;hlen &rarr;</span>
+      </button>
+
+      <button class="contact-concern-card" type="button" data-interest="analyse" data-stagger-item>
+        <span class="contact-concern-number">05</span>
+        <span class="contact-concern-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M10 2v6l-5 9a4 4 0 0 0 3.5 6h7a4 4 0 0 0 3.5-6l-5-9V2"></path><path d="M8 2h8M7 16h10"></path></svg>
+        </span>
+        <h3>In-house Analysen</h3>
+        <p>Physikalisch-chemische, mikrobiologische und sensorische Pr&uuml;fungen direkt im eigenen Labor.</p>
+        <span class="contact-concern-link">Ausw&auml;hlen &rarr;</span>
+      </button>
+
+      <button class="contact-concern-card" type="button" data-interest="logistik" data-stagger-item>
+        <span class="contact-concern-number">06</span>
+        <span class="contact-concern-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M3 7h11v10H3z"></path><path d="M14 11h4l3 3v3h-7z"></path><circle cx="7" cy="19" r="2"></circle><circle cx="18" cy="19" r="2"></circle></svg>
+        </span>
+        <h3>Logistik &amp; Versand</h3>
+        <p>Lagerung, Kommissionierung und termingenauer Versand in ganz Europa.</p>
+        <span class="contact-concern-link">Ausw&auml;hlen &rarr;</span>
+      </button>
+    </div>
+  </div>
+</section>
+
 <!-- Contact -->
 <section class="contact-section">
   <div class="container">
     <div class="contact-inner">
 
-      <div data-animate-left>
+      <div class="contact-panel contact-panel--info" data-animate-left>
         <p class="eyebrow">Kontaktdaten</p>
-        <h2 class="section-title" style="margin-bottom:2rem;">So erreichen<br><em>Sie uns</em></h2>
+        <h2 class="section-title">So erreichen <em>Sie uns</em></h2>
+        <p class="contact-panel-intro">Klicken Sie auf eine der Optionen &mdash; direkt anrufen, Mail kopieren oder Route in Google Maps &ouml;ffnen.</p>
+
+        <div class="contact-action-list">
+          <a class="contact-action-card" href="tel:+49091156839291">
+            <span class="contact-action-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.09 5.18 2 2 0 0 1 5.07 3h3a2 2 0 0 1 2 1.72c.12.9.32 1.78.6 2.62a2 2 0 0 1-.45 2.11L9 10.67a16 16 0 0 0 4.33 4.33l1.22-1.22a2 2 0 0 1 2.11-.45c.84.28 1.72.48 2.62.6A2 2 0 0 1 22 16.92Z"></path></svg>
+            </span>
+            <span class="contact-action-copy"><small>Telefon</small><strong>+49 (0) 911 568 392 91</strong></span>
+            <span class="contact-action-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></span>
+          </a>
+
+          <a class="contact-action-card" href="mailto:info@lohnabfuellung-deutschland.de">
+            <span class="contact-action-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"></path><path d="m22 6-10 7L2 6"></path></svg>
+            </span>
+            <span class="contact-action-copy"><small>E-Mail &middot; Postfach &ouml;ffnen</small><strong>info@lohnabfuellung-deutschland.de</strong></span>
+            <button class="contact-copy-btn" type="button" aria-label="E-Mail kopieren" data-copy="info@lohnabfuellung-deutschland.de" onclick="event.preventDefault();event.stopPropagation();(function(btn){navigator.clipboard.writeText('info@lohnabfuellung-deutschland.de').then(function(){btn.classList.add('copied');setTimeout(function(){btn.classList.remove('copied')},1800)});})(this)">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+            </button>
+          </a>
+
+          <a class="contact-action-card" href="https://maps.google.com/?q=Industriestra%C3%9Fe+90574+Ro%C3%9Ftal+Bayern+Deutschland" target="_blank" rel="noopener">
+            <span class="contact-action-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+            </span>
+            <span class="contact-action-copy"><small>Adresse &middot; Route anzeigen</small><strong>Industriestra&szlig;e, 90574 Ro&szlig;tal</strong></span>
+            <span class="contact-action-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></span>
+          </a>
+        </div>
+
+        <div class="contact-hours-block">
+          <div class="contact-hours-head">
+            <span class="contact-info-label">&Ouml;ffnungszeiten</span>
+            <span class="contact-status-pill">Aktuell geschlossen</span>
+          </div>
+          <div class="contact-hours" aria-label="&Ouml;ffnungszeiten">
+            <div class="contact-hours-row"><span class="contact-hours-day">Mo - Do</span><span class="contact-hours-time">09:00 - 13:00 &middot; 14:00 - 17:00</span></div>
+            <div class="contact-hours-row"><span class="contact-hours-day">Freitag</span><span class="contact-hours-time">08:00 - 12:00 &middot; 13:00 - 16:00</span></div>
+            <div class="contact-hours-row"><span class="contact-hours-day">Sa &amp; So</span><span class="contact-hours-time">geschlossen</span></div>
+          </div>
+        </div>
 
         <div class="contact-info">
           <div class="contact-info-item">
@@ -112,46 +229,78 @@
           </div>
           <div class="contact-info-item">
             <span class="contact-info-label">Öffnungszeiten</span>
-            <span class="contact-info-value">
-              Mo–Fr: 08:00 – 17:00 Uhr<br>
-              Sa–So: Geschlossen
-            </span>
+            <div class="contact-hours" aria-label="Öffnungszeiten">
+              <div class="contact-hours-row">
+                <span class="contact-hours-day">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                  Mo-Do
+                </span>
+                <span class="contact-hours-time">09:00 - 13:00</span>
+              </div>
+              <div class="contact-hours-row">
+                <span class="contact-hours-day">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                  Mo-Do
+                </span>
+                <span class="contact-hours-time">14:00 - 17:00</span>
+              </div>
+              <div class="contact-hours-row">
+                <span class="contact-hours-day">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                  Freitag
+                </span>
+                <span class="contact-hours-time">08:00 - 12:00</span>
+              </div>
+              <div class="contact-hours-row">
+                <span class="contact-hours-day">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                  Freitag
+                </span>
+                <span class="contact-hours-time">13:00 - 16:00</span>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Map -->
         <div class="map-section" style="padding:0; margin-top:2.5rem;">
+          <div class="contact-location-copy">
+            <span class="contact-info-label">Standort</span>
+            <p>Avoria GmbH<br>Industriestra&szlig;e (Adresse auf Anfrage)<br>90574 Ro&szlig;tal &middot; Bayern &middot; Deutschland</p>
+          </div>
           <div class="map-inner" style="grid-template-columns:1fr;">
             <div class="map-iframe-wrapper" style="aspect-ratio:unset; flex-direction:column; align-items:stretch; justify-content:flex-start;">
               <div id="avoria-map"></div>
-              <div style="padding:14px 20px; display:flex; align-items:center; justify-content:center; background:var(--bg-card); border-top:1px solid var(--border-subtle);">
-                <a href="https://maps.google.com/?q=Industriestraße+90574+Roßtal+Bayern+Deutschland" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">In Google Maps öffnen</a>
+              <div style="padding:14px 20px; background:var(--bg-card); border-top:1px solid var(--border-subtle);">
+                <a href="https://maps.google.com/?q=Industriestra%C3%9Fe+90574+Ro%C3%9Ftal+Bayern+Deutschland" target="_blank" rel="noopener" class="btn btn-ghost" style="width:100%;justify-content:space-between;"><span>Avoria GmbH &ndash; Ro&szlig;tal</span><span style="color:var(--accent-gold);font-size:0.72rem;letter-spacing:0.09em;text-transform:uppercase;font-weight:700;white-space:nowrap;">In Maps &ouml;ffnen &rarr;</span></a>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div data-animate-right>
+      <div class="contact-panel contact-panel--form" data-animate-right>
         <p class="eyebrow">Kontaktformular</p>
-        <h3 style="font-size:1.5rem; font-weight:700; margin-bottom:0.5rem; letter-spacing:-0.02em;">Senden Sie uns eine Nachricht</h3>
+        <h3 style="font-size:1.5rem; font-weight:700; margin-bottom:0.5rem; letter-spacing:-0.02em;">Senden Sie uns eine</h3>
         <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:2rem; line-height:1.7;">Füllen Sie das Formular aus und wir melden uns schnellstmöglich bei Ihnen.</p>
+
+        <div class="contact-form-progress" aria-hidden="true"><span>0%</span><i></i></div>
 
         <div class="contact-form">
           <form class="contact-form-el">
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label" for="name">Vorname *</label>
+                <label class="form-label" for="name">Vorname <span class="required-star">*</span></label>
                 <input class="form-input" type="text" id="name" name="name" placeholder="Max" required>
               </div>
               <div class="form-group">
-                <label class="form-label" for="lastname">Nachname *</label>
+                <label class="form-label" for="lastname">Nachname <span class="required-star">*</span></label>
                 <input class="form-input" type="text" id="lastname" name="lastname" placeholder="Mustermann" required>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label" for="email">E-Mail *</label>
+                <label class="form-label" for="email">E-Mail <span class="required-star">*</span></label>
                 <input class="form-input" type="email" id="email" name="email" placeholder="max@example.de" required>
               </div>
               <div class="form-group">
@@ -164,8 +313,8 @@
               <input class="form-input" type="text" id="company" name="company" placeholder="Ihr Unternehmen GmbH">
             </div>
             <div class="form-group">
-              <label class="form-label" for="interest">Thema / Interesse *</label>
-              <select class="form-input" id="interest" name="interest" required>
+              <label class="form-label" for="interest">Ihr Anliegen <span class="required-star">*</span></label>
+              <select class="form-input contact-interest-select" id="interest" name="interest" aria-hidden="true" tabindex="-1">
                 <option value="">Bitte wählen...</option>
                 <option value="lohnabfuellung">Lohnabfüllung / Contract Manufacturing</option>
                 <option value="produktentwicklung">Produktentwicklung</option>
@@ -194,10 +343,10 @@
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label" for="message">Nachricht *</label>
+              <label class="form-label" for="message">Nachricht <span class="required-star">*</span></label>
               <textarea class="form-input" id="message" name="message" rows="6" placeholder="Beschreiben Sie Ihr Projekt, Ihre Anforderungen oder stellen Sie Ihre Frage..." required></textarea>
             </div>
-            <div style="font-size:0.78rem; color: var(--text-muted); line-height:1.6; margin-bottom:1rem;">
+            <div class="contact-privacy-note">
               Mit dem Absenden des Formulars stimmen Sie unserer <a href="datenschutz.html" style="color:var(--accent-gold);">Datenschutzerklärung</a> zu. Ihre Daten werden vertraulich behandelt.
             </div>
             <button type="submit" class="form-submit">
@@ -209,6 +358,45 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- Contact Team -->
+<section class="contact-team-section">
+  <div class="container">
+    <div class="contact-team-head" data-animate>
+      <p class="eyebrow">Ihr Team</p>
+      <h2 class="section-title">Die Menschen <em>hinter Avoria</em></h2>
+    </div>
+    <div class="contact-team-grid" data-stagger>
+      <article class="contact-team-card" data-stagger-item>
+        <div class="contact-team-avatar"><span>AM</span><i aria-hidden="true"></i></div>
+        <h3>Andreas M&uuml;ller</h3>
+        <p>Produktentwicklung &amp; Beratung</p>
+        <div class="contact-team-actions">
+          <a href="tel:+49091156839291" aria-label="Andreas M&uuml;ller anrufen"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.09 5.18 2 2 0 0 1 5.07 3h3a2 2 0 0 1 2 1.72c.12.9.32 1.78.6 2.62a2 2 0 0 1-.45 2.11L9 10.67a16 16 0 0 0 4.33 4.33l1.22-1.22a2 2 0 0 1 2.11-.45c.84.28 1.72.48 2.62.6A2 2 0 0 1 22 16.92Z"></path></svg></a>
+          <a href="mailto:info@lohnabfuellung-deutschland.de" aria-label="E-Mail an Andreas M&uuml;ller"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"></path><path d="m22 6-10 7L2 6"></path></svg></a>
+        </div>
+      </article>
+      <article class="contact-team-card" data-stagger-item>
+        <div class="contact-team-avatar"><span>SK</span><i aria-hidden="true"></i></div>
+        <h3>Sandra Kraus</h3>
+        <p>Projektmanagement &amp; Abwicklung</p>
+        <div class="contact-team-actions">
+          <a href="tel:+49091156839291" aria-label="Sandra Kraus anrufen"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.09 5.18 2 2 0 0 1 5.07 3h3a2 2 0 0 1 2 1.72c.12.9.32 1.78.6 2.62a2 2 0 0 1-.45 2.11L9 10.67a16 16 0 0 0 4.33 4.33l1.22-1.22a2 2 0 0 1 2.11-.45c.84.28 1.72.48 2.62.6A2 2 0 0 1 22 16.92Z"></path></svg></a>
+          <a href="mailto:info@lohnabfuellung-deutschland.de" aria-label="E-Mail an Sandra Kraus"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"></path><path d="m22 6-10 7L2 6"></path></svg></a>
+        </div>
+      </article>
+      <article class="contact-team-card" data-stagger-item>
+        <div class="contact-team-avatar"><span>TB</span><i aria-hidden="true"></i></div>
+        <h3>Thomas Berger</h3>
+        <p>Qualit&auml;t &amp; Produktion</p>
+        <div class="contact-team-actions">
+          <a href="tel:+49091156839291" aria-label="Thomas Berger anrufen"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.09 5.18 2 2 0 0 1 5.07 3h3a2 2 0 0 1 2 1.72c.12.9.32 1.78.6 2.62a2 2 0 0 1-.45 2.11L9 10.67a16 16 0 0 0 4.33 4.33l1.22-1.22a2 2 0 0 1 2.11-.45c.84.28 1.72.48 2.62.6A2 2 0 0 1 22 16.92Z"></path></svg></a>
+          <a href="mailto:info@lohnabfuellung-deutschland.de" aria-label="E-Mail an Thomas Berger"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"></path><path d="m22 6-10 7L2 6"></path></svg></a>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -241,6 +429,101 @@
         </div>
         <h3 class="why-card-title">Transparentes Angebot</h3>
         <p class="why-card-desc">Klare Kostenstruktur ohne versteckte Gebühren. Unser Angebot enthält alles, was Sie für eine fundierte Entscheidung benötigen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-inner">
+
+      <div class="faq-aside">
+        <p class="eyebrow">H&auml;ufige Fragen</p>
+        <h2 class="section-title faq-headline">Vorab kurz <em>gekl&auml;rt.</em></h2>
+        <p class="faq-intro">Die wichtigsten Antworten, die wir t&auml;glich am Telefon h&ouml;ren. Wenn Ihre Frage nicht dabei ist &mdash; schreiben Sie uns einfach.</p>
+        <div class="faq-help-card">
+          <strong class="faq-help-title">Frage nicht dabei?</strong>
+          <p class="faq-help-desc">Manchmal ist ein 5-Minuten-Telefonat schneller als jedes Formular.</p>
+          <a href="tel:+49091156839291" class="faq-help-link">Jetzt anrufen &rarr;</a>
+        </div>
+      </div>
+
+      <div class="faq-accordion">
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-text">Wie schnell antworten Sie auf Anfragen?</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <p>In der Regel innerhalb von 4 Stunden w&auml;hrend unserer Gesch&auml;ftszeiten, sp&auml;testens binnen 24 Stunden. Bei komplexeren Anfragen senden wir zumindest eine Eingansbest&auml;tigung mit Termin f&uuml;r die ausf&uuml;hrliche R&uuml;ckmeldung.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-text">Ab welcher St&uuml;ckzahl f&uuml;llen Sie ab?</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <p>Wir starten bereits bei Kleinstchargen ab 500 Einheiten &mdash; ideal f&uuml;r Markteinf&uuml;hrungen. Gro&szlig;serien bis 100.000+ St&uuml;ck liefern wir ebenso zuverl&auml;ssig.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-text">&Uuml;bernehmen Sie auch die Produktentwicklung von Grund auf?</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <p>Ja. Vom ersten Konzept &uuml;ber Rezepturentwicklung, sensorische Tests, Inhaltsstoff-Sourcing bis zur Verpackungsauswahl begleiten wir Sie vollst&auml;ndig.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-text">Welche Zertifizierungen besitzen Sie?</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <p>ISO 9001:2015, HACCP-konform und nach GMP-Standard. Alle Audit-Berichte stellen wir auf Wunsch transparent zur Verf&uuml;gung.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-text">Kann ich Ihr Werk besichtigen?</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <p>Selbstverst&auml;ndlich. Eine Werksbesichtigung in Ro&szlig;tal ist nach Terminvereinbarung jederzeit m&ouml;glich.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-text">Wie wird mein Rezept oder meine Idee gesch&uuml;tzt?</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <p>Alle Anfragen werden vertraulich behandelt. Auf Wunsch unterzeichnen wir vor dem ersten inhaltlichen Gespr&auml;ch eine NDA.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -322,7 +605,7 @@
         <span class="footer-stat-label">Zufriedene Kunden</span>
       </div>
       <div class="footer-stat">
-        <span class="footer-stat-number">7</span>
+        <span class="footer-stat-number">10</span>
         <span class="footer-stat-label">Produktkategorien</span>
       </div>
       <div class="footer-stat">
@@ -432,6 +715,40 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (function () {
+  var now = new Date();
+  var berlinDate = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
+  var dayNum = berlinDate.getDay(); // 0=Sun,1=Mon,...,6=Sat
+  var totalMin = berlinDate.getHours() * 60 + berlinDate.getMinutes();
+
+  var isOpen = false;
+  var activeRowIndex = 2; // default Sa & So
+
+  if (dayNum >= 1 && dayNum <= 4) {
+    activeRowIndex = 0;
+    isOpen = (totalMin >= 540 && totalMin < 780) || (totalMin >= 840 && totalMin < 1020);
+  } else if (dayNum === 5) {
+    activeRowIndex = 1;
+    isOpen = (totalMin >= 480 && totalMin < 720) || (totalMin >= 780 && totalMin < 960);
+  }
+
+  var pill = document.querySelector('.contact-status-pill');
+  if (pill) {
+    if (isOpen) {
+      pill.classList.add('contact-status-pill--open');
+      pill.innerHTML = '<span class="status-dot"></span>Jetzt geöffnet';
+    } else {
+      pill.innerHTML = '<span class="status-dot"></span>Aktuell geschlossen';
+    }
+  }
+
+  var rows = document.querySelectorAll('.contact-hours-block .contact-hours-row');
+  if (rows[activeRowIndex]) {
+    rows[activeRowIndex].classList.add('contact-hours-row--active');
+  }
+})();
+</script>
+<script>
+(function () {
   var lat = 49.3933, lng = 10.8742;
 
   var map = L.map('avoria-map', {
@@ -448,7 +765,7 @@
     maxZoom: 19
   }).addTo(map);
 
-  L.control.zoom({ position: 'bottomright' }).addTo(map);
+  L.control.zoom({ position: 'topleft' }).addTo(map);
 
   var pin = L.divIcon({
     className: '',

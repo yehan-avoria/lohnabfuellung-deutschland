@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
   <script>if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; } window.scrollTo(0, 0);</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Produkte — Lohnabfüllung Deutschland | Avoria GmbH</title>
-  <meta name="description" content="Unsere Produktbereiche: Hygiene & Kosmetik, CBD Produkte, Ätherische Öle, Kapseln & Pulver, Flavor Drops & Aromen, Nikotin und Chemikalien.">
+  <meta name="description" content="Unsere Produktbereiche: Kosmetik, Hygiene, CBD Produkte, Kapseln, Pulver, Aetherische Oele, Flavor Drops & Aromen, Nikotin, Chemikalien sowie Propylenglykol & Glycerin.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -730,7 +730,7 @@
     <div class="ps-counter">
       <span class="ps-counter-cur" id="ps-cur">01</span>
       <span class="ps-counter-sep">/</span>
-      <span class="ps-counter-tot" id="ps-tot">07</span>
+      <span class="ps-counter-tot" id="ps-tot">10</span>
     </div>
 
     <!-- Stage where cards live -->
@@ -750,7 +750,7 @@
     <!-- Next card label (bottom-left) -->
     <div class="ps-next-label" id="ps-next-label">
       <span class="ps-next-label-hint">Nächstes</span>
-      <span class="ps-next-label-name" id="ps-next-name">CBD Produkte</span>
+      <span class="ps-next-label-name" id="ps-next-name">Hygiene</span>
     </div>
 
     <!-- Scroll hint (bottom-right) -->
@@ -915,7 +915,7 @@
         <span class="footer-stat-label">Zufriedene Kunden</span>
       </div>
       <div class="footer-stat">
-        <span class="footer-stat-number">7</span>
+        <span class="footer-stat-number">10</span>
         <span class="footer-stat-label">Produktkategorien</span>
       </div>
       <div class="footer-stat">
@@ -1029,74 +1029,104 @@
   /* ── Product data ─────────────────────────────────── */
   const PRODUCTS = [
     {
-      num: '01', category: 'Hygiene & Kosmetik', bgWord: 'Hygiene',
-      title: 'Hygiene &\nKosmetik',
-      image: 'https://pub-064128d9afea437fbcb06274f2950556.r2.dev/images/Kosmetik.jpg',
-      url: 'produkte-hygiene-kosmetik.html',
+      num: '01', category: 'Kosmetik', bgWord: 'Beauty',
+      title: 'Kosmetik\n& Beauty',
+      image: 'assets/images/Kosmetik.jpg',
+      url: 'produkte-kosmetik.html',
       gradient: 'linear-gradient(135deg,#c47a8a 0%,#8a3a50 100%)',
-      desc: 'Hautpflegeprodukte, Reinigungsmittel, Deos, Cremes, Lotionen und Shampoos — nach Kosmetikverordnung (EU) Nr. 1223/2009.',
-      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>`,
-      specs: [{l:'Produkttypen',v:'Cremes, Gele, Lotionen, Sprays'},{l:'Verpackung',v:'Flaschen, Tuben, Dosen, Pumpen'},{l:'Zertifizierung',v:'ISO 9001, GMP'},{l:'Losgröße',v:'Ab 500 Einheiten'}],
+      desc: 'Cremes, Lotionen, Seren, Gels und markenreife Pflegeprodukte mit hochwertiger Verpackung.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13C4 7 9 4 20 4c0 11-3 16-9 16z"/><path d="M12 12 4 20"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Cremes, Seren, Lotionen'},{l:'Verpackung',v:'Tuben, Tiegel, Airless'},{l:'Zertifizierung',v:'ISO 9001, GMP-nah'},{l:'Losgroesse',v:'Ab 500 Einheiten'}],
     },
     {
-      num: '02', category: 'CBD Produkte', bgWord: 'CBD',
+      num: '02', category: 'Hygiene', bgWord: 'Clean',
+      title: 'Hygiene\n& Clean Care',
+      image: 'assets/images/Hygiene.webp',
+      url: 'produkte-hygiene.html',
+      gradient: 'linear-gradient(135deg,#19a7b8 0%,#086276 100%)',
+      desc: 'Reinigung, Hygiene und Clean-Care Produkte in Sprays, Flaschen, Kanistern und Retail-Gebinden.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Reinigung, Hygiene, Gele'},{l:'Verpackung',v:'Sprays, Flaschen, Kanister'},{l:'Fokus',v:'Clean-Care und B2B'},{l:'Losgroesse',v:'Auf Anfrage'}],
+    },
+    {
+      num: '03', category: 'CBD Produkte', bgWord: 'CBD',
       title: 'CBD\nProdukte',
-      image: 'https://pub-064128d9afea437fbcb06274f2950556.r2.dev/images/CDB.jpg',
+      image: 'assets/images/CDB.jpg',
       url: 'produkte-cbd-produkte.html',
       gradient: 'linear-gradient(135deg,#5a9a70 0%,#2e6040 100%)',
-      desc: 'Spezialisierte Abfüllung von CBD-Ölen, -Tinkturen, -Kapseln und -Kosmetika. EU-konform, mit CoA jeder Charge.',
+      desc: 'Spezialisierte Abfuellung von CBD-Oelen, Tinkturen und Topicals. EU-konform, mit CoA jeder Charge.',
       icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>`,
-      specs: [{l:'Produkttypen',v:'Öle, Kapseln, Cremes, Tinkturen'},{l:'Verpackung',v:'Pipettenflaschen, Kapseln'},{l:'Regularien',v:'EU-konform'},{l:'Analyse',v:'CoA jeder Charge'}],
+      specs: [{l:'Produkttypen',v:'Oele, Cremes, Tinkturen'},{l:'Verpackung',v:'Pipettenflaschen'},{l:'Regularien',v:'EU-konform'},{l:'Analyse',v:'CoA jeder Charge'}],
     },
     {
-      num: '03', category: 'Ätherische Öle', bgWord: 'Aromen',
-      title: 'Ätherische\nÖle',
-      image: 'https://pub-064128d9afea437fbcb06274f2950556.r2.dev/images/%C3%84therische%20%C3%96le.jpg',
+      num: '04', category: 'Kapseln', bgWord: 'Caps',
+      title: 'Kapseln\n& Supplements',
+      image: 'assets/images/Kapseln.jpg',
+      url: 'produkte-kapseln.html',
+      gradient: 'linear-gradient(135deg,#b08030 0%,#785018 100%)',
+      desc: 'Kapselprodukte fuer Nahrungsergaenzung und Functional Nutrition mit passender Konfektion.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14 4.7 8.7a4.2 4.2 0 0 1 0-5.9 4.2 4.2 0 0 1 5.9 0L16 8.2"/><path d="m14 10 5.3 5.3a4.2 4.2 0 0 1 0 5.9 4.2 4.2 0 0 1-5.9 0L8 16"/><path d="m7 7 10 10"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Hartkapseln'},{l:'Verpackung',v:'Dosen, Kapselgebinde'},{l:'Regularien',v:'HACCP, GMP'},{l:'Losgroesse',v:'Ab 1.000 Einheiten'}],
+    },
+    {
+      num: '05', category: 'Pulver', bgWord: 'Pulver',
+      title: 'Pulver\n& Blends',
+      image: 'assets/images/pulver.webp',
+      url: 'produkte-pulver.html',
+      gradient: 'linear-gradient(135deg,#d4a24a 0%,#8a5b16 100%)',
+      desc: 'Pulverblends, Granulate, Dosen, Sachets und Stick-Packs fuer supplementnahe Produktlinien.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7l-5.5 9.2A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.8L14 9V2"/><path d="M8 14h8"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Pulver, Granulate'},{l:'Verpackung',v:'Dosen, Sachets, Sticks'},{l:'Standard',v:'HACCP, ISO 9001'},{l:'Losgroesse',v:'Auf Anfrage'}],
+    },
+    {
+      num: '06', category: 'Aetherische Oele', bgWord: 'Aromen',
+      title: 'Aetherische\nOele',
+      image: 'assets/images/Ätherische Öle.jpg',
       url: 'produkte-aetherische-oele.html',
       gradient: 'linear-gradient(135deg,#7060b0 0%,#402880 100%)',
-      desc: 'Ätherische Öle, Duftöle, Diffuser-Öle und Aroma-Blends. Präzise Abfüllung von 5 ml bis 500 ml.',
+      desc: 'Aetherische Oele, Duftoele, Diffuser-Oele und Aroma-Blends. Praezise Abfuellung von 5 ml bis 500 ml.',
       icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>`,
-      specs: [{l:'Produkttypen',v:'Rein, gemischt, verdünnt'},{l:'Verpackung',v:'5ml – 500ml Flaschen'},{l:'Standard',v:'ISO 9001'},{l:'Losgröße',v:'Ab 200 Einheiten'}],
+      specs: [{l:'Produkttypen',v:'Rein, gemischt, verduennt'},{l:'Verpackung',v:'5ml - 500ml Flaschen'},{l:'Standard',v:'ISO 9001'},{l:'Losgroesse',v:'Ab 200 Einheiten'}],
     },
     {
-      num: '04', category: 'Kapseln & Pulver', bgWord: 'Kapseln',
-      title: 'Kapseln &\nPulver',
-      image: 'https://pub-064128d9afea437fbcb06274f2950556.r2.dev/images/Kapseln.jpg',
-      url: 'produkte-kapseln-pulver.html',
-      gradient: 'linear-gradient(135deg,#b08030 0%,#785018 100%)',
-      desc: 'Kapselfüllung (Hart- und Weichgelatine), Pulverabfüllung in Sachets, Dosen und Stick-Packs für Nahrungsergänzung und Pharma.',
-      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>`,
-      specs: [{l:'Produkttypen',v:'Kapseln, Pulver, Granulate'},{l:'Verpackung',v:'Dosen, Sachets, Stick-Packs'},{l:'Regularien',v:'HACCP, GMP'},{l:'Losgröße',v:'Ab 1.000 Einheiten'}],
-    },
-    {
-      num: '05', category: 'Flavor Drops & Aromen', bgWord: 'Flavor',
+      num: '07', category: 'Flavor Drops & Aromen', bgWord: 'Flavor',
       title: 'Flavor Drops\n& Aromen',
-      image: 'https://pub-064128d9afea437fbcb06274f2950556.r2.dev/images/Flavour%20Drops.jpg',
+      image: 'assets/images/Flavour Drops.jpg',
       url: 'produkte-flavor-drops-aromen.html',
       gradient: 'linear-gradient(135deg,#d07830 0%,#904010 100%)',
-      desc: 'Hochkonzentrierte Aromen und Flavor Drops für Lebensmittel, Getränke und E-Liquids. Kalibrierte Tropfenausgabe.',
-      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>`,
-      specs: [{l:'Produkttypen',v:'Flüssig-Aromen, Drops'},{l:'Verpackung',v:'10ml – 100ml, Dropper'},{l:'Standard',v:'HACCP, ISO 9001'},{l:'Losgröße',v:'Ab 500 Einheiten'}],
+      desc: 'Hochkonzentrierte Aromen und Flavor Drops fuer Lebensmittel, Getraenke und E-Liquids.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Fluessig-Aromen, Drops'},{l:'Verpackung',v:'10ml - 100ml, Dropper'},{l:'Standard',v:'HACCP, ISO 9001'},{l:'Losgroesse',v:'Ab 500 Einheiten'}],
     },
     {
-      num: '06', category: 'Nikotin', bgWord: 'Nikotin',
+      num: '08', category: 'Nikotin', bgWord: 'Nikotin',
       title: 'Nikotin\nProdukte',
-      image: 'https://pub-064128d9afea437fbcb06274f2950556.r2.dev/images/Nikotin.jpg',
+      image: 'assets/images/Nikotin.jpg',
       url: 'produkte-nikotin.html',
       gradient: 'linear-gradient(135deg,#4070a0 0%,#204870 100%)',
-      desc: 'Spezialisierte Produktion nikotinhaltiger Produkte: Nikotinsalzlösungen, Nikotinbeutel und Tabakersatzprodukte. TPD-konform.',
-      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`,
-      specs: [{l:'Produkttypen',v:'Lösungen, Beutel, Sprays'},{l:'Verpackung',v:'Kindersichere Behälter'},{l:'Regularien',v:'TPD, CLP-konform'},{l:'Losgröße',v:'Auf Anfrage'}],
+      desc: 'Spezialisierte Produktion nikotinhaltiger Produkte: Loesungen, Beutel und Tabakersatzprodukte.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 1 1 8 0v3"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Loesungen, Beutel, Sprays'},{l:'Verpackung',v:'Kindersichere Behaelter'},{l:'Regularien',v:'TPD, CLP-konform'},{l:'Losgroesse',v:'Auf Anfrage'}],
     },
     {
-      num: '07', category: 'Chemikalien', bgWord: 'Chemie',
+      num: '09', category: 'Chemikalien', bgWord: 'Chemie',
       title: 'Chemikalien\n& Industrie',
-      image: 'https://pub-064128d9afea437fbcb06274f2950556.r2.dev/images/Chemikalien.jpg',
+      image: 'assets/images/Chemikalien.jpg',
       url: 'produkte-chemikalien.html',
       gradient: 'linear-gradient(135deg,#506070 0%,#283040 100%)',
-      desc: 'Industrielle und gewerbliche Chemikalien, Reinigungskonzentrate und technische Flüssigkeiten. CLP/REACH/GHS-konform.',
-      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>`,
-      specs: [{l:'Produkttypen',v:'Konzentrate, Lösungen'},{l:'Verpackung',v:'UN-zertifiziert'},{l:'Regularien',v:'CLP, REACH, GHS'},{l:'Losgröße',v:'Auf Anfrage'}],
+      desc: 'Industrielle und gewerbliche Chemikalien, Reinigungskonzentrate und technische Fluids.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v6l-5.5 9.2A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.8L14 9V3"/><path d="M8.5 14h7"/></svg>`,
+      specs: [{l:'Produkttypen',v:'Konzentrate, Loesungen'},{l:'Verpackung',v:'UN-zertifiziert'},{l:'Regularien',v:'CLP, REACH, GHS'},{l:'Losgroesse',v:'Auf Anfrage'}],
+    },
+    {
+      num: '10', category: 'Propylenglykol & Glycerin', bgWord: 'PG / VG',
+      title: 'Propylenglykol\n& Glycerin',
+      image: 'assets/images/PG-VG.webp',
+      url: 'produkte-propylenglykol-glycerin.html',
+      gradient: 'linear-gradient(135deg,#1a7dc8 0%,#065192 100%)',
+      desc: 'PG und VG in flexiblen Gebindegroessen: Rohstoffbezug, Abfuellung und Verpackung.',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4"/><path d="M10 6h4"/><path d="M9 6v4L5.6 18a2 2 0 0 0 1.8 3h9.2a2 2 0 0 0 1.8-3L15 10V6"/></svg>`,
+      specs: [{l:'Produkttypen',v:'PG, VG, Basen'},{l:'Verpackung',v:'100 ml bis IBC'},{l:'Qualitaet',v:'Deutscher Rohstoffbezug'},{l:'Losgroesse',v:'Auf Anfrage'}],
     },
   ];
 

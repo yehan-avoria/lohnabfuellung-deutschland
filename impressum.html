@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
@@ -40,7 +40,7 @@
   <a href="kontakt.html">Kontakt</a>
 </div>
 
-<section class="page-hero" style="padding-bottom:3rem;">
+<section class="page-hero" style="padding-bottom:2rem;">
   <div class="container">
     <div class="breadcrumb">
       <a href="index.html">Start</a>
@@ -51,120 +51,216 @@
   </div>
 </section>
 
-<section class="section section--darker" style="padding-top:3rem;">
+<!-- Legal Body -->
+<section class="legal-section">
   <div class="container">
-    <div class="legal-content">
+    <div class="legal-grid">
 
-      <h2>Angaben gemäß § 5 TMG</h2>
-      <p>
-        <strong>Avoria GmbH</strong><br>
-        Stuttgarter Str. 39<br>
-        90574 Roßtal<br>
-        Bayern, Deutschland
-      </p>
+      <!-- LEFT: Sticky TOC -->
+      <aside class="legal-toc" aria-label="Inhaltsverzeichnis">
+        <p class="legal-toc-label">Inhaltsverzeichnis</p>
+        <nav class="legal-toc-nav">
+          <a href="#s01" class="legal-toc-link"><span class="toc-num">§ 01</span><span>Anbieter</span></a>
+          <a href="#s02" class="legal-toc-link"><span class="toc-num">§ 02</span><span>Vertretung</span></a>
+          <a href="#s03" class="legal-toc-link"><span class="toc-num">§ 03</span><span>Kontakt</span></a>
+          <a href="#s04" class="legal-toc-link"><span class="toc-num">§ 04</span><span>Registereintrag</span></a>
+          <a href="#s05" class="legal-toc-link"><span class="toc-num">§ 05</span><span>Umsatzsteuer-ID</span></a>
+          <a href="#s06" class="legal-toc-link"><span class="toc-num">§ 06</span><span>Verantwortlich für Inhalte</span></a>
+          <a href="#s07" class="legal-toc-link"><span class="toc-num">§ 07</span><span>Haftung für Inhalte</span></a>
+          <a href="#s08" class="legal-toc-link"><span class="toc-num">§ 08</span><span>Haftung für Links</span></a>
+          <a href="#s09" class="legal-toc-link"><span class="toc-num">§ 09</span><span>Urheberrecht</span></a>
+        </nav>
+      </aside>
 
-      <h2>Vertreten durch</h2>
-      <p>[Geschäftsführer/in Name]</p>
+      <!-- RIGHT: Card sections -->
+      <div class="legal-body">
 
-      <h2>Kontakt</h2>
-      <p>
-        Telefon: <a href="tel:+49091156839291">+49 (0) 911 56839291</a><br>
-        E-Mail: <a href="mailto:info@lohnabfuellung-deutschland.de">info@lohnabfuellung-deutschland.de</a>
-      </p>
+        <!-- § 01 -->
+        <article class="legal-card" id="s01">
+          <div class="legal-card-head">
+            <span class="legal-num">§ 01</span>
+            <h2 class="legal-title">Angaben gemäß <em>§ 5 TMG</em></h2>
+            <span class="legal-tag">Anbieter</span>
+          </div>
+          <hr class="legal-divider">
+          <div class="legal-boxes">
+            <div class="legal-box">
+              <p class="legal-box-label">Firma</p>
+              <p>Avoria GmbH<br>Stuttgarter Str. 39<br>90574 Ro&szlig;tal<br>Bayern, Deutschland</p>
+            </div>
+            <div class="legal-box">
+              <p class="legal-box-label">Gesch&auml;ftszeiten</p>
+              <p>Mo &ndash; Fr: 08:00 &ndash; 17:00 Uhr<br>Sa &amp; So: geschlossen<br><small style="color:var(--text-muted);">Termine au&szlig;erhalb gerne nach Vereinbarung.</small></p>
+            </div>
+          </div>
+          <div class="legal-cert-pills">
+            <span class="legal-cert-pill">ISO 9001</span>
+            <span class="legal-cert-pill">HACCP Konform</span>
+            <span class="legal-cert-pill">GMP Standard</span>
+            <span class="legal-cert-pill">Made in Germany</span>
+          </div>
+        </article>
 
-      <h2>Registereintrag</h2>
-      <p>
-        Eingetragen im Handelsregister.<br>
-        Registergericht: Amtsgericht [Ort]<br>
-        Registernummer: HRB 16765
-      </p>
+        <!-- § 02 -->
+        <article class="legal-card" id="s02">
+          <div class="legal-card-head">
+            <span class="legal-num">§ 02</span>
+            <h2 class="legal-title">Vertreten <em>durch</em></h2>
+            <span class="legal-tag">Gesch&auml;ftsf&uuml;hrung</span>
+          </div>
+          <hr class="legal-divider">
+          <p>Gesch&auml;ftsf&uuml;hrer der Avoria GmbH: <strong>[Name des Gesch&auml;ftsf&uuml;hrers]</strong></p>
+        </article>
 
-      <h2>Umsatzsteuer-ID</h2>
-      <p>
-        Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz:<br>
-        DE 280026423
-      </p>
+        <!-- § 03 -->
+        <article class="legal-card" id="s03">
+          <div class="legal-card-head">
+            <span class="legal-num">§ 03</span>
+            <h2 class="legal-title">Kontakt</h2>
+            <span class="legal-tag">Direkt</span>
+          </div>
+          <hr class="legal-divider">
+          <div class="legal-contact-boxes">
+            <div class="legal-box">
+              <p class="legal-box-label">Telefon</p>
+              <a href="tel:+49091156839291" style="color:var(--text-primary);font-size:0.95rem;">+49 (0) 911 56839291</a>
+            </div>
+            <div class="legal-box">
+              <p class="legal-box-label">E-Mail</p>
+              <a href="mailto:info@lohnabfuellung-deutschland.de" style="color:var(--text-primary);font-size:0.88rem;word-break:break-all;">info@lohnabfuellung-deutschland.de</a>
+            </div>
+          </div>
+        </article>
 
-      <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
-      <p>
-        [Name, Vorname]<br>
-        [Adresse]<br>
-        90574 Roßtal
-      </p>
+        <!-- § 04 -->
+        <article class="legal-card" id="s04">
+          <div class="legal-card-head">
+            <span class="legal-num">§ 04</span>
+            <h2 class="legal-title">Registereintrag</h2>
+            <span class="legal-tag">Handelsregister</span>
+          </div>
+          <hr class="legal-divider">
+          <div class="legal-data-grid">
+            <div class="legal-data-row">
+              <span class="legal-data-key">// Eintragung</span>
+              <span class="legal-data-val">Eingetragen im Handelsregister</span>
+            </div>
+            <div class="legal-data-row">
+              <span class="legal-data-key">// Registergericht</span>
+              <span class="legal-data-val">Amtsgericht [Stadt]</span>
+            </div>
+            <div class="legal-data-row">
+              <span class="legal-data-key">// Registernummer</span>
+              <span class="legal-data-val legal-data-accent">HRB 16765</span>
+            </div>
+          </div>
+        </article>
 
-      <h2>Haftung für Inhalte</h2>
-      <p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
-      <p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+        <!-- § 05 -->
+        <article class="legal-card" id="s05">
+          <div class="legal-card-head">
+            <span class="legal-num">§ 05</span>
+            <h2 class="legal-title">Umsatzsteuer-ID</h2>
+            <span class="legal-tag">§ 27a UStG</span>
+          </div>
+          <hr class="legal-divider">
+          <p>Umsatzsteuer-Identifikationsnummer gem&auml;&szlig; § 27 a Umsatzsteuergesetz:</p>
+          <div class="legal-data-grid" style="margin-top:16px;">
+            <div class="legal-data-row">
+              <span class="legal-data-key">// USt-ID</span>
+              <span class="legal-data-val legal-data-accent">DE 280026423</span>
+            </div>
+          </div>
+        </article>
 
-      <h2>Haftung für Links</h2>
-      <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.</p>
+        <!-- § 06 -->
+        <article class="legal-card" id="s06">
+          <div class="legal-card-head">
+            <span class="legal-num">§ 06</span>
+            <h2 class="legal-title">Verantwortlich f&uuml;r den <em>Inhalt</em></h2>
+            <span class="legal-tag">§ 55 Abs. 2 RStV</span>
+          </div>
+          <hr class="legal-divider">
+          <p>Verantwortlich f&uuml;r den Inhalt nach § 55 Abs. 2 RStV:</p>
+          <div class="legal-person-box">
+            <p class="legal-person-label">Verantwortliche Person</p>
+            <p>[Nachname, Vorname]<br>[Adresse]<br>90574 Ro&szlig;tal</p>
+          </div>
+        </article>
 
-      <h2>Urheberrecht</h2>
-      <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.</p>
+        <!-- § 07 -->
+        <article class="legal-card" id="s07">
+          <div class="legal-card-head">
+            <span class="legal-num">§ 07</span>
+            <h2 class="legal-title">Haftung f&uuml;r <em>Inhalte</em></h2>
+            <span class="legal-tag">§§ 7 &ndash; 10 TMG</span>
+          </div>
+          <hr class="legal-divider">
+          <p>Als Diensteanbieter sind wir gem&auml;&szlig; § 7 Abs.1 TMG f&uuml;r eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, &uuml;bermittelte oder gespeicherte fremde Informationen zu &uuml;berwachen oder nach Umst&auml;nden zu forschen, die auf eine rechtswidrige T&auml;tigkeit hinweisen.</p>
+          <p style="margin-top:1rem;">Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unber&uuml;hrt. Eine diesbez&uuml;gliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung m&ouml;glich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+        </article>
 
-    </div>
+        <!-- § 08 -->
+        <article class="legal-card" id="s08">
+          <div class="legal-card-head">
+            <span class="legal-num">§ 08</span>
+            <h2 class="legal-title">Haftung f&uuml;r <em>Links</em></h2>
+            <span class="legal-tag">Externe Inhalte</span>
+          </div>
+          <hr class="legal-divider">
+          <p>Unser Angebot enth&auml;lt Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb k&ouml;nnen wir f&uuml;r diese fremden Inhalte auch keine Gew&auml;hr &uuml;bernehmen. F&uuml;r die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf m&ouml;gliche Rechtsverst&ouml;&szlig;e &uuml;berpr&uuml;ft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.</p>
+        </article>
+
+        <!-- § 09 -->
+        <article class="legal-card" id="s09">
+          <div class="legal-card-head">
+            <span class="legal-num">§ 09</span>
+            <h2 class="legal-title">Urheberrecht</h2>
+            <span class="legal-tag">&copy; Avoria GmbH</span>
+          </div>
+          <hr class="legal-divider">
+          <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielf&auml;ltigung, Bearbeitung, Verbreitung und jede Art der Verwertung au&szlig;erhalb der Grenzen des Urheberrechtes bed&uuml;rfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur f&uuml;r den privaten, nicht kommerziellen Gebrauch gestattet.</p>
+        </article>
+
+      </div><!-- /.legal-body -->
+    </div><!-- /.legal-grid -->
   </div>
 </section>
 
-<!-- Wave: bg-primary → footer dark -->
+<!-- Wave -->
 <div class="footer-wave-divider" aria-hidden="true" style="background:#f4f7fc;">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none">
     <path d="M0,18 C200,38 400,2 600,14 C800,26 1000,4 1200,18 C1300,24 1380,10 1440,16 L1440,60 L0,60 Z" fill="rgba(6,81,146,0.18)"/>
     <path d="M0,26 C180,6 360,34 540,18 C720,4 900,30 1100,12 C1280,0 1380,22 1440,18 L1440,60 L0,60 Z" fill="#080f1c"/>
   </svg>
 </div>
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
+
 <footer class="footer">
   <div class="footer-inner">
-  <!-- Stats strip -->
   <div class="container">
     <div class="footer-stats">
-      <div class="footer-stat">
-        <span class="footer-stat-number">16+</span>
-        <span class="footer-stat-label">Jahre Erfahrung</span>
-      </div>
-      <div class="footer-stat">
-        <span class="footer-stat-number">500+</span>
-        <span class="footer-stat-label">Zufriedene Kunden</span>
-      </div>
-      <div class="footer-stat">
-        <span class="footer-stat-number">7</span>
-        <span class="footer-stat-label">Produktkategorien</span>
-      </div>
-      <div class="footer-stat">
-        <span class="footer-stat-number">100%</span>
-        <span class="footer-stat-label">Made in Germany</span>
-      </div>
+      <div class="footer-stat"><span class="footer-stat-number">16+</span><span class="footer-stat-label">Jahre Erfahrung</span></div>
+      <div class="footer-stat"><span class="footer-stat-number">500+</span><span class="footer-stat-label">Zufriedene Kunden</span></div>
+      <div class="footer-stat"><span class="footer-stat-number">10</span><span class="footer-stat-label">Produktkategorien</span></div>
+      <div class="footer-stat"><span class="footer-stat-number">100%</span><span class="footer-stat-label">Made in Germany</span></div>
     </div>
   </div>
-
-  <!-- Main columns -->
   <div class="container">
     <div class="footer-main">
-
-      <!-- Brand -->
       <div class="footer-brand">
         <img src="assets/images/logo.png" alt="Lohnabfüllung Deutschland by Avoria" class="footer-logo-img">
         <p class="footer-brand-desc">Ihr Full-Service-Partner für Contract Manufacturing in Deutschland. Seit 2010 produzieren wir qualitativ hochwertige Produkte nach ISO 9001 und HACCP-Standard.</p>
         <div class="footer-contact-links">
           <a href="mailto:info@lohnabfuellung-deutschland.de" class="footer-contact-link">
-            <span class="footer-contact-icon">
-              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </span>
+            <span class="footer-contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
             info@lohnabfuellung-deutschland.de
           </a>
           <a href="kontakt.html" class="footer-contact-link">
-            <span class="footer-contact-icon">
-              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            </span>
+            <span class="footer-contact-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
             Avoria GmbH, Roßtal — Bayern
           </a>
         </div>
       </div>
-
-      <!-- Navigation -->
       <div>
         <p class="footer-col-title">Navigation</p>
         <div class="footer-col-links">
@@ -176,8 +272,6 @@
           <a href="kontakt.html">Kontakt</a>
         </div>
       </div>
-
-      <!-- Leistungen -->
       <div>
         <p class="footer-col-title">Leistungen</p>
         <div class="footer-col-links">
@@ -189,34 +283,17 @@
           <a href="leistungen-logistik.html">Logistik &amp; Versand</a>
         </div>
       </div>
-
-      <!-- Zertifizierungen -->
       <div>
         <p class="footer-col-title">Zertifizierungen</p>
         <div class="footer-cert-list">
-          <div class="footer-cert-badge">
-            <img src="assets/images/ISO_9001-removebg-preview.png" alt="ISO 9001:2015" class="footer-cert-img">
-            <span class="footer-cert-text">ISO 9001 : 2015</span>
-          </div>
-          <div class="footer-cert-badge">
-            <img src="assets/images/HACCP_ger_tc_p-1.png" alt="HACCP Konform" class="footer-cert-img">
-            <span class="footer-cert-text">HACCP Konform</span>
-          </div>
-          <div class="footer-cert-badge">
-            <img src="assets/images/GMP-Certified.png" alt="GMP Standard" class="footer-cert-img">
-            <span class="footer-cert-text">GMP Standard</span>
-          </div>
-          <div class="footer-cert-badge">
-            <img src="assets/images/made_in_germany-removebg-preview.png" alt="Made in Germany" class="footer-cert-img">
-            <span class="footer-cert-text">Made in Germany</span>
-          </div>
+          <div class="footer-cert-badge"><img src="assets/images/ISO_9001-removebg-preview.png" alt="ISO 9001:2015" class="footer-cert-img"><span class="footer-cert-text">ISO 9001 : 2015</span></div>
+          <div class="footer-cert-badge"><img src="assets/images/HACCP_ger_tc_p-1.png" alt="HACCP Konform" class="footer-cert-img"><span class="footer-cert-text">HACCP Konform</span></div>
+          <div class="footer-cert-badge"><img src="assets/images/GMP-Certified.png" alt="GMP Standard" class="footer-cert-img"><span class="footer-cert-text">GMP Standard</span></div>
+          <div class="footer-cert-badge"><img src="assets/images/made_in_germany-removebg-preview.png" alt="Made in Germany" class="footer-cert-img"><span class="footer-cert-text">Made in Germany</span></div>
         </div>
       </div>
-
     </div>
   </div>
-
-  <!-- Bottom bar -->
   <div class="footer-bottom-wrap">
     <div class="footer-bottom-rule"></div>
     <div class="container">
@@ -230,9 +307,41 @@
       </div>
     </div>
   </div>
-  </div><!-- /.footer-inner -->
+  </div>
 </footer>
 
 <script src="assets/js/main.js"></script>
+<script>
+/* Scrollspy for legal TOC */
+(function () {
+  var links   = Array.from(document.querySelectorAll('.legal-toc-link'));
+  var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+
+  var threshold = 140;
+
+  var applyActive = function () {
+    var activeId = null;
+    targets.forEach(function (t) {
+      if (!t) return;
+      if (t.getBoundingClientRect().top <= threshold) activeId = t.id;
+    });
+    links.forEach(function (l) {
+      l.classList.toggle('is-active', activeId !== null && l.getAttribute('href') === '#' + activeId);
+    });
+  };
+
+  window.addEventListener('scroll', applyActive, { passive: true });
+  applyActive();
+
+  /* Smooth scroll on TOC click */
+  links.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
 </body>
 </html>
