@@ -1475,6 +1475,210 @@
     };
   }
 
+  /* ═══════════════════════════════════════════════════════════════
+     7. PULVER & SACHETS — Sachet pouch inflating as powder rains in
+  ═══════════════════════════════════════════════════════════════ */
+  function buildPulverSachets() {
+    /* Auger powder filling machine — inspired by industrial stainless steel
+       auger fillers: large hopper on top, screw auger, conveyor with sachets */
+    const root = add(new THREE.Group());
+    root.position.set(0, -0.1, 0);
+    root.rotation.y = -0.25;
+
+    const steel   = mat(0xccd8e8, { roughness: 0.14, metalness: 0.88 });
+    const dkSteel = mat(0x8899aa, { roughness: 0.28, metalness: 0.75 });
+    const frame   = mat(0xaabccc, { roughness: 0.20, metalness: 0.82 });
+
+    // Platform disc
+    add(mesh(new THREE.CylinderGeometry(3.1, 3.1, 0.06, 64),
+      mat(0x080f18, { roughness: 0.5, metalness: 0.7 }))).position.y = -2.2;
+    const platRing = mesh(new THREE.TorusGeometry(2.95, 0.016, 8, 80),
+      mat(0xaa33ff, { emissive: 0x6600cc, emissiveIntensity: 1.0, roughness: 0.2 }));
+    platRing.rotation.x = Math.PI / 2; platRing.position.y = -2.17;
+    add(platRing, root);
+
+    // ── Machine base cabinet ──────────────────────────────────
+    const base = mesh(new THREE.BoxGeometry(3.2, 1.1, 1.3), steel);
+    base.position.set(0, -1.6, 0); add(base, root);
+    // Front panel inset
+    const panel = mesh(new THREE.BoxGeometry(2.8, 0.7, 0.04), dkSteel);
+    panel.position.set(0, -1.6, 0.67); add(panel, root);
+    // Logo strip
+    const logo = mesh(new THREE.BoxGeometry(0.7, 0.18, 0.02),
+      mat(0xaabbdd, { roughness: 0.4, metalness: 0.5 }));
+    logo.position.set(0, -1.62, 0.69); add(logo, root);
+    // Casters
+    [[-1.45, -0.55], [-1.45, 0.55], [1.45, -0.55], [1.45, 0.55]].forEach(([x, z]) => {
+      const w = mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.07, 12),
+        mat(0x222233, { roughness: 0.9 }));
+      w.rotation.z = Math.PI / 2; w.position.set(x, -2.18, z); add(w, root);
+    });
+
+    // ── Frame posts (4 vertical columns) ─────────────────────
+    [[-1.35, -0.58], [-1.35, 0.58], [1.35, -0.58], [1.35, 0.58]].forEach(([x, z]) => {
+      const p = mesh(new THREE.BoxGeometry(0.09, 3.6, 0.09), frame);
+      p.position.set(x, 0.0, z); add(p, root);
+    });
+    // Top horizontal rails
+    [0.58, -0.58].forEach(z => {
+      const r = mesh(new THREE.BoxGeometry(2.82, 0.07, 0.07), frame);
+      r.position.set(0, 1.78, z); add(r, root);
+    });
+    [-1.35, 1.35].forEach(x => {
+      const r = mesh(new THREE.BoxGeometry(0.07, 0.07, 1.26), frame);
+      r.position.set(x, 1.78, 0); add(r, root);
+    });
+    // Mid rails
+    [0.58, -0.58].forEach(z => {
+      const r = mesh(new THREE.BoxGeometry(2.82, 0.06, 0.06), frame);
+      r.position.set(0, -0.02, z); add(r, root);
+    });
+
+    // Clear side panels
+    const glassM = mat(0x99ccff, { transparent: true, opacity: 0.10, roughness: 0.0 });
+    [-1.33, 1.33].forEach(x => {
+      const g = mesh(new THREE.BoxGeometry(0.03, 1.68, 1.24), glassM);
+      g.position.set(x, 0.86, 0); add(g, root);
+    });
+
+    // ── Hopper (large inverted cone) ─────────────────────────
+    const hopperMat = mat(0xddeeff, { roughness: 0.10, metalness: 0.92 });
+    const hopper = mesh(new THREE.ConeGeometry(0.85, 1.3, 28), hopperMat);
+    hopper.rotation.z = Math.PI; hopper.position.set(0, 2.48, 0); add(hopper, root);
+    // Hopper top rim ring
+    const hRim = mesh(new THREE.TorusGeometry(0.86, 0.045, 8, 32), hopperMat);
+    hRim.rotation.x = Math.PI / 2; hRim.position.set(0, 3.13, 0); add(hRim, root);
+    // Hopper body cylinder (transition)
+    const hBody = mesh(new THREE.CylinderGeometry(0.86, 0.86, 0.18, 28), hopperMat);
+    hBody.position.set(0, 3.04, 0); add(hBody, root);
+
+    // ── Auger housing (cylinder) ──────────────────────────────
+    const housing = mesh(new THREE.CylinderGeometry(0.175, 0.175, 1.55, 20),
+      mat(0xbbccdd, { roughness: 0.12, metalness: 0.88 }));
+    housing.position.set(0, 1.05, 0); add(housing, root);
+    // Housing clamp rings
+    [0.3, 0.9].forEach(y => {
+      const clamp = mesh(new THREE.TorusGeometry(0.2, 0.028, 8, 24),
+        mat(0x889aaa, { roughness: 0.25, metalness: 0.7 }));
+      clamp.rotation.x = Math.PI / 2; clamp.position.set(0, y, 0); add(clamp, root);
+    });
+
+    // ── Auger screw (spinning group inside housing) ───────────
+    const augerGrp = new THREE.Group();
+    augerGrp.position.set(0, 1.05, 0); add(augerGrp, root);
+    // Shaft
+    add(mesh(new THREE.CylinderGeometry(0.028, 0.028, 1.5, 8),
+      mat(0x99aacc, { metalness: 0.9, roughness: 0.1 })), augerGrp);
+    // Screw flights (8 staggered torus rings)
+    for (let i = 0; i < 8; i++) {
+      const flight = mesh(new THREE.TorusGeometry(0.13, 0.022, 6, 22),
+        mat(0x8899bb, { roughness: 0.25, metalness: 0.75 }));
+      flight.position.y = -0.62 + i * 0.18;
+      flight.rotation.x = Math.PI / 2;
+      flight.rotation.z = (i / 8) * Math.PI * 2;
+      add(flight, augerGrp);
+    }
+
+    // Nozzle tip (bottom of auger)
+    const nozzTipMat = mat(0xaa66dd, { emissive: 0x551199, emissiveIntensity: 0.5, roughness: 0.18 });
+    const nozzTip = mesh(new THREE.CylinderGeometry(0.1, 0.065, 0.22, 14), nozzTipMat);
+    nozzTip.position.set(0, 0.22, 0); add(nozzTip, root);
+
+    // ── Conveyor belt ─────────────────────────────────────────
+    const belt = mesh(new THREE.BoxGeometry(3.3, 0.13, 0.88), mat(0x556677, { roughness: 0.65, metalness: 0.3 }));
+    belt.position.set(0, -0.95, 0); add(belt, root);
+    [-1.55, 1.55].forEach(x => {
+      const roller = mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.88, 16), dkSteel);
+      roller.rotation.z = Math.PI / 2; roller.position.set(x, -0.95, 0); add(roller, root);
+    });
+    // Belt lane markers
+    for (let i = -2; i <= 2; i++) {
+      const mark = mesh(new THREE.BoxGeometry(0.04, 0.04, 0.82),
+        mat(0x6677aa, { roughness: 0.6 }));
+      mark.position.set(i * 0.65, -0.88, 0); add(mark, root);
+    }
+
+    // ── Sachets on conveyor ───────────────────────────────────
+    const sachets = [];
+    const sachetBodyMat = mat(0xaa77ee, { transparent: true, opacity: 0.72, roughness: 0.3 });
+    const sachetSealMat = mat(0x7744bb, { roughness: 0.3 });
+    for (let i = 0; i < 4; i++) {
+      const sg = new THREE.Group();
+      sg.position.set(-1.5 + i * 1.0, -0.78, 0);
+      const body = mesh(new THREE.BoxGeometry(0.52, 0.22, 0.62), sachetBodyMat.clone());
+      add(body, sg);
+      [0.11, -0.11].forEach(y => {
+        const seal = mesh(new THREE.BoxGeometry(0.52, 0.03, 0.62), sachetSealMat);
+        seal.position.y = y; add(seal, sg);
+      });
+      add(sg, root); sachets.push(sg);
+    }
+
+    // ── Control panel + arm ───────────────────────────────────
+    const armPost = mesh(new THREE.BoxGeometry(0.06, 1.4, 0.06), frame);
+    armPost.position.set(1.95, 0.6, 0); add(armPost, root);
+    const armH = mesh(new THREE.BoxGeometry(0.68, 0.06, 0.06), frame);
+    armH.position.set(1.64, 1.38, 0); add(armH, root);
+    const cpanel = mesh(new THREE.BoxGeometry(0.62, 0.52, 0.08),
+      mat(0x1a2535, { roughness: 0.5 }));
+    cpanel.position.set(1.32, 1.22, 0); cpanel.rotation.y = 0.28; add(cpanel, root);
+    const screenMat = mat(0x081528, { emissive: 0x002244, emissiveIntensity: 0.5 });
+    const scr = mesh(new THREE.BoxGeometry(0.42, 0.30, 0.01), screenMat);
+    scr.position.set(1.28, 1.24, 0.05); scr.rotation.y = 0.28; add(scr, root);
+    // Data bars on screen
+    [[0.18, 0xee4444], [0.28, 0x44ee88], [0.22, 0x4488ee], [0.35, 0xeecc44]].forEach(([h, c], i) => {
+      const b = mesh(new THREE.BoxGeometry(0.038, h * 0.18, 0.005),
+        mat(c, { emissive: c, emissiveIntensity: 0.7 }));
+      b.position.set(1.22 + i * 0.055, 1.19, 0.055); b.rotation.y = 0.28; add(b, root);
+    });
+    const eBtnMat = mat(0xff2222, { emissive: 0xcc0000, emissiveIntensity: 0.6 });
+    const eBtn = mesh(new THREE.SphereGeometry(0.042, 10, 10), eBtnMat);
+    eBtn.position.set(1.28, 0.97, 0.06); eBtn.rotation.y = 0.28; add(eBtn, root);
+
+    // ── Powder particles (through housing → into sachet) ──────
+    const pCols = [0xeeddff, 0xddccee, 0xffeeff, 0xccbbdd];
+    const particles = [];
+    for (let i = 0; i < 20; i++) {
+      const p = mesh(new THREE.SphereGeometry(0.022 + Math.random() * 0.018, 5, 4),
+        mat(pCols[i % pCols.length], { transparent: true, opacity: 0.65 + Math.random() * 0.35, roughness: 0.88 }));
+      p.position.set((Math.random() - 0.5) * 0.22, 0.0 + Math.random() * 2.8, (Math.random() - 0.5) * 0.14);
+      p.userData.vy = 0.009 + Math.random() * 0.012;
+      p.userData.ph = Math.random() * Math.PI * 2;
+      add(p, root); particles.push(p);
+    }
+
+    animFn = () => {
+      const t = Date.now() * 0.001;
+
+      // Auger spins
+      augerGrp.rotation.y += 0.055;
+
+      // Powder falls through housing
+      particles.forEach(p => {
+        p.position.y -= p.userData.vy;
+        if (p.position.y < -0.82) { p.position.y = 1.8 + Math.random() * 1.0; p.position.x = (Math.random() - 0.5) * 0.16; }
+      });
+
+      // Sachets scroll on belt
+      sachets.forEach(s => {
+        s.position.x -= 0.005;
+        if (s.position.x < -1.8) s.position.x = 1.8;
+      });
+
+      // Nozzle tip pulses
+      nozzTipMat.emissiveIntensity = 0.3 + Math.sin(t * 7) * 0.25;
+      // Screen flickers
+      screenMat.emissiveIntensity = 0.4 + Math.sin(t * 3.5) * 0.15;
+      // Ebutton pulses
+      eBtnMat.emissiveIntensity = 0.4 + Math.sin(t * 1.8) * 0.3;
+      // Platform ring breathes
+      platRing.material.emissiveIntensity = 0.8 + Math.sin(t * 1.2) * 0.35;
+
+      root.rotation.y = -0.25 + Math.sin(t * 0.22) * 0.20;
+      root.position.y = -0.1 + Math.sin(t * 0.45) * 0.07;
+    };
+  }
+
   /* ── Scene router ──────────────────────────────────────────── */
   ({
     produktentwicklung: buildFlask,
@@ -1483,5 +1687,6 @@
     qualitaet:         buildQualityCert,
     analysen:          buildMicroscope,
     logistik:          buildTruckWarehouse,
+    pulver:            buildPulverSachets,
   }[sceneName] || function () {})();
 })();

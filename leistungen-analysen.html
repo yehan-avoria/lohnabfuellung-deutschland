@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
@@ -10,6 +10,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Welche Analysen führen Sie in-house durch?","acceptedAnswer":{"@type":"Answer","text":"Rohstoff-Eingangsprüfungen, Fertigprodukt-Analysen, Identitätsprüfungen, Reinheitsanalysen und mikrobiologische Basisprüfungen."}},
+    {"@type":"Question","name":"Wie lange dauern die Analysen?","acceptedAnswer":{"@type":"Answer","text":"Standardanalysen: 5–10 Werktage. Eilaufträge: 2–3 Werktage."}},
+    {"@type":"Question","name":"Wie sende ich Proben ein?","acceptedAnswer":{"@type":"Answer","text":"Nach Auftragserteilung erhalten Sie genaue Versandanweisungen."}},
+    {"@type":"Question","name":"Erhalte ich einen schriftlichen Analysebericht?","acceptedAnswer":{"@type":"Answer","text":"Ja, Sie erhalten einen vollständigen Analysebericht (CoA) mit allen Parametern und Ergebnissen."}},
+    {"@type":"Question","name":"Sind Ihre Analysen akkreditiert?","acceptedAnswer":{"@type":"Answer","text":"Interne Analysen dienen der Qualitätssicherung. Für akkreditierungspflichtige Berichte arbeiten wir mit Partnerlaboren."}},
+    {"@type":"Question","name":"Können Sie auch Stabilitätsprüfungen durchführen?","acceptedAnswer":{"@type":"Answer","text":"Ja, wir führen beschleunigte und Echtzeit-Stabilitätsprüfungen durch."}},
+    {"@type":"Question","name":"Was kostet eine Analyse?","acceptedAnswer":{"@type":"Answer","text":"Kosten hängen von Analyseart und Parameteranzahl ab. Nach Anfrage erstellen wir ein transparentes Angebot."}},
+    {"@type":"Question","name":"Bieten Sie laufende Qualitätskontrollen für Serienproduktion an?","acceptedAnswer":{"@type":"Answer","text":"Ja, für Produktionskunden führen wir chargenbezogene Kontrollen standardmäßig durch."}}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="cursor-dot"></div>
@@ -26,9 +42,7 @@
       <a href="produkte.html">Produkte</a>
       <a href="qualitaet.html">Qualität</a>
       <a href="ueber-uns.html">Über uns</a>
-      <a href="kontakt.html" class="nav-cta">Kontakt aufnehmen
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <a href="kontakt.html" class="nav-cta">Jetzt unverbindlich anfragen &#x2192;</a>
     </nav>
     <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
   </div>
@@ -65,7 +79,7 @@
     <h1 class="service-hero-title">In-house<br><em style="color:rgba(100,220,240,0.9);">Analysen</em></h1>
     <p class="service-hero-desc">Qualität messbar gemacht. Unser vollausgestattetes hauseigenes Labor ermöglicht schnelle, zuverlässige Qualitätskontrolle ohne externe Umwege — für jeden Rohstoff und jede fertige Charge.</p>
     <div class="service-hero-actions">
-      <a href="kontakt.html" class="btn btn-primary">Analysen anfragen
+      <a href="kontakt.html?service=analyse" class="btn btn-primary">Analysen anfragen
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       <a href="leistungen.html" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.75);">Alle Leistungen</a>
@@ -259,6 +273,77 @@
   </div>
 </section>
 
+<!-- Spezialisiertes Anfrageformular -->
+<section class="section" id="projekt-anfragen" style="padding-top:80px; padding-bottom:80px;">
+  <div class="container">
+    <div style="max-width:840px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:48px;" data-animate>
+        <p class="eyebrow">Analyse anfragen</p>
+        <h2 class="section-title">Laboranalyse <em>direkt anfragen</em></h2>
+        <p style="color:var(--text-secondary); max-width:560px; margin:0 auto; line-height:1.7;">Beschreiben Sie Ihre Analyseanforderungen — je mehr Details, desto schneller kommen wir zu einem Angebot.</p>
+      </div>
+      <div class="service-inquiry-form" data-animate>
+        <form class="contact-form-el" id="an-anfrage-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="an-name">Name <span class="required-star">*</span></label>
+              <input class="form-input" type="text" id="an-name" name="name" placeholder="Max Mustermann" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="an-company">Unternehmen <span class="required-star">*</span></label>
+              <input class="form-input" type="text" id="an-company" name="company" placeholder="Musterfirma GmbH" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="an-email">E-Mail <span class="required-star">*</span></label>
+              <input class="form-input" type="email" id="an-email" name="email" placeholder="anfrage@unternehmen.de" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="an-phone">Telefon</label>
+              <input class="form-input" type="tel" id="an-phone" name="phone" placeholder="+49 XXX XXXXXXX">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="an-art">Analyseart <span class="required-star">*</span></label>
+              <select class="form-input" id="an-art" name="analyseart" required>
+                <option value="">Bitte wählen…</option>
+                <option>Rohstoff-Eingangsanalyse</option>
+                <option>Fertigprodukt-Analyse</option>
+                <option>Mikrobiologische Prüfung</option>
+                <option>Stabilitätsprüfung</option>
+                <option>Reinheitsanalyse / Identitätsprüfung</option>
+                <option>Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="an-dringlichkeit">Dringlichkeit</label>
+              <select class="form-input" id="an-dringlichkeit" name="dringlichkeit">
+                <option value="">Bitte wählen…</option>
+                <option>Standard (5–10 Werktage)</option>
+                <option>Eilauftrag (2–3 Werktage)</option>
+                <option>Laufende / regelmäßige Analysen</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group form-group--wide">
+            <label class="form-label" for="an-probe">Probentyp / Probenmenge</label>
+            <input class="form-input" type="text" id="an-probe" name="probe" placeholder="z.B. Flüssigkeit 100 ml, Pulver 50 g, fertig abgefülltes Produkt">
+          </div>
+          <div class="form-group form-group--wide">
+            <label class="form-label" for="an-message">Weitere Anforderungen / Parameter</label>
+            <textarea class="form-input" id="an-message" name="message" rows="4" placeholder="Spezifische Parameter, Grenzwerte, Normen, Zertifizierungsanforderungen …"></textarea>
+          </div>
+          <div class="contact-privacy-note">Mit dem Absenden stimmen Sie unserer <a href="datenschutz.html">Datenschutzerklärung</a> zu. Ihre Daten werden vertraulich behandelt.</div>
+          <button type="submit" class="form-submit">Projekt jetzt anfragen <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+          <div class="form-message"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <div class="pre-footer-zone">
   <section class="cta-section cta-section--innerpage">
@@ -275,6 +360,37 @@
     </div>
   </section>
 </div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-inner">
+      <div class="faq-aside">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="section-title faq-headline">Häufige <em>Fragen</em></h2>
+        <p class="faq-intro">Die wichtigsten Antworten zu unseren In-house Analysen — schnell und direkt.</p>
+        <div class="faq-help-card">
+          <strong class="faq-help-title">Noch Fragen?</strong>
+          <p class="faq-help-desc">Manchmal ist ein kurzes Gespräch schneller als jedes Formular.</p>
+          <a href="tel:+49091156839291" class="faq-help-link">Jetzt anrufen →</a>
+        </div>
+      </div>
+      <div class="faq-accordion">
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Welche Analysen führen Sie in-house durch?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Wir führen Rohstoff-Eingangsprüfungen, Fertigprodukt-Analysen, Identitätsprüfungen, Reinheitsanalysen und mikrobiologische Basisprüfungen durch. Für spezialisierte Parameter arbeiten wir mit akkreditierten Partnerlaboren.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Wie lange dauern die Analysen?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Standardanalysen dauern 5–10 Werktage. Eilaufträge sind in 2–3 Werktagen möglich. Mikrobiologische Prüfungen benötigen je nach Methode 7–14 Tage.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Wie sende ich Proben ein?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Nach Auftragserteilung erhalten Sie genaue Versandanweisungen inkl. Probenmenge und Verpackungsanforderungen. Proben können auch persönlich angeliefert werden.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Erhalte ich einen schriftlichen Analysebericht?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Ja, Sie erhalten einen vollständigen Analysebericht (CoA / Certificate of Analysis) mit allen gemessenen Parametern, Ergebnissen und Referenzwerten.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Sind Ihre Analysen akkreditiert?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Unsere internen Analysen dienen primär der Qualitätssicherung. Für akkreditierungspflichtige Prüfberichte arbeiten wir mit zertifizierten Partnerlaboren zusammen.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Können Sie auch Stabilitätsprüfungen durchführen?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Ja, wir führen beschleunigte und Echtzeit-Stabilitätsprüfungen durch. Dauer und Prüfpunkte richten sich nach Ihren Anforderungen.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Was kostet eine Analyse?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Kosten hängen von Analyseart, Parameteranzahl und Dringlichkeit ab. Nach Ihrer Anfrage erstellen wir ein transparentes Angebot. Laufende Analysen werden pauschal vereinbart.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Bieten Sie laufende Qualitätskontrollen für Serienproduktion an?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Ja, für Produktionskunden führen wir chargenbezogene Eingangs- und Ausgangskontrollen standardmäßig durch. Individuelle Kontrollpläne sind möglich.</p></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){document.querySelectorAll('.faq-section .faq-question').forEach(function(btn){if(btn.dataset.fi)return;btn.dataset.fi='1';btn.addEventListener('click',function(){var item=btn.closest('.faq-item');var open=item.classList.contains('is-open');item.closest('.faq-accordion').querySelectorAll('.faq-item.is-open').forEach(function(o){o.classList.remove('is-open');o.querySelector('.faq-question').setAttribute('aria-expanded','false');});if(!open){item.classList.add('is-open');btn.setAttribute('aria-expanded','true');}});});})();
+</script>
 
 <!-- Other Services -->
 <section class="section">

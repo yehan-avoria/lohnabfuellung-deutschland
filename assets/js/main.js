@@ -15,40 +15,28 @@ window.addEventListener('load', function () {
 (function () {
   'use strict';
 
-  /* ---- Custom cursor ---- */
-  const cursorDot  = document.querySelector('.cursor-dot');
-  const cursorRing = document.querySelector('.cursor-ring');
+  /* ---- Custom cursor (blend-mode blob) ---- */
+  const cursorDot = document.querySelector('.cursor-dot');
 
-  if (cursorDot && cursorRing) {
-    let cx = 0, cy = 0;
-    let rx = 0, ry = 0;
+  if (cursorDot) {
+    let tx = 0, ty = 0, cx = 0, cy = 0;
 
     document.addEventListener('mousemove', (e) => {
-      cx = e.clientX;
-      cy = e.clientY;
-      cursorDot.style.left  = cx + 'px';
-      cursorDot.style.top   = cy + 'px';
+      tx = e.clientX;
+      ty = e.clientY;
     });
 
-    function animateRing() {
-      rx += (cx - rx) * 0.12;
-      ry += (cy - ry) * 0.12;
-      cursorRing.style.left = rx + 'px';
-      cursorRing.style.top  = ry + 'px';
-      requestAnimationFrame(animateRing);
-    }
-    animateRing();
+    (function animate() {
+      cx += (tx - cx) * 0.18;
+      cy += (ty - cy) * 0.18;
+      cursorDot.style.left = cx + 'px';
+      cursorDot.style.top  = cy + 'px';
+      requestAnimationFrame(animate);
+    })();
 
-    // Hover detection
     document.querySelectorAll('a, button, [data-tilt], .faq-question, .product-card, .service-card').forEach((el) => {
-      el.addEventListener('mouseenter', () => {
-        cursorDot.classList.add('hovering');
-        cursorRing.classList.add('hovering');
-      });
-      el.addEventListener('mouseleave', () => {
-        cursorDot.classList.remove('hovering');
-        cursorRing.classList.remove('hovering');
-      });
+      el.addEventListener('mouseenter', () => cursorDot.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursorDot.classList.remove('hovering'));
     });
   }
 
@@ -393,15 +381,9 @@ window.addEventListener('load', function () {
       link.addEventListener('mouseenter', () => setPreview(itemIndex));
       link.addEventListener('focus', () => setPreview(itemIndex));
 
-      if (cursorDot && cursorRing) {
-        link.addEventListener('mouseenter', () => {
-          cursorDot.classList.add('hovering');
-          cursorRing.classList.add('hovering');
-        });
-        link.addEventListener('mouseleave', () => {
-          cursorDot.classList.remove('hovering');
-          cursorRing.classList.remove('hovering');
-        });
+      if (cursorDot) {
+        link.addEventListener('mouseenter', () => cursorDot.classList.add('hovering'));
+        link.addEventListener('mouseleave', () => cursorDot.classList.remove('hovering'));
       }
       link.addEventListener('click', closeMenu);
     });
@@ -416,16 +398,18 @@ window.addEventListener('load', function () {
     box:        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>',
     shield:     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
     microscope: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="18" r="2"/><path d="M9 3 7.5 9M15 3l1.5 6"/><path d="M9 9h6v6H9z"/><path d="M12 15v3"/></svg>',
-    truck:      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect width="7" height="7" x="14" y="10" rx="1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>'
+    truck:      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect width="7" height="7" x="14" y="10" rx="1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>',
+    layers:     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>'
   };
 
   const servicesMenuItems = [
-    { num: '01', title: 'Produktentwicklung',       href: 'leistungen-produktentwicklung.html', copy: 'Von der Idee zum Produkt',        icon: 'lab',        iconBg: 'radial-gradient(circle at 60% 40%, #008cb4 0%, #041c28 55%, #020e14 100%)' },
-    { num: '02', title: 'Lohnabfüllung',             href: 'leistungen-lohnabfuellung.html',     copy: 'Präzise Abfüllung & Produktion', icon: 'droplets',   iconBg: 'radial-gradient(circle at 60% 40%, #0a783c 0%, #051a0e 55%, #020d07 100%)' },
-    { num: '03', title: 'Verpackung & Etikettierung',href: 'leistungen-verpackung.html',         copy: 'Design trifft Funktion',         icon: 'box',        iconBg: 'radial-gradient(circle at 60% 40%, #a01e3c 0%, #2a0a12 55%, #120407 100%)' },
-    { num: '04', title: 'Qualitätsmanagement',       href: 'leistungen-qualitaet.html',          copy: 'ISO 9001 & HACCP zertifiziert',  icon: 'shield',     iconBg: 'radial-gradient(circle at 60% 40%, #0a32a0 0%, #0a1540 55%, #050a1c 100%)' },
-    { num: '05', title: 'In-house Analysen',         href: 'leistungen-analysen.html',           copy: 'Qualität messbar gemacht',       icon: 'microscope', iconBg: 'radial-gradient(circle at 60% 40%, #008cb4 0%, #041c28 55%, #020e14 100%)' },
-    { num: '06', title: 'Logistik & Versand',        href: 'leistungen-logistik.html',           copy: 'Pünktlich ans Ziel',             icon: 'truck',      iconBg: 'radial-gradient(circle at 60% 40%, #a0640a 0%, #16100a 55%, #080604 100%)' }
+    { num: '01', title: 'Produktentwicklung',       href: 'leistungen-produktentwicklung.html',    copy: 'Von der Idee zum Produkt',        icon: 'lab',        iconBg: 'radial-gradient(circle at 60% 40%, #008cb4 0%, #041c28 55%, #020e14 100%)' },
+    { num: '02', title: 'Lohnabfüllung',             href: 'leistungen-lohnabfuellung.html',        copy: 'Präzise Abfüllung & Produktion', icon: 'droplets',   iconBg: 'radial-gradient(circle at 60% 40%, #0a783c 0%, #051a0e 55%, #020d07 100%)' },
+    { num: '03', title: 'Verpackung & Etikettierung',href: 'leistungen-verpackung.html',            copy: 'Design trifft Funktion',         icon: 'box',        iconBg: 'radial-gradient(circle at 60% 40%, #a01e3c 0%, #2a0a12 55%, #120407 100%)' },
+    { num: '04', title: 'Qualitätsmanagement',       href: 'leistungen-qualitaet.html',             copy: 'ISO 9001 & HACCP zertifiziert',  icon: 'shield',     iconBg: 'radial-gradient(circle at 60% 40%, #0a32a0 0%, #0a1540 55%, #050a1c 100%)' },
+    { num: '05', title: 'In-house Analysen',         href: 'leistungen-analysen.html',              copy: 'Qualität messbar gemacht',       icon: 'microscope', iconBg: 'radial-gradient(circle at 60% 40%, #008cb4 0%, #041c28 55%, #020e14 100%)' },
+    { num: '06', title: 'Logistik & Versand',        href: 'leistungen-logistik.html',              copy: 'Pünktlich ans Ziel',             icon: 'truck',      iconBg: 'radial-gradient(circle at 60% 40%, #a0640a 0%, #16100a 55%, #080604 100%)' },
+    { num: '07', title: 'Sachets & Pulver',          href: 'pulver-sachets-abfuellen-lassen.html',  copy: 'Talkum, Granulate & Kleinbeutel',icon: 'layers',     iconBg: 'radial-gradient(circle at 60% 40%, #8c32d2 0%, #1e0a3c 55%, #0e0416 100%)' }
   ];
 
   function initServicesDropdown() {
@@ -459,7 +443,7 @@ window.addEventListener('load', function () {
       <div class="nav-services-panel">
         <div class="nav-services-head">
           <span class="nav-services-kicker">Unsere Leistungen</span>
-          <span class="nav-services-sub">6 Services</span>
+          <span class="nav-services-sub">7 Services</span>
         </div>
         <div class="nav-services-grid">
           ${servicesMenuItems.map((item, index) => `
@@ -518,10 +502,10 @@ window.addEventListener('load', function () {
 
     document.addEventListener('click', (e) => { if (!wrapper.contains(e.target)) closeMenu(); });
 
-    if (cursorDot && cursorRing) {
+    if (cursorDot) {
       menuLinks.forEach((link) => {
-        link.addEventListener('mouseenter', () => { cursorDot.classList.add('hovering'); cursorRing.classList.add('hovering'); });
-        link.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovering'); cursorRing.classList.remove('hovering'); });
+        link.addEventListener('mouseenter', () => cursorDot.classList.add('hovering'));
+        link.addEventListener('mouseleave', () => cursorDot.classList.remove('hovering'));
         link.addEventListener('click', closeMenu);
       });
     }
@@ -806,7 +790,8 @@ window.addEventListener('load', function () {
       ['verpackung', 'Verpackung'],
       ['qualitaet', 'Qualit&auml;t'],
       ['analyse', 'Analysen'],
-      ['logistik', 'Logistik']
+      ['logistik', 'Logistik'],
+      ['pulver', 'Sachets &amp; Pulver']
     ];
 
     if (!document.querySelector('.contact-form-chips')) {

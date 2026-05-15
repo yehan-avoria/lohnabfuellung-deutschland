@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
@@ -10,6 +10,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Ab welcher Mindestmenge bieten Sie Lohnabfüllung an?","acceptedAnswer":{"@type":"Answer","text":"Typisch sind 5.000 Einheiten für Kleinserien. Sondermengen prüfen wir im Einzelfall."}},
+    {"@type":"Question","name":"Welche Produkttypen können abgefüllt werden?","acceptedAnswer":{"@type":"Answer","text":"Wir füllen Flüssigkeiten, Emulsionen, Gele, Cremes, Pulver, Granulate und Kapseln ab."}},
+    {"@type":"Question","name":"Können wir unseren eigenen Rohstoff anliefern?","acceptedAnswer":{"@type":"Answer","text":"Ja, Lohnabfüllung mit kundenseitig gestelltem Rohstoff ist unser Kerngeschäft."}},
+    {"@type":"Question","name":"Sind Sie GMP- oder ISO-zertifiziert?","acceptedAnswer":{"@type":"Answer","text":"Wir produzieren nach ISO 9001 und HACCP-Standards."}},
+    {"@type":"Question","name":"Was kostet die Lohnabfüllung?","acceptedAnswer":{"@type":"Answer","text":"Der Preis hängt von Produkttyp, Füllmenge und Stückzahl ab. Nach vollständiger Anfrage erhalten Sie ein individuelles Angebot."}},
+    {"@type":"Question","name":"Wie lange dauert die Produktion?","acceptedAnswer":{"@type":"Answer","text":"Typische Vorlaufzeit beträgt 3–6 Wochen ab Auftragserteilung."}},
+    {"@type":"Question","name":"Bieten Sie auch Verpackung und Kartonierung an?","acceptedAnswer":{"@type":"Answer","text":"Ja, wir bieten Etikettierung, Kartonierung und Versandvorbereitung an."}},
+    {"@type":"Question","name":"Wie schnell erhalte ich ein Angebot?","acceptedAnswer":{"@type":"Answer","text":"Bei vollständiger Anfrage erhalten Sie innerhalb von 2 Werktagen eine erste Rückmeldung."}}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="cursor-dot"></div>
@@ -26,9 +42,7 @@
       <a href="produkte.html">Produkte</a>
       <a href="qualitaet.html">Qualität</a>
       <a href="ueber-uns.html">Über uns</a>
-      <a href="kontakt.html" class="nav-cta">Kontakt aufnehmen
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <a href="kontakt.html" class="nav-cta">Jetzt unverbindlich anfragen &#x2192;</a>
     </nav>
     <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
   </div>
@@ -65,7 +79,7 @@
     <h1 class="service-hero-title">Lohn-<br><em style="color:rgba(80,220,130,0.9);">abfüllung</em></h1>
     <p class="service-hero-desc">Das Herzstück unserer Tätigkeit. Professionelle Abfüllung in alle gängigen Behältertypen — von der 10-ml-Flasche bis zum 1000-Liter-Gebinde. Modernste Anlagen für höchste Präzision.</p>
     <div class="service-hero-actions">
-      <a href="kontakt.html" class="btn btn-primary">Kapazitäten anfragen
+      <a href="kontakt.html?service=lohnabfuellung" class="btn btn-primary">Kapazitäten anfragen
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       <a href="leistungen.html" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.75);">Alle Leistungen</a>
@@ -259,6 +273,84 @@
   </div>
 </section>
 
+<!-- Spezialisiertes Anfrageformular -->
+<section class="section" id="projekt-anfragen" style="padding-top:80px; padding-bottom:80px;">
+  <div class="container">
+    <div style="max-width:840px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:48px;" data-animate>
+        <p class="eyebrow">Projekt anfragen</p>
+        <h2 class="section-title">Lohnabfüllung <em>direkt anfragen</em></h2>
+        <p style="color:var(--text-secondary); max-width:560px; margin:0 auto; line-height:1.7;">Füllen Sie die Felder aus — je mehr Details, desto schneller können wir Ihr Projekt realistisch einschätzen.</p>
+      </div>
+      <div class="service-inquiry-form" data-animate>
+        <form class="contact-form-el" id="lohnab-anfrage-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="la-name">Name <span class="required-star">*</span></label>
+              <input class="form-input" type="text" id="la-name" name="name" placeholder="Max Mustermann" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="la-company">Unternehmen <span class="required-star">*</span></label>
+              <input class="form-input" type="text" id="la-company" name="company" placeholder="Musterfirma GmbH" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="la-email">E-Mail <span class="required-star">*</span></label>
+              <input class="form-input" type="email" id="la-email" name="email" placeholder="anfrage@unternehmen.de" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="la-phone">Telefon</label>
+              <input class="form-input" type="tel" id="la-phone" name="phone" placeholder="+49 XXX XXXXXXX">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="la-produkttyp">Produkttyp <span class="required-star">*</span></label>
+              <select class="form-input" id="la-produkttyp" name="produkttyp" required>
+                <option value="">Bitte wählen…</option>
+                <option>Flüssigkeit / Emulsion</option>
+                <option>Pulver / Granulat</option>
+                <option>Gel / Creme</option>
+                <option>Kapsel / Tablette</option>
+                <option>Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="la-fuellmenge">Füllmenge pro Einheit <span class="required-star">*</span></label>
+              <input class="form-input" type="text" id="la-fuellmenge" name="fuellmenge" placeholder="z.B. 100 ml, 500 g, 1 kg" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="la-gesamtmenge">Gesamtmenge <span class="required-star">*</span></label>
+              <select class="form-input" id="la-gesamtmenge" name="gesamtmenge" required>
+                <option value="">Bitte wählen…</option>
+                <option>bis 5.000 Einheiten</option>
+                <option>5.000 – 25.000 Einheiten</option>
+                <option>25.000 – 100.000 Einheiten</option>
+                <option>100.000 – 500.000 Einheiten</option>
+                <option>über 500.000 Einheiten</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="la-termin">Gewünschter Liefertermin</label>
+              <input class="form-input" type="text" id="la-termin" name="liefertermin" placeholder="z.B. Q3 2025, laufend">
+            </div>
+          </div>
+          <div class="form-group form-group--wide">
+            <label class="form-label" for="la-message">Weitere Hinweise / Anforderungen</label>
+            <textarea class="form-input" id="la-message" name="message" rows="4" placeholder="Besonderheiten, Zertifizierungsanforderungen, Verpackungswünsche, Rohstoff vorhanden …"></textarea>
+          </div>
+          <div class="contact-privacy-note">Mit dem Absenden stimmen Sie unserer <a href="datenschutz.html">Datenschutzerklärung</a> zu. Ihre Daten werden vertraulich behandelt.</div>
+          <button type="submit" class="form-submit">Projekt jetzt anfragen <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+          <div class="form-message"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <div class="pre-footer-zone">
   <section class="cta-section cta-section--innerpage">
@@ -275,6 +367,37 @@
     </div>
   </section>
 </div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-inner">
+      <div class="faq-aside">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="section-title faq-headline">Häufige <em>Fragen</em></h2>
+        <p class="faq-intro">Die wichtigsten Antworten zur Lohnabfüllung — schnell und direkt.</p>
+        <div class="faq-help-card">
+          <strong class="faq-help-title">Noch Fragen?</strong>
+          <p class="faq-help-desc">Manchmal ist ein kurzes Gespräch schneller als jedes Formular.</p>
+          <a href="tel:+49091156839291" class="faq-help-link">Jetzt anrufen →</a>
+        </div>
+      </div>
+      <div class="faq-accordion">
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Ab welcher Mindestmenge bieten Sie Lohnabfüllung an?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Mindestmengen variieren je nach Produkttyp und Verpackungsformat. Typisch sind 5.000 Einheiten für Kleinserien. Sondermengen prüfen wir im Einzelfall — sprechen Sie uns an.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Welche Produkttypen können abgefüllt werden?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Wir füllen Flüssigkeiten, Emulsionen, Gele, Cremes, Pulver, Granulate und Kapseln ab. Bei besonderen Viskositäten oder Gefahrstoffen führen wir vorab eine Machbarkeitsprüfung durch.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Können wir unseren eigenen Rohstoff anliefern?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Ja, Lohnabfüllung mit kundenseitig gestelltem Rohstoff ist unser Kerngeschäft. Sie liefern das Material an, wir übernehmen Abfüllung, Versiegelung und Verpackung.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Sind Sie GMP- oder ISO-zertifiziert?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Wir produzieren nach ISO 9001 und HACCP-Standards. Für spezifische Zertifizierungsanforderungen kontaktieren Sie uns — wir klären die Machbarkeit im Einzelfall.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Was kostet die Lohnabfüllung?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Der Preis hängt von Produkttyp, Füllmenge, Verpackungsformat und Stückzahl ab. Eine pauschale Aussage ist nicht möglich — nach vollständiger Anfrage erhalten Sie ein individuelles Angebot.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Wie lange dauert die Produktion?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Typische Vorlaufzeit beträgt 3–6 Wochen ab Auftragserteilung und gestelltem Rohstoff. Genaue Termine werden im individuellen Angebot festgelegt.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Bieten Sie auch Verpackung und Kartonierung an?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Ja, wir bieten Etikettierung, Kartonierung und Versandvorbereitung als ergänzende Dienstleistungen an.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Wie schnell erhalte ich ein Angebot?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Bei vollständiger Anfrage erhalten Sie innerhalb von 2 Werktagen eine erste Rückmeldung oder ein konkretes Angebot.</p></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){document.querySelectorAll('.faq-section .faq-question').forEach(function(btn){if(btn.dataset.fi)return;btn.dataset.fi='1';btn.addEventListener('click',function(){var item=btn.closest('.faq-item');var open=item.classList.contains('is-open');item.closest('.faq-accordion').querySelectorAll('.faq-item.is-open').forEach(function(o){o.classList.remove('is-open');o.querySelector('.faq-question').setAttribute('aria-expanded','false');});if(!open){item.classList.add('is-open');btn.setAttribute('aria-expanded','true');}});});})();
+</script>
 
 <!-- Other Services -->
 <section class="section">

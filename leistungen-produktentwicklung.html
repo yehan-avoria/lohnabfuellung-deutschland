@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
@@ -10,6 +10,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Was genau umfasst Ihre Produktentwicklung?","acceptedAnswer":{"@type":"Answer","text":"Formulierungsentwicklung, Rezepturoptimierung, Prototyping, Laboranalysen und Testserien aus einer Hand."}},
+    {"@type":"Question","name":"Wie lange dauert eine Produktentwicklung?","acceptedAnswer":{"@type":"Answer","text":"Einfache Formulierungen: 4–8 Wochen. Komplexe Neuentwicklungen: 3–6 Monate."}},
+    {"@type":"Question","name":"Entwickeln Sie auch mit unserer eigenen Rezeptur?","acceptedAnswer":{"@type":"Answer","text":"Ja, wir optimieren bestehende Rezepturen unter NDA. Ihre Formeln bleiben vertraulich."}},
+    {"@type":"Question","name":"Erhalten wir die Rezeptur nach der Entwicklung?","acceptedAnswer":{"@type":"Answer","text":"Kundenfinanzierte Entwicklungen verbleiben in der Regel beim Auftraggeber."}},
+    {"@type":"Question","name":"Erstellen Sie auch Muster und Testserien?","acceptedAnswer":{"@type":"Answer","text":"Ja, Muster und Pilotserien sind fester Bestandteil unseres Entwicklungsprozesses."}},
+    {"@type":"Question","name":"Was kostet eine Produktentwicklung?","acceptedAnswer":{"@type":"Answer","text":"Nach Briefing erstellen wir ein transparentes Angebot ohne versteckte Kosten."}},
+    {"@type":"Question","name":"Können Sie regulatorische Anforderungen berücksichtigen?","acceptedAnswer":{"@type":"Answer","text":"Ja, wir berücksichtigen branchenspezifische Regularien in der Entwicklung."}},
+    {"@type":"Question","name":"Übernehmen Sie auch die anschließende Produktion?","acceptedAnswer":{"@type":"Answer","text":"Ja, Entwicklung und Lohnabfüllung aus einer Hand — kein Technologietransfer nötig."}}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="cursor-dot"></div>
@@ -26,9 +42,7 @@
       <a href="produkte.html">Produkte</a>
       <a href="qualitaet.html">Qualität</a>
       <a href="ueber-uns.html">Über uns</a>
-      <a href="kontakt.html" class="nav-cta">Kontakt aufnehmen
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <a href="kontakt.html" class="nav-cta">Jetzt unverbindlich anfragen &#x2192;</a>
     </nav>
     <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
   </div>
@@ -65,7 +79,7 @@
     <h1 class="service-hero-title">Produkt-<br><em style="color:rgba(100,220,240,0.9);">entwicklung</em></h1>
     <p class="service-hero-desc">Von der ersten Idee bis zum freigegebenen Muster. Unsere erfahrenen Chemiker begleiten jeden Schritt Ihrer Produktentwicklung — schnell, präzise und vollständig dokumentiert.</p>
     <div class="service-hero-actions">
-      <a href="kontakt.html" class="btn btn-primary">Projekt anfragen
+      <a href="kontakt.html?service=produktentwicklung" class="btn btn-primary">Projekt anfragen
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       <a href="leistungen.html" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.75);">Alle Leistungen</a>
@@ -259,6 +273,77 @@
   </div>
 </section>
 
+<!-- Spezialisiertes Anfrageformular -->
+<section class="section" id="projekt-anfragen" style="padding-top:80px; padding-bottom:80px;">
+  <div class="container">
+    <div style="max-width:840px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:48px;" data-animate>
+        <p class="eyebrow">Projekt anfragen</p>
+        <h2 class="section-title">Produktentwicklung <em>direkt anfragen</em></h2>
+        <p style="color:var(--text-secondary); max-width:560px; margin:0 auto; line-height:1.7;">Schildern Sie uns Ihre Produktidee — je mehr Details, desto schneller kommen wir zu einer ehrlichen Einschätzung.</p>
+      </div>
+      <div class="service-inquiry-form" data-animate>
+        <form class="contact-form-el" id="prod-anfrage-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="pe-name">Name <span class="required-star">*</span></label>
+              <input class="form-input" type="text" id="pe-name" name="name" placeholder="Max Mustermann" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pe-company">Unternehmen <span class="required-star">*</span></label>
+              <input class="form-input" type="text" id="pe-company" name="company" placeholder="Musterfirma GmbH" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="pe-email">E-Mail <span class="required-star">*</span></label>
+              <input class="form-input" type="email" id="pe-email" name="email" placeholder="anfrage@unternehmen.de" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pe-phone">Telefon</label>
+              <input class="form-input" type="tel" id="pe-phone" name="phone" placeholder="+49 XXX XXXXXXX">
+            </div>
+          </div>
+          <div class="form-group form-group--wide">
+            <label class="form-label" for="pe-idee">Produktidee / Produktkategorie <span class="required-star">*</span></label>
+            <input class="form-input" type="text" id="pe-idee" name="produktidee" placeholder="z.B. Nahrungsergänzungsmittel, Kosmetikprodukt, Reinigungsmittel" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="pe-phase">Entwicklungsphase</label>
+              <select class="form-input" id="pe-phase" name="entwicklungsphase">
+                <option value="">Bitte wählen…</option>
+                <option>Erste Idee / Konzept</option>
+                <option>Rezeptur vorhanden, Optimierung nötig</option>
+                <option>Prototyp vorhanden, Serienreife nötig</option>
+                <option>Reformulierung bestehender Produkte</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pe-budget">Projektbudget (ca.)</label>
+              <select class="form-input" id="pe-budget" name="budget">
+                <option value="">Bitte wählen…</option>
+                <option>unter 5.000 €</option>
+                <option>5.000 – 15.000 €</option>
+                <option>15.000 – 50.000 €</option>
+                <option>über 50.000 €</option>
+                <option>Noch nicht definiert</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group form-group--wide">
+            <label class="form-label" for="pe-message">Beschreibung der Anforderungen</label>
+            <textarea class="form-input" id="pe-message" name="message" rows="4" placeholder="Zielgruppe, gewünschte Inhaltsstoffe, Besonderheiten, Zertifizierungsanforderungen, Zeitplan …"></textarea>
+          </div>
+          <div class="contact-privacy-note">Mit dem Absenden stimmen Sie unserer <a href="datenschutz.html">Datenschutzerklärung</a> zu. Ihre Daten werden vertraulich behandelt.</div>
+          <button type="submit" class="form-submit">Projekt jetzt anfragen <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+          <div class="form-message"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <div class="pre-footer-zone">
   <section class="cta-section cta-section--innerpage">
@@ -275,6 +360,37 @@
     </div>
   </section>
 </div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-inner">
+      <div class="faq-aside">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="section-title faq-headline">Häufige <em>Fragen</em></h2>
+        <p class="faq-intro">Die wichtigsten Antworten zur Produktentwicklung — schnell und direkt.</p>
+        <div class="faq-help-card">
+          <strong class="faq-help-title">Noch Fragen?</strong>
+          <p class="faq-help-desc">Manchmal ist ein kurzes Gespräch schneller als jedes Formular.</p>
+          <a href="tel:+49091156839291" class="faq-help-link">Jetzt anrufen →</a>
+        </div>
+      </div>
+      <div class="faq-accordion">
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Was genau umfasst Ihre Produktentwicklung?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Wir begleiten Sie von der Idee bis zur Serienreife: Formulierungsentwicklung, Rezepturoptimierung, Prototyping, Laboranalysen und Testserien. Eigenanalysen in unserem hauseigenen Labor inklusive.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Wie lange dauert eine Produktentwicklung?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Einfache Formulierungen dauern 4–8 Wochen. Komplexe Neuentwicklungen mit mehreren Iterationen können 3–6 Monate in Anspruch nehmen. Wir geben nach Briefing eine realistische Zeitschätzung.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Entwickeln Sie auch mit unserer eigenen Rezeptur?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Ja, wir können bestehende Rezepturen optimieren, skalieren oder für die Serienproduktion anpassen. Wir arbeiten unter NDA — Ihre Formeln bleiben vertraulich.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Erhalten wir die Rezeptur nach der Entwicklung?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Die Eigentumsverhältnisse an der Rezeptur werden vertraglich geregelt. In der Regel verbleiben kundenfinanzierte Entwicklungen beim Auftraggeber.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Erstellen Sie auch Muster und Testserien?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Ja, Muster und Pilotserien sind fester Bestandteil unseres Entwicklungsprozesses. Sie prüfen und geben frei — erst dann geht es in die Serienproduktion.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Was kostet eine Produktentwicklung?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Kosten hängen von Komplexität, Iterationsanzahl und benötigten Analysen ab. Nach Ihrem Briefing erstellen wir ein transparentes Angebot ohne versteckte Kosten.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Können Sie auch regulatorische Anforderungen berücksichtigen?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Ja, wir berücksichtigen branchenspezifische Regularien (Kosmetik-VO, LMIV, REACH etc.) in der Entwicklung. Für spezifische Zulassungsprozesse empfehlen wir spezialisierte Regulatory-Partner.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span class="faq-question-text">Übernehmen Sie auch die anschließende Produktion?</span><span class="faq-toggle" aria-hidden="true"></span></button><div class="faq-answer"><div class="faq-answer-inner"><p>Ja, Entwicklung und Lohnabfüllung aus einer Hand ist unser Vorteil. Kein Technologietransfer nötig — wir kennen Ihr Produkt und produzieren es direkt in Serie.</p></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){document.querySelectorAll('.faq-section .faq-question').forEach(function(btn){if(btn.dataset.fi)return;btn.dataset.fi='1';btn.addEventListener('click',function(){var item=btn.closest('.faq-item');var open=item.classList.contains('is-open');item.closest('.faq-accordion').querySelectorAll('.faq-item.is-open').forEach(function(o){o.classList.remove('is-open');o.querySelector('.faq-question').setAttribute('aria-expanded','false');});if(!open){item.classList.add('is-open');btn.setAttribute('aria-expanded','true');}});});})();
+</script>
 
 <!-- Other Services -->
 <section class="section">

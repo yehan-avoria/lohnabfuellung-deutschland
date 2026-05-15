@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
@@ -55,7 +55,7 @@
       <a href="produkte.html">Produkte</a>
       <a href="qualitaet.html">Qualität</a>
       <a href="ueber-uns.html">Über uns</a>
-      <a href="kontakt.html" class="nav-cta active">Kontakt aufnehmen →</a>
+      <a href="kontakt.html" class="nav-cta active">Jetzt unverbindlich anfragen →</a>
     </nav>
     <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
   </div>
@@ -152,6 +152,16 @@
         </span>
         <h3>Logistik &amp; Versand</h3>
         <p>Lagerung, Kommissionierung und termingenauer Versand in ganz Europa.</p>
+        <span class="contact-concern-link">Ausw&auml;hlen &rarr;</span>
+      </button>
+
+      <button class="contact-concern-card" type="button" data-interest="pulver" data-stagger-item>
+        <span class="contact-concern-number">07</span>
+        <span class="contact-concern-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </span>
+        <h3>Sachets &amp; Pulver</h3>
+        <p>Talkum, Granulate &amp; Kleinbeutel &mdash; pr&auml;zise Abf&uuml;llung f&uuml;r Pulverprodukte aller Art.</p>
         <span class="contact-concern-link">Ausw&auml;hlen &rarr;</span>
       </button>
     </div>
@@ -322,6 +332,7 @@
                 <option value="qualitaet">Qualitätsmanagement</option>
                 <option value="analyse">Laboranalysen</option>
                 <option value="logistik">Logistik &amp; Versand</option>
+                <option value="pulver">Pulverabfüllung &amp; Sachets</option>
                 <option value="preisanfrage">Preisanfrage</option>
                 <option value="kooperation">Kooperationsanfrage</option>
                 <option value="sonstiges">Sonstiges</option>
@@ -712,6 +723,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="assets/js/gsap-animations.js"></script>
 <script src="assets/js/main.js"></script>
+<script>
+(function(){
+  var s = new URLSearchParams(window.location.search).get('service');
+  if (!s) return;
+  var card = document.querySelector('.contact-concern-card[data-interest="' + s + '"]');
+  if (card) setTimeout(function(){ card.click(); }, 150);
+})();
+</script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (function () {
