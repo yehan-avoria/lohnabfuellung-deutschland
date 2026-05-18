@@ -287,7 +287,7 @@
         <div class="container">
           ${sectionHeader(section.eyebrow, section.title, section.description)}
           <div class="ph-specs-layout">
-            <article class="ph-spec-panel ph-panel-tilt" data-product-reveal data-tilt>
+            <article class="ph-spec-panel ph-panel-tilt" data-product-reveal>
               <p class="ph-spec-kicker">${section.kicker}</p>
               <div class="ph-spec-rows">
                 ${section.rows.map((row) => `
@@ -306,7 +306,7 @@
                 `).join("")}
               </div>
             </article>
-            <article class="ph-spec-visual ph-panel-tilt" data-product-reveal data-tilt>
+            <article class="ph-spec-visual ph-panel-tilt" data-product-reveal>
               <img src="${section.visual.image}" alt="${section.visual.alt}" loading="lazy">
               <div class="ph-spec-visual-overlay">
                 <h3 class="ph-spec-visual-title">${section.visual.title}</h3>

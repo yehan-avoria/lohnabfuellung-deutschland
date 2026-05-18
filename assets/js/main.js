@@ -137,20 +137,187 @@ window.addEventListener('load', function () {
   const mobileNav = document.querySelector('.nav-mobile');
 
   if (hamburger && mobileNav) {
+    /* === Slide-panel mobile nav === */
+    (function() {
+      var RIGHT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;flex-shrink:0"><path d="M9 18l6-6-6-6"/></svg>';
+      var LEFT  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:16px;height:16px;flex-shrink:0"><path d="M15 18l-6-6 6-6"/></svg>';
+
+      var ICONS = {
+        lab:        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5.5 9.2A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.8L14 9V3"/><path d="M8.5 14h7"/></svg>',
+        droplets:   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 7.5 7 5c-.29 2.5-1.57 3.89-2.29 4.06C3.57 10 3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>',
+        box:        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>',
+        shield:     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+        microscope: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="18" r="2"/><path d="M9 3 7.5 9M15 3l1.5 6"/><path d="M9 9h6v6H9z"/><path d="M12 15v3"/></svg>',
+        truck:      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect width="7" height="7" x="14" y="10" rx="1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>',
+        layers:     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>'
+      };
+
+      function cardHTML(it) {
+        var visual = it.icon
+          ? '<span class="mnav-ic" style="background:' + it.iconBg + '">' + (ICONS[it.icon] || '') + '</span>'
+          : it.image
+            ? '<span class="mnav-ic mnav-ic--img"><img src="' + it.image + '" alt="' + it.label + '" loading="lazy"></span>'
+            : '';
+        return visual +
+          '<span class="mnav-ic-body">' +
+            (it.num ? '<span class="mnav-ic-num">' + it.num + '</span>' : '') +
+            '<span class="mnav-ic-name">' + it.label + '</span>' +
+            (it.copy ? '<span class="mnav-ic-copy">' + it.copy + '</span>' : '') +
+          '</span>';
+      }
+
+      function panel(id, items) {
+        var backBtn = id === 'main' ? '' :
+          '<button class="mnav-back-btn" type="button">' + LEFT + '<span>Zur\xfcck</span></button>';
+
+        var rows = items.map(function(it) {
+          var isCard = it.icon || it.image;
+          if (it.type === 'drill') {
+            if (isCard) {
+              return '<div class="mnav-drill-card-wrap mnav-item-card">' +
+                '<a href="' + it.href + '" class="mnav-card-link">' + cardHTML(it) + '</a>' +
+                '<button class="mnav-drill" type="button" data-target="' + it.target + '">' + RIGHT + '</button>' +
+              '</div>';
+            }
+            return '<div class="mnav-item-row">' +
+              '<a href="' + it.href + '" class="mnav-item-link">' + it.label + '</a>' +
+              '<button class="mnav-drill" type="button" data-target="' + it.target + '">' + RIGHT + '</button>' +
+            '</div>';
+          }
+          if (isCard) {
+            return '<a href="' + it.href + '" class="mnav-item-card">' + cardHTML(it) + '</a>';
+          }
+          return '<a href="' + it.href + '" class="mnav-item-link">' + it.label + '</a>';
+        }).join('');
+
+        return '<div class="mnav-panel' + (id === 'main' ? ' is-active' : '') + '" data-panel="' + id + '">' +
+          backBtn + '<div class="mnav-items">' + rows + '</div>' +
+        '</div>';
+      }
+
+      mobileNav.innerHTML =
+        '<div class="mnav-stage">' +
+          panel('main', [
+            { type: 'link',  href: 'index.html',      label: 'Start' },
+            { type: 'drill', href: 'leistungen.html', label: 'Leistungen', target: 'leistungen' },
+            { type: 'drill', href: 'produkte.html',   label: 'Produkte',   target: 'produkte' },
+            { type: 'link',  href: 'qualitaet.html',  label: 'Qualit\xe4t' },
+            { type: 'link',  href: 'ueber-uns.html',  label: '\xdcber uns' },
+            { type: 'link',  href: 'kontakt.html',    label: 'Kontakt' },
+          ]) +
+          panel('leistungen', [
+            { type: 'link',  href: 'leistungen.html', label: 'Alle Leistungen' },
+            { type: 'link',  href: 'leistungen-produktentwicklung.html', label: 'Produktentwicklung', num: '01', icon: 'lab',        iconBg: 'radial-gradient(circle at 60% 40%,#008cb4 0%,#041c28 55%,#020e14 100%)', copy: 'Von der Idee zum Produkt' },
+            { type: 'link',  href: 'leistungen-lohnabfuellung.html',     label: 'Lohnabf\xfcllung',  num: '02', icon: 'droplets',   iconBg: 'radial-gradient(circle at 60% 40%,#0a783c 0%,#051a0e 55%,#020d07 100%)', copy: 'Pr\xe4zise Abf\xfcllung &amp; Produktion' },
+            { type: 'link',  href: 'leistungen-verpackung.html',         label: 'Verpackung &amp; Etikettierung', num: '03', icon: 'box', iconBg: 'radial-gradient(circle at 60% 40%,#a01e3c 0%,#2a0a12 55%,#120407 100%)', copy: 'Design trifft Funktion' },
+            { type: 'link',  href: 'leistungen-qualitaet.html',          label: 'Qualit\xe4tsmanagement', num: '04', icon: 'shield',     iconBg: 'radial-gradient(circle at 60% 40%,#0a32a0 0%,#0a1540 55%,#050a1c 100%)', copy: 'ISO 9001 &amp; HACCP zertifiziert' },
+            { type: 'link',  href: 'leistungen-analysen.html',           label: 'In-house Analysen', num: '05', icon: 'microscope', iconBg: 'radial-gradient(circle at 60% 40%,#008cb4 0%,#041c28 55%,#020e14 100%)', copy: 'Qualit\xe4t messbar gemacht' },
+            { type: 'link',  href: 'leistungen-logistik.html',           label: 'Logistik &amp; Versand', num: '06', icon: 'truck',  iconBg: 'radial-gradient(circle at 60% 40%,#a0640a 0%,#16100a 55%,#080604 100%)', copy: 'P\xfcnktlich ans Ziel' },
+            { type: 'drill', href: 'pulver-sachets-abfuellen-lassen.html', label: 'Sachets &amp; Pulver', num: '07', icon: 'layers', iconBg: 'radial-gradient(circle at 60% 40%,#8c32d2 0%,#1e0a3c 55%,#0e0416 100%)', copy: 'Talkum, Granulate &amp; Kleinbeutel', target: 'sachets' },
+          ]) +
+          panel('produkte', [
+            { type: 'link', href: 'produkte.html', label: 'Alle Produkte' },
+            { type: 'link', href: 'produkte-kosmetik.html',              label: 'Kosmetik',                   num: '01', image: 'assets/images/Kosmetik.jpg',           copy: 'Beauty, Pflege, Private Label' },
+            { type: 'link', href: 'produkte-hygiene.html',               label: 'Hygiene',                    num: '02', image: 'assets/images/Hygiene.webp',            copy: 'Clean-Care und Reinigung' },
+            { type: 'link', href: 'produkte-cbd-produkte.html',          label: 'CBD Produkte',               num: '03', image: 'assets/images/CDB.jpg',                 copy: 'Oele, Tinkturen, Topicals' },
+            { type: 'link', href: 'produkte-kapseln.html',               label: 'Kapseln',                    num: '04', image: 'assets/images/Kapseln.jpg',             copy: 'Caps und Supplement-Gebinde' },
+            { type: 'link', href: 'produkte-pulver.html',                label: 'Pulver',                     num: '05', image: 'assets/images/pulver.webp',             copy: 'Blends, Dosen, Stick Packs' },
+            { type: 'link', href: 'produkte-aetherische-oele.html',      label: '\xc4therische \xd6le',       num: '06', image: 'assets/images/\xc4therische \xd6le.jpg', copy: 'Single Oils und Duftmischungen' },
+            { type: 'link', href: 'produkte-flavor-drops-aromen.html',   label: 'Flavor Drops &amp; Aromen', num: '07', image: 'assets/images/Flavour Drops.jpg',        copy: 'Drop-genaue Aroma-Systeme' },
+            { type: 'link', href: 'produkte-nikotin.html',               label: 'Nikotin',                    num: '08', image: 'assets/images/Nikotin.jpg',             copy: 'TPD-nahe Prozesse und Gebinde' },
+            { type: 'link', href: 'produkte-chemikalien.html',           label: 'Chemikalien',                num: '09', image: 'assets/images/Chemikalien.jpg',         copy: 'Technische Fluids und Konzentrate' },
+            { type: 'link', href: 'produkte-propylenglykol-glycerin.html', label: 'Propylenglykol &amp; Glycerin', num: '10', image: 'assets/images/PG-VG.webp',      copy: 'PG/VG, Basen und Gebinde' },
+          ]) +
+          panel('sachets', [
+            { type: 'link', href: 'pulver-sachets-abfuellen-lassen.html',     label: 'Alle Sachets &amp; Pulver' },
+            { type: 'link', href: 'pulver-abfuellen-lassen-deutschland.html', label: 'Pulver &amp; Granulate',    num: '01', icon: 'layers', iconBg: 'radial-gradient(circle at 60% 40%,#8c32d2 0%,#1e0a3c 55%,#0e0416 100%)', copy: 'Pulvermischungen &amp; Granulate' },
+            { type: 'link', href: 'sachets-abfuellen-lassen.html',            label: 'Sachets &amp; Kleinbeutel', num: '02', icon: 'layers', iconBg: 'radial-gradient(circle at 60% 40%,#6020aa 0%,#160830 55%,#080310 100%)', copy: 'Pr\xe4zise Beutelabf\xfcllung' },
+            { type: 'link', href: 'talkum-abfuellen-lassen.html',             label: 'Talkum Abf\xfcllung',       num: '03', icon: 'layers', iconBg: 'radial-gradient(circle at 60% 40%,#4010a0 0%,#0a0828 55%,#040214 100%)', copy: 'Talkum &amp; Feinpulver' },
+            { type: 'link', href: 'technische-pulver-abfuellen.html',         label: 'Technische Produkte',        num: '04', icon: 'layers', iconBg: 'radial-gradient(circle at 60% 40%,#203080 0%,#0a0818 55%,#040208 100%)', copy: 'Technische Pulver &amp; Spezialprodukte' },
+          ]) +
+        '</div>';
+
+      /* Panel navigation */
+      var stack = ['main'];
+
+      function getPanel(id) { return mobileNav.querySelector('[data-panel="' + id + '"]'); }
+
+      function goTo(targetId) {
+        var curId = stack[stack.length - 1];
+        var cur = getPanel(curId);
+        var next = getPanel(targetId);
+        if (!next) return;
+        stack.push(targetId);
+        cur.classList.add('is-exit');
+        cur.classList.remove('is-active');
+        next.classList.remove('is-right');
+        next.classList.add('is-active');
+      }
+
+      function goBack() {
+        if (stack.length <= 1) return;
+        var curId = stack.pop();
+        var prevId = stack[stack.length - 1];
+        var cur = getPanel(curId);
+        var prev = getPanel(prevId);
+        cur.classList.remove('is-active');
+        cur.classList.add('is-right');
+        prev.classList.remove('is-exit');
+        prev.classList.add('is-active');
+      }
+
+      function resetPanels() {
+        stack = ['main'];
+        mobileNav.querySelectorAll('.mnav-panel').forEach(function(p) {
+          p.classList.remove('is-active', 'is-exit', 'is-right');
+        });
+        getPanel('main').classList.add('is-active');
+      }
+
+      mobileNav.querySelectorAll('.mnav-drill').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          goTo(btn.dataset.target);
+        });
+      });
+
+      mobileNav.querySelectorAll('.mnav-back-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          goBack();
+        });
+      });
+
+      mobileNav._resetPanels = resetPanels;
+    })();
+
+    /* Backdrop — injected once, works on all pages */
+    const navBd = document.createElement('div');
+    navBd.className = 'nav-mobile-bd';
+    document.body.appendChild(navBd);
+
+    function closeMobileNav() {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      navBd.classList.remove('open');
+      if (nav) nav.classList.remove('menu-open');
+      document.body.style.overflow = '';
+      if (mobileNav._resetPanels) mobileNav._resetPanels();
+    }
+
+    navBd.addEventListener('click', closeMobileNav);
+
     hamburger.addEventListener('click', () => {
       const open = hamburger.classList.toggle('open');
       mobileNav.classList.toggle('open', open);
+      navBd.classList.toggle('open', open);
       if (nav) nav.classList.toggle('menu-open', open);
       document.body.style.overflow = open ? 'hidden' : '';
+      if (!open) closeMobileNav();
     });
 
     mobileNav.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        mobileNav.classList.remove('open');
-        if (nav) nav.classList.remove('menu-open');
-        document.body.style.overflow = '';
-      });
+      link.addEventListener('click', () => { closeMobileNav(); });
     });
   }
 
@@ -697,6 +864,282 @@ window.addEventListener('load', function () {
   }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
   document.querySelectorAll('[data-animate]').forEach((el) => observer.observe(el));
+
+  /* ---- Service stats card deck (mobile only) ---- */
+  (function initServiceStatsDecks() {
+    var rows = Array.from(document.querySelectorAll('.service-stats-row'));
+    if (!rows.length) return;
+
+    var isMobile = function() { return window.innerWidth <= 900; };
+    var deRe = /(germany|deutsch|made in|bayern|\bde\b|roßtal|rosstal)/i;
+
+    rows.forEach(function(row) {
+      var cards = Array.from(row.querySelectorAll('.service-stat-box'));
+      if (cards.length < 2) return;
+
+      // Tag Germany-themed cards for tricolor flag glow + inject idx counter + icon
+      var pad = function(n) { return n < 10 ? '0' + n : String(n); };
+      var SVG_NS = 'http://www.w3.org/2000/svg';
+      var iconPaths = {
+        shield:  '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+        users:   '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+        clock:   '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+        droplet: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>',
+        cube:    '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/>',
+        chart:   '<line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>'
+      };
+      function pickIcon(text) {
+        var t = text.toLowerCase();
+        if (/germany|deutsch|made in|bayern|\bde\b|roßtal|rosstal|iso|haccp|qualität/.test(t)) return 'shield';
+        if (/kunden|projekte|kund|partner|\+/.test(t)) return 'users';
+        if (/jahre|stunden|tage|woche|wo\.|min|sek|\bh\b|24h|antwort/.test(t)) return 'clock';
+        if (/ml|liter|füllmenge|gebinde|abfüll|flüssig|tropfen/.test(t)) return 'droplet';
+        if (/kategorie|bereich|option|produkt|sorte|art/.test(t)) return 'cube';
+        return 'chart';
+      }
+
+      cards.forEach(function(card, i) {
+        var text = card.textContent || '';
+        if (deRe.test(text)) {
+          card.classList.add('service-stat-box--de');
+        }
+        if (!card.querySelector('.service-stat-idx')) {
+          var idx = document.createElement('span');
+          idx.className = 'service-stat-idx';
+          idx.textContent = pad(i + 1) + ' / ' + pad(cards.length);
+          card.insertBefore(idx, card.firstChild);
+        }
+        if (!card.querySelector('.service-stat-icon')) {
+          var iconName = pickIcon(text);
+          var svg = '<svg class="service-stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + iconPaths[iconName] + '</svg>';
+          var numEl = card.querySelector('.service-stat-num');
+          if (numEl) {
+            numEl.insertAdjacentHTML('beforebegin', svg);
+          }
+        }
+      });
+
+      var order = cards.map(function(_, i) { return i; });
+      var busy = false;
+      var autoTimer = null;
+
+      // Inject footer (dots + hint) — matches index stats deck
+      var footer = document.createElement('div');
+      footer.className = 'service-stats-deck-footer';
+      var dotsWrap = document.createElement('div');
+      dotsWrap.className = 'service-stats-dots';
+      cards.forEach(function(_, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'service-stats-dot';
+        b.setAttribute('aria-label', 'Karte ' + (i + 1));
+        if (i === 0) b.classList.add('active');
+        dotsWrap.appendChild(b);
+      });
+      var hint = document.createElement('p');
+      hint.className = 'service-stats-hint';
+      hint.textContent = 'Tippen zum Weiterblättern';
+      footer.appendChild(dotsWrap);
+      footer.appendChild(hint);
+      row.insertAdjacentElement('afterend', footer);
+
+      var dots = Array.from(dotsWrap.querySelectorAll('.service-stats-dot'));
+
+      function syncDots() {
+        dots.forEach(function(d, i) { d.classList.toggle('active', i === order[0]); });
+      }
+
+      function applyPositions() {
+        order.forEach(function(cardIdx, pos) {
+          cards[cardIdx].dataset.pos = pos;
+        });
+        syncDots();
+      }
+
+      function advance() {
+        if (busy || !isMobile()) return;
+        busy = true;
+        var frontIdx = order[0];
+        var frontCard = cards[frontIdx];
+        frontCard.classList.add('is-exiting');
+        order.slice(1).forEach(function(cardIdx, newPos) {
+          cards[cardIdx].dataset.pos = newPos;
+        });
+        dots.forEach(function(d, i) { d.classList.toggle('active', i === order[1]); });
+        setTimeout(function() {
+          frontCard.style.transition = 'none';
+          frontCard.classList.remove('is-exiting');
+          frontCard.dataset.pos = cards.length - 1;
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              frontCard.style.transition = '';
+              busy = false;
+            });
+          });
+          order = order.slice(1).concat(order[0]);
+        }, 290);
+      }
+
+      function startTimer() {
+        if (autoTimer) clearInterval(autoTimer);
+        if (isMobile()) autoTimer = setInterval(advance, 2800);
+      }
+
+      function stopTimer() {
+        if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+      }
+
+      // Dot click → bring target to front (instant reorder)
+      dots.forEach(function(dot, i) {
+        dot.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (!isMobile() || i === order[0]) return;
+          order = [i].concat(order.filter(function(x) { return x !== i; }));
+          applyPositions();
+          startTimer();
+        });
+      });
+
+      applyPositions();
+      row.addEventListener('click', function() {
+        if (isMobile()) { advance(); startTimer(); }
+      });
+      startTimer();
+
+      window.addEventListener('resize', function() {
+        applyPositions();
+        if (isMobile()) startTimer(); else stopTimer();
+      });
+    });
+  })();
+
+  /* ---- Services carousel dots (mobile only) ---- */
+  (function initServicesDots() {
+    var grid = document.querySelector('.services-grid');
+    if (!grid) return;
+    var cards = Array.from(grid.querySelectorAll('.service-card'));
+    if (cards.length < 2) return;
+
+    var dotsWrap = document.createElement('div');
+    dotsWrap.className = 'services-dots';
+    cards.forEach(function(_, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'services-dot';
+      b.setAttribute('aria-label', 'Karte ' + (i + 1));
+      dotsWrap.appendChild(b);
+    });
+    grid.insertAdjacentElement('afterend', dotsWrap);
+
+    var dots = Array.from(dotsWrap.querySelectorAll('.services-dot'));
+    dots[0].classList.add('active');
+
+    dots.forEach(function(dot, i) {
+      dot.addEventListener('click', function() {
+        var card = cards[i];
+        var left = card.offsetLeft - (grid.clientWidth - card.clientWidth) / 2;
+        grid.scrollTo({ left: left, behavior: 'smooth' });
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.intersectionRatio >= 0.6) {
+            var idx = cards.indexOf(entry.target);
+            if (idx >= 0) {
+              dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+            }
+          }
+        });
+      }, { root: grid, threshold: [0.6, 0.85] });
+      cards.forEach(function(c) { io.observe(c); });
+    }
+  })();
+
+  /* ---- Stats card deck ---- */
+  (function initStatsDeck() {
+    var deck = document.getElementById('statsDeck');
+    if (!deck) return;
+
+    var cards = Array.from(deck.querySelectorAll('.stat-card'));
+    var dots  = Array.from(document.querySelectorAll('.deck-dot[data-goto]'));
+    if (!cards.length) return;
+
+    var order = cards.map(function(_, i) { return i; });
+    var busy  = false;
+
+    function applyPositions() {
+      order.forEach(function(cardIdx, pos) {
+        cards[cardIdx].dataset.pos = pos;
+      });
+      dots.forEach(function(dot, i) {
+        dot.classList.toggle('active', i === order[0]);
+      });
+    }
+
+    function advanceDeck() {
+      if (busy) return;
+      busy = true;
+
+      var frontIdx  = order[0];
+      var frontCard = cards[frontIdx];
+
+      frontCard.classList.add('is-exiting');
+
+      order.slice(1).forEach(function(cardIdx, newPos) {
+        cards[cardIdx].dataset.pos = newPos;
+      });
+      dots.forEach(function(dot, i) {
+        dot.classList.toggle('active', i === order[1]);
+      });
+
+      setTimeout(function() {
+        frontCard.style.transition = 'none';
+        frontCard.classList.remove('is-exiting');
+        frontCard.dataset.pos = cards.length - 1;
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            frontCard.style.transition = '';
+            busy = false;
+          });
+        });
+        order = order.slice(1).concat(order[0]);
+      }, 290);
+    }
+
+    applyPositions();
+
+    deck.addEventListener('click', function() {
+      advanceDeck();
+      resetTimer();
+    });
+
+    deck.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        advanceDeck();
+        resetTimer();
+      }
+    });
+
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var target = parseInt(dot.dataset.goto, 10);
+        if (target === order[0]) return;
+        order = [target].concat(order.filter(function(i) { return i !== target; }));
+        applyPositions();
+        resetTimer();
+      });
+    });
+
+    var autoTimer = setInterval(advanceDeck, 2200);
+    function resetTimer() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(advanceDeck, 2200);
+    }
+  })();
 
   /* ---- Contact form submission ---- */
   document.querySelectorAll('form.contact-form-el').forEach((form) => {

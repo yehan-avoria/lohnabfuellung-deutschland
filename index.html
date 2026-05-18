@@ -140,22 +140,45 @@
      ============================================================ -->
 <section class="stats">
   <div class="container">
-    <div class="stats-grid">
-      <div class="stat-item" data-animate>
-        <span class="stat-number counter" data-target="500" data-suffix="+">500+</span>
-        <span class="stat-label">Zufriedene Kunden</span>
+    <div class="stats-deck-wrap">
+      <div class="stats-deck" id="statsDeck" role="button" tabindex="0" aria-label="Statistiken durchblättern">
+        <div class="stat-card" data-pos="0">
+          <div class="stat-card-glow" style="--glow: rgba(26,125,200,0.18)"></div>
+          <span class="stat-card-idx">01 / 04</span>
+          <svg class="stat-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="stat-card-num">500+</span>
+          <span class="stat-card-lbl">Zufriedene Kunden</span>
+        </div>
+        <div class="stat-card" data-pos="1">
+          <div class="stat-card-glow" style="--glow: rgba(26,125,200,0.18)"></div>
+          <span class="stat-card-idx">02 / 04</span>
+          <svg class="stat-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span class="stat-card-num">16+</span>
+          <span class="stat-card-lbl">Jahre Erfahrung</span>
+        </div>
+        <div class="stat-card" data-pos="2">
+          <div class="stat-card-glow" style="--glow: rgba(26,125,200,0.18)"></div>
+          <span class="stat-card-idx">03 / 04</span>
+          <svg class="stat-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/></svg>
+          <span class="stat-card-num">10</span>
+          <span class="stat-card-lbl">Produktbereiche</span>
+        </div>
+        <div class="stat-card" data-pos="3">
+          <div class="stat-card-glow" style="background: radial-gradient(circle at 78% 18%, rgba(30, 30, 30, 0.212) 0%, transparent 48%), radial-gradient(circle at 78% 50%, rgba(210,0,0,0.13) 0%, transparent 48%), radial-gradient(circle at 78% 82%, rgba(255,200,0,0.17) 0%, transparent 48%)"></div>
+          <span class="stat-card-idx">04 / 04</span>
+          <svg class="stat-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="stat-card-num">100%</span>
+          <span class="stat-card-lbl">Made in Germany</span>
+        </div>
       </div>
-      <div class="stat-item" data-animate data-delay="0.1">
-        <span class="stat-number counter" data-target="16" data-suffix="+">16+</span>
-        <span class="stat-label">Jahre Erfahrung</span>
-      </div>
-      <div class="stat-item" data-animate data-delay="0.2">
-        <span class="stat-number counter" data-target="10">10</span>
-        <span class="stat-label">Produktbereiche</span>
-      </div>
-      <div class="stat-item" data-animate data-delay="0.3">
-        <span class="stat-number">100%</span>
-        <span class="stat-label">Made in Germany</span>
+      <div class="stats-deck-footer">
+        <div class="deck-dots">
+          <button class="deck-dot" data-goto="0" aria-label="Karte 1"></button>
+          <button class="deck-dot" data-goto="1" aria-label="Karte 2"></button>
+          <button class="deck-dot" data-goto="2" aria-label="Karte 3"></button>
+          <button class="deck-dot" data-goto="3" aria-label="Karte 4"></button>
+        </div>
+        <p class="deck-hint">Tippen zum Weiterbl&auml;ttern</p>
       </div>
     </div>
   </div>
@@ -187,6 +210,7 @@
           Zur Produktentwicklung
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
+        <img class="service-card-img" src="assets/images/product-development.webp" alt="Produktentwicklung" loading="lazy">
       </div>
 
       <div class="service-card" data-tilt data-stagger-item>
@@ -202,6 +226,7 @@
           Zur Lohnabf&uuml;llung
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
+        <img class="service-card-img" src="assets/images/contract-filling.webp" alt="Lohnabfüllung" loading="lazy">
       </div>
 
       <div class="service-card" data-tilt data-stagger-item>
@@ -217,6 +242,7 @@
           Zur Verpackungsl&ouml;sung
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
+        <img class="service-card-img" src="assets/images/packaging-labeling.webp" alt="Verpackung & Etikettierung" loading="lazy">
       </div>
 
       <div class="service-card" data-tilt data-stagger-item>
@@ -232,6 +258,7 @@
           Zum Qualit&auml;tsmanagement
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
+        <img class="service-card-img" src="assets/images/quality-management.webp" alt="Qualitätsmanagement" loading="lazy">
       </div>
 
       <div class="service-card" data-tilt data-stagger-item>
@@ -247,6 +274,7 @@
           Zu den Analysen
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
+        <img class="service-card-img" src="assets/images/in-house-analyses.webp" alt="In-house Analysen" loading="lazy">
       </div>
 
       <div class="service-card" data-tilt data-stagger-item>
@@ -262,6 +290,7 @@
           Zur Logistik
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
+        <img class="service-card-img" src="assets/images/logistics-shipping.webp" alt="Logistik & Versand" loading="lazy">
       </div>
 
       <div class="service-card" data-tilt data-stagger-item>
@@ -277,6 +306,7 @@
           Pulver und Sachets anfragen
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
+        <img class="service-card-img" src="assets/images/Pulver, Granulate &amp; Sachets.webp" alt="Pulver, Granulate und Sachets" loading="lazy">
       </div>
 
     </div>
@@ -383,8 +413,14 @@
         <div class="quality-points">
           <div class="quality-point">
             <div class="quality-point-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              <!-- Gold medal with star -->
+              <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 23L11 37L17.5 33L20 37L22.5 33L29 37L24 23z" fill="#E53935"/>
+                <path d="M22.5 33L20 37L17.5 33L16 23H24z" fill="#B71C1C"/>
+                <circle cx="20" cy="18" r="14" fill="#FB8C00"/>
+                <circle cx="20" cy="18" r="11" fill="#FFC107"/>
+                <circle cx="20" cy="18" r="9" fill="#FFD54F"/>
+                <path d="M20 11l2.2 5.5H28l-4.6 3.3 1.8 5.5L20 22l-5.2 3.3 1.8-5.5L12 16.5h5.8z" fill="#FB8C00"/>
               </svg>
             </div>
             <div class="quality-point-text">
@@ -394,8 +430,11 @@
           </div>
           <div class="quality-point">
             <div class="quality-point-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+              <!-- Green shield with checkmark -->
+              <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 3L5 9v10c0 8.8 6.5 17 15 19.5C29.5 36 36 27.8 36 19V9z" fill="#2E7D32"/>
+                <path d="M20 3L5 9v10c0 8.8 6.5 17 15 19.5V3z" fill="#43A047" opacity="0.45"/>
+                <path d="M13 20l5 5 9-10" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div class="quality-point-text">
@@ -405,8 +444,13 @@
           </div>
           <div class="quality-point">
             <div class="quality-point-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              <!-- Blue document -->
+              <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <rect x="7" y="6" width="22" height="28" rx="3" fill="#3F51B5"/>
+                <path d="M23 6v8h6L23 6z" fill="#283593"/>
+                <rect x="11" y="19" width="13" height="2.2" rx="1" fill="white" opacity="0.85"/>
+                <rect x="11" y="24" width="10" height="2.2" rx="1" fill="white" opacity="0.85"/>
+                <rect x="11" y="29" width="11" height="2.2" rx="1" fill="white" opacity="0.85"/>
               </svg>
             </div>
             <div class="quality-point-text">
@@ -416,8 +460,17 @@
           </div>
           <div class="quality-point">
             <div class="quality-point-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              <!-- Germany flag circle -->
+              <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <clipPath id="qp-de-clip">
+                  <circle cx="20" cy="20" r="18"/>
+                </clipPath>
+                <g clip-path="url(#qp-de-clip)">
+                  <rect x="2" y="2" width="36" height="12" fill="#1a1a1a"/>
+                  <rect x="2" y="14" width="36" height="12" fill="#DD0000"/>
+                  <rect x="2" y="26" width="36" height="12" fill="#FFCC02"/>
+                </g>
+                <circle cx="20" cy="20" r="18" fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="1"/>
               </svg>
             </div>
             <div class="quality-point-text">
@@ -766,36 +819,7 @@
 <script src="assets/js/main.js"></script>
 <script>
 (function () {
-  /* ── 3D tilt on product cards ─────────────────────── */
   const cards = document.querySelectorAll('.product-card');
-
-  cards.forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r   = card.getBoundingClientRect();
-      const x   = (e.clientX - r.left) / r.width  - 0.5;   // -0.5 → 0.5
-      const y   = (e.clientY - r.top)  / r.height - 0.5;
-
-      gsap.to(card, {
-        rotateX:           -y * 14,
-        rotateY:            x * 14,
-        scale:              1.04,
-        z:                  40,
-        transformPerspective: 900,
-        duration:           0.45,
-        ease:               'power2.out',
-        overwrite:          'auto',
-      });
-    });
-
-    card.addEventListener('mouseleave', () => {
-      gsap.to(card, {
-        rotateX: 0, rotateY: 0, scale: 1, z: 0,
-        duration: 0.65,
-        ease:     'power3.out',
-        overwrite: 'auto',
-      });
-    });
-  });
 
   /* ── Staggered entrance via ScrollTrigger ─────────── */
   gsap.registerPlugin(ScrollTrigger);
